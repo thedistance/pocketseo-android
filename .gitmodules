@@ -1,0 +1,3 @@
+[submodule "libraries/thedistancekit"]
+	path = libraries/thedistancekit
+	url = git@bitbucket.org:thedistance/the-distance-kit-android.git
