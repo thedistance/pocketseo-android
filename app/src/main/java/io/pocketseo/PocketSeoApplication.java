@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) The Distance Agency Ltd 2016.
+ */
+
 package io.pocketseo;
 
 import android.app.Application;
@@ -6,9 +10,6 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 
-/**
- * Created by pharris on 16/02/16.
- */
 public class PocketSeoApplication extends Application {
 
 
