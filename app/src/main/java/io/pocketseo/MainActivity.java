@@ -4,8 +4,13 @@
 
 package io.pocketseo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.crashlytics.android.Crashlytics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,5 +18,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+
+        if(BuildConfig.DEBUG){
+            // show "force crash" option when in debug mode
+            menu.findItem(R.id.action_crash).setVisible(true);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_crash:
+                Crashlytics.getInstance().crash();
+                return true;
+            case R.id.action_about:
+                showAboutActivity();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
