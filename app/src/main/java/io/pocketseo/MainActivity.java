@@ -5,12 +5,16 @@
 package io.pocketseo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.crashlytics.android.Crashlytics;
+
+import java.util.Date;
+
+import uk.co.thedistance.thedistancekit.Analytics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         if(BuildConfig.DEBUG){
             // show "force crash" option when in debug mode
             menu.findItem(R.id.action_crash).setVisible(true);
+            menu.findItem(R.id.action_test_event).setVisible(true);
         }
         return true;
     }
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.action_crash:
                 Crashlytics.getInstance().crash();
+                return true;
+            case R.id.action_test_event:
+                Analytics.send(this, new Analytics.AnalyticEvent("Test","Test",new Date().toString()));
                 return true;
             case R.id.action_about:
                 showAboutActivity();
