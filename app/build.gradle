@@ -29,7 +29,7 @@ android {
         }
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -41,7 +41,7 @@ android {
         }
 
         googlePlay {
-            versionName "1.0.0"
+            versionName "0.0.1"
             versionCode 1
         }
 
