@@ -10,14 +10,11 @@ import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 import retrofit2.Call;
 import retrofit2.Response;
 
-/**
- * Created by pharris on 17/02/16.
- */
-public class DataRespositoryImpl implements DataRepository {
+public class DataRepositoryImpl implements DataRepository {
     private final MSWebService mMozWebService;
     private final MSHelper.Authenticator mMozAuthenticator;
 
-    public DataRespositoryImpl(MSWebService mMozWebService, MSHelper.Authenticator mMozAuthenticator) {
+    public DataRepositoryImpl(MSWebService mMozWebService, MSHelper.Authenticator mMozAuthenticator) {
         this.mMozWebService = mMozWebService;
         this.mMozAuthenticator = mMozAuthenticator;
     }

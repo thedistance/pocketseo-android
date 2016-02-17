@@ -10,7 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.pocketseo.PocketSeoApplication;
 import io.pocketseo.model.DataRepository;
-import io.pocketseo.model.DataRespositoryImpl;
+import io.pocketseo.model.DataRepositoryImpl;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
 
@@ -31,6 +31,6 @@ public class ApplicationModule {
     @Provides
     @Singleton
     DataRepository provideDataRepository(MSWebService mozWebService, MSHelper.Authenticator mMozAuthenticator){
-        return new DataRespositoryImpl(mozWebService, mMozAuthenticator);
+        return new DataRepositoryImpl(mozWebService, mMozAuthenticator);
     }
 }

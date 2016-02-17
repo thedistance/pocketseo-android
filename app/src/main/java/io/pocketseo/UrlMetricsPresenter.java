@@ -4,6 +4,8 @@
 
 package io.pocketseo;
 
+import android.text.TextUtils;
+
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
 
@@ -27,6 +29,8 @@ public class UrlMetricsPresenter {
     }
 
     public void performSearch(String websiteUrl){
+        if(TextUtils.isEmpty(websiteUrl)) return;
+
         mView.showLoading(true);
         mRepo.getWebsiteMetrics(websiteUrl, new DataRepository.Callback<MozScape>() {
             @Override

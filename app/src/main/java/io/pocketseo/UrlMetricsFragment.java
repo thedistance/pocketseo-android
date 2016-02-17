@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,7 +30,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     private static final String ARG_WEBSITE = "website";
 
     private String mWebsite;
-    private UrlMetricsPresenter mActionsListener;
+
+    private UrlMetricsPresenter mPresenter;
 
     private FragmentUrlMetricsBinding mBinding;
 
@@ -48,6 +51,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
             mWebsite = getArguments().getString(ARG_WEBSITE);
         }
@@ -65,14 +70,24 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         DataRepository repo = PocketSeoApplication.getApplicationComponent(getActivity()).repository();
-        mActionsListener = new UrlMetricsPresenter(this, repo);
+        mPresenter = new UrlMetricsPresenter(this, repo);
 
-        mActionsListener.performSearch(mWebsite);
+        if(null != mWebsite) performSearch(mWebsite);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_website_info, menu);
     }
 
     @Override
     public void showLoading(boolean loading) {
         mBinding.progress.setVisibility(loading ? View.VISIBLE : View.GONE);
+    }
+
+    public void performSearch(String website){
+        mPresenter.performSearch(website);
     }
 
     @Override
