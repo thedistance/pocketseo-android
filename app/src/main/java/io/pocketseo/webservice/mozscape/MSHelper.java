@@ -4,10 +4,11 @@
 
 package io.pocketseo.webservice.mozscape;
 
-import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -53,7 +54,7 @@ public class MSHelper {
          *
          * @return the authentication string
          */
-        public String getAuthenticationStr()
+        public Map<String, String> getAuthenticationMap()
         {
             long expires = ((new Date()).getTime())/1000 + expiresInterval;
 
@@ -71,23 +72,26 @@ public class MSHelper {
             catch (NoSuchAlgorithmException e)
             {
                 e.printStackTrace();
-                return "";
+                return null;
             }
             catch (InvalidKeyException e)
             {
                 e.printStackTrace();
-                return "";
+                return null;
             }
 
             // compute the hmac on input data bytes
             byte[] rawHmac = mac.doFinal(stringToSign.getBytes());
 
             // base64-encode the hmac
-            String urlSafeSignature = URLEncoder.encode(EncodeBase64(rawHmac));
+            String base64EncodedSignature = EncodeBase64(rawHmac);
 
-            String authenticationStr = "AccessID=" + accessID + "&Expires=" + expires + "&Signature=" + urlSafeSignature;
+            Map<String, String> params=  new HashMap<>(3);
+            params.put("AccessID", accessID);
+            params.put("Expires", String.valueOf(expires));
+            params.put("Signature", base64EncodedSignature);
 
-            return authenticationStr;
+            return params;
         }
 
         /**

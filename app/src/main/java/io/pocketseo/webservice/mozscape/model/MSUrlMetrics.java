@@ -6,10 +6,14 @@ package io.pocketseo.webservice.mozscape.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
+import io.pocketseo.model.MozScape;
+
 /**
  * Created by pharris on 17/02/16.
  */
-public class MSUrlMetrics {
+public class MSUrlMetrics implements MozScape {
     public static final long FLAG_DOMAIN_AUTHORITY = 68719476736l;
     public static final long FLAG_HTTP_STATUS_CODE = 536870912l;
     public static final long FLAG_PAGE_AUTHORITY = 34359738368l;
@@ -37,10 +41,50 @@ public class MSUrlMetrics {
 
     public static long getBitmask(){
         return FLAG_DOMAIN_AUTHORITY
-                & FLAG_HTTP_STATUS_CODE
-                & FLAG_PAGE_AUTHORITY
-                & FLAG_SPAM_SCORE
-                & FLAG_ESTABLISHED_LINKS_ROOT
-                & FLAG_ESTABLISHED_LINKS_TOTAL;
+                | FLAG_HTTP_STATUS_CODE
+                | FLAG_PAGE_AUTHORITY
+                | FLAG_SPAM_SCORE
+                | FLAG_ESTABLISHED_LINKS_ROOT
+                | FLAG_ESTABLISHED_LINKS_TOTAL;
+    }
+
+    @Override
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    @Override
+    public float getDomainAuthority() {
+        return domainAuthority;
+    }
+
+    @Override
+    public float getPageAuthority() {
+        return pageAuthority;
+    }
+
+    @Override
+    public float getSpamScore() {
+        return spamScore;
+    }
+
+    @Override
+    public int getLinksRoot() {
+        return establishedLinksRoot;
+    }
+
+    @Override
+    public int getLinksTotal() {
+        return establishedLinksTotal;
+    }
+
+    @Override
+    public Date getLastIndex() {
+        return null;
+    }
+
+    @Override
+    public Date getNextIndex() {
+        return null;
     }
 }

@@ -9,14 +9,13 @@ import java.util.Date;
 /**
  * Created by pharris on 17/02/16.
  */
-public class MozScape {
-
-    int statusCode;
-    int domainAuthority;
-    int pageAuthority;
-    int spamScore;
-    int linksRoot;
-    int linksTotal;
-    Date lastIndex;
-    Date nextIndex;
+public interface MozScape {
+    int getStatusCode();
+    float getDomainAuthority();
+    float getPageAuthority();
+    float getSpamScore();
+    int getLinksRoot();
+    int getLinksTotal();
+    Date getLastIndex();
+    Date getNextIndex();
 }

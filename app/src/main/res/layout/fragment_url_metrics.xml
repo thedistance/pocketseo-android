@@ -1,0 +1,30 @@
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+<layout>
+    <data>
+        <variable
+            name="mozscape"
+            type="io.pocketseo.model.MozScape" />
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 tools:context=".UrlMetricsFragment">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@{String.valueOf(mozscape.statusCode)}"/>
+
+    </FrameLayout>
+</layout>
