@@ -18,6 +18,9 @@ android {
         versionCode 1
         versionName getVersionNameFromGit()
         buildConfigField "boolean", "USE_CRASHLYTICS", "true"
+
+        buildConfigField "String", "MOZSCAPE_ACCESS_KEY", "\"mozscape-6b2e08eff3\""
+        buildConfigField "String", "MOZSCAPE_SECRET_KEY", toJavaCodeString("7027a20f523c0262cdeba1a39bfa0db1")
     }
 
     dataBinding {
@@ -61,4 +64,6 @@ dependencies {
         transitive = true;
     }
     compile project(':theDistanceKit')
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
 }
