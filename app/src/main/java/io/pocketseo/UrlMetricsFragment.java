@@ -5,6 +5,8 @@
 package io.pocketseo;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -54,9 +57,17 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        if (getArguments() != null) {
+        if(null != savedInstanceState){
+            mWebsite = savedInstanceState.getString(ARG_WEBSITE);
+        } else if (getArguments() != null) {
             mWebsite = getArguments().getString(ARG_WEBSITE);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ARG_WEBSITE, mWebsite);
     }
 
     @Override
@@ -73,7 +84,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         DataRepository repo = PocketSeoApplication.getApplicationComponent(getActivity()).repository();
         mPresenter = new UrlMetricsPresenter(this, repo);
 
-        if(null != mWebsite) performSearch(mWebsite);
+        if(null != mWebsite) performSearch(mWebsite, false);
     }
 
     @Override
@@ -83,12 +94,33 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_browser:
+                showInBrowser();
+                return true;
+            case R.id.action_refresh:
+                performSearch(mWebsite, true);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showInBrowser() {
+        // TODO: parse URL and check it can be launched
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+        viewIntent.setData(Uri.parse(mWebsite));
+        startActivity(viewIntent);
+    }
+
+    @Override
     public void showLoading(boolean loading) {
         mBinding.progress.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
-    public void performSearch(String website){
-        mPresenter.performSearch(website);
+    public void performSearch(String website, boolean force){
+        this.mWebsite = website;
+        mPresenter.performSearch(website, force);
     }
 
     @Override

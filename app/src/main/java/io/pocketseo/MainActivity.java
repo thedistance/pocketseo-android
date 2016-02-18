@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void searchWebsite(String website) {
         UrlMetricsFragment frag = (UrlMetricsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_URL_METRICS);
-        frag.performSearch(website);
+        frag.performSearch(website, false);
     }
 
     @Override

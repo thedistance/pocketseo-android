@@ -28,11 +28,11 @@ public class UrlMetricsPresenter {
         mRepo = repo;
     }
 
-    public void performSearch(String websiteUrl){
+    public void performSearch(String websiteUrl, boolean force){
         if(TextUtils.isEmpty(websiteUrl)) return;
 
         mView.showLoading(true);
-        mRepo.getWebsiteMetrics(websiteUrl, new DataRepository.Callback<MozScape>() {
+        mRepo.getWebsiteMetrics(websiteUrl, force, new DataRepository.Callback<MozScape>() {
             @Override
             public void success(MozScape data) {
                 mView.showLoading(false);
