@@ -6,6 +6,8 @@ package io.pocketseo;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +19,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.List;
 
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
 import io.pocketseo.model.DataRepository;
@@ -107,10 +112,28 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     private void showInBrowser() {
+        if(null == mWebsite){
+            Toast.makeText(getActivity(), "Load website first before trying to open", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Uri uri = Uri.parse(mWebsite);
         // TODO: parse URL and check it can be launched
+        if(uri.getScheme() == null){
+            uri = Uri.parse("http://" + mWebsite);
+        }
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-        viewIntent.setData(Uri.parse(mWebsite));
-        startActivity(viewIntent);
+        viewIntent.setData(uri);
+
+        PackageManager manager = getActivity().getPackageManager();
+        List<ResolveInfo> infos = manager.queryIntentActivities(viewIntent, 0);
+        if (infos.size() > 0) {
+            // Then there is application can handle your intent
+            startActivity(viewIntent);
+        }else{
+            // No Application can handle your intent
+            Toast.makeText(getActivity(), "Cannot open this site", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
