@@ -20,6 +20,7 @@ public class MSUrlMetrics implements MozScape {
     public static final long FLAG_SPAM_SCORE = 67108864l;
     public static final long FLAG_ESTABLISHED_LINKS_ROOT = 512l;
     public static final long FLAG_ESTABLISHED_LINKS_TOTAL = 2048l;
+    public static final long FLAG_LAST_CRAWL = 144115188075855872l;
 
     @SerializedName("pda")
     public float domainAuthority;
@@ -39,13 +40,17 @@ public class MSUrlMetrics implements MozScape {
     @SerializedName("uid")
     public int establishedLinksTotal;
 
+    @SerializedName("ulc")
+    public long lastCrawl;
+
     public static long getBitmask(){
         return FLAG_DOMAIN_AUTHORITY
                 | FLAG_HTTP_STATUS_CODE
                 | FLAG_PAGE_AUTHORITY
                 | FLAG_SPAM_SCORE
                 | FLAG_ESTABLISHED_LINKS_ROOT
-                | FLAG_ESTABLISHED_LINKS_TOTAL;
+                | FLAG_ESTABLISHED_LINKS_TOTAL
+                | FLAG_LAST_CRAWL;
     }
 
     @Override
@@ -80,7 +85,8 @@ public class MSUrlMetrics implements MozScape {
 
     @Override
     public Date getLastIndex() {
-        return null;
+        if(0 == lastCrawl) return null;
+        return new Date(lastCrawl * 1000);
     }
 
     @Override

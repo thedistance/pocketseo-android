@@ -4,4 +4,9 @@
     <string name="about_this_app">About this app</string>
     <string name="simulate_crash">Simulate Crash</string>
     <string name="simulate_event">Test Analytic Event</string>
+    <string name="root_domains">Root Domains</string>
+    <string name="total_links">Total Links</string>
+    <string name="established_links">Established Links</string>
+    <string name="authority">Authority</string>
+    <string name="mozscape">MOZscape</string>
 </resources>

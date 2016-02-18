@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
+import io.pocketseo.viewmodel.MozScapeViewModel;
 
 
 /**
@@ -92,7 +93,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
 
     @Override
     public void showUrlMetrics(MozScape data) {
-        mBinding.setMozscape(data);
+        mBinding.setMozscape(new MozScapeViewModel(data, getActivity()));
     }
 
     @Override

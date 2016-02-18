@@ -34,7 +34,7 @@
 
                 <EditText
                     android:id="@+id/website_name"
-                    android:inputType="textUri"
+                    android:inputType="textWebEditText"
                     android:imeOptions="actionGo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
