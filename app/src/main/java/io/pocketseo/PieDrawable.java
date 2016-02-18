@@ -50,7 +50,12 @@ public class PieDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-        mLinePaint.setAlpha(alpha);
+    }
+
+    @Override
+    protected boolean onLevelChange(int level) {
+        invalidateSelf();
+        return true;
     }
 
     @Override
