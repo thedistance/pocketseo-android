@@ -9,4 +9,5 @@
     <string name="established_links">Established Links</string>
     <string name="authority">Authority</string>
     <string name="mozscape">MOZscape</string>
+    <string name="website_name_hint">Enter a URL</string>
 </resources>

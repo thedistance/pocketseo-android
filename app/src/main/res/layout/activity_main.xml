@@ -36,6 +36,7 @@
                     android:id="@+id/website_name"
                     android:inputType="textWebEditText"
                     android:imeOptions="actionGo"
+                    android:hint="@string/website_name_hint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
