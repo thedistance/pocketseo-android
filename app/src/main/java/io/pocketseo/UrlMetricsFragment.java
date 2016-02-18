@@ -183,7 +183,13 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
 
         domainAuthDrawable.setLevel(Math.round(1000f * data.getDomainAuthority() / 100f));
         pageAuthDrawable.setLevel(Math.round(1000f * data.getPageAuthority() / 100f));
-        spamDrawable.setLevel(Math.round(1000f * data.getSpamScore() / 17f));
+        int spam = data.getSpamScore();
+        if(0 == spam){
+            spamDrawable.setAlpha(128);
+        } else {
+            spamDrawable.setAlpha(256);
+            spamDrawable.setLevel(0);
+        }
     }
 
     @Override

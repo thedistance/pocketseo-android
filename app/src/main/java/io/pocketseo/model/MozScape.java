@@ -13,7 +13,16 @@ public interface MozScape {
     int getStatusCode();
     float getDomainAuthority();
     float getPageAuthority();
-    float getSpamScore();
+
+    /**
+     * Spam score - need to substract one from the score as described in the
+     * <a href="https://moz.com/help/guides/moz-api/mozscape/getting-started-with-mozscape/spam-score">doccumentstaion</a>
+     * <br />
+     * 0 corresponds to "no data in our index for that subdomain."
+     * A returned value of 1 corresponds to a Spam Score of 0 and an fspsc value of 18 corresponds to a Spam Score of 17.
+     * @return
+     */
+    int getSpamScore();
     int getLinksRoot();
     int getLinksTotal();
     Date getLastIndex();

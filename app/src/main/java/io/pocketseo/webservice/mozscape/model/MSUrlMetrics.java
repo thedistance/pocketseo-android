@@ -32,7 +32,7 @@ public class MSUrlMetrics implements MozScape {
     public float pageAuthority;
 
     @SerializedName("fspsc")
-    public float spamScore;
+    public int spamScore;
 
     @SerializedName("uifq")
     public int establishedLinksRoot;
@@ -69,7 +69,7 @@ public class MSUrlMetrics implements MozScape {
     }
 
     @Override
-    public float getSpamScore() {
+    public int getSpamScore() {
         return spamScore;
     }
 

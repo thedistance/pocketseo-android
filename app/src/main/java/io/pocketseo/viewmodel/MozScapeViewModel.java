@@ -80,6 +80,9 @@ public class MozScapeViewModel {
         return String.valueOf(Math.round(model.getDomainAuthority()));
     }
     public String getSpamScore(){
-        return String.valueOf(Math.round(model.getSpamScore()));
+        if(0 == model.getSpamScore()){
+            return "-";
+        }
+        return String.valueOf(Math.round(model.getSpamScore() - 1));
     }
 }
