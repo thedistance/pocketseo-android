@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import java.util.List;
@@ -80,6 +81,13 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentUrlMetricsBinding.inflate(inflater, container, false);
+
+        mBinding.mozscapeExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mBinding.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            }
+        });
         return mBinding.getRoot();
     }
 
