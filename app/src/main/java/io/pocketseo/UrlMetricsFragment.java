@@ -107,6 +107,13 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_refresh).setVisible(mWebsite != null);
+        menu.findItem(R.id.action_browser).setVisible(mWebsite != null);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_browser:
@@ -151,6 +158,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
 
     public void performSearch(String website, boolean force){
         this.mWebsite = website;
+        getActivity().supportInvalidateOptionsMenu();
         mPresenter.performSearch(website, force);
     }
 
