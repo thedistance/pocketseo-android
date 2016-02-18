@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +45,9 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     private UrlMetricsPresenter mPresenter;
 
     private FragmentUrlMetricsBinding mBinding;
+    private PieDrawable pageAuthDrawable;
+    private PieDrawable domainAuthDrawable;
+    private PieDrawable spamDrawable;
 
 
     public UrlMetricsFragment() {
@@ -88,6 +92,17 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
                 mBinding.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
+        int accentColor = ContextCompat.getColor(getActivity(), R.color.black87);
+        int otherColor = ContextCompat.getColor(getActivity(), R.color.black20);
+
+        float density = getResources().getDisplayMetrics().density;
+
+        pageAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        mBinding.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
+        domainAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        mBinding.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
+        spamDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        mBinding.spamScoreContainer.setBackgroundDrawable(spamDrawable);
         return mBinding.getRoot();
     }
 
@@ -165,6 +180,10 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     @Override
     public void showUrlMetrics(MozScape data) {
         mBinding.setMozscape(new MozScapeViewModel(data, getActivity()));
+
+        domainAuthDrawable.setLevel(Math.round(1000f * data.getDomainAuthority() / 100f));
+        pageAuthDrawable.setLevel(Math.round(1000f * data.getPageAuthority() / 100f));
+        spamDrawable.setLevel(Math.round(1000f * data.getSpamScore() / 17f));
     }
 
     @Override
