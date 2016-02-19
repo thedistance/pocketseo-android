@@ -13,7 +13,7 @@ import io.pocketseo.model.AlexaScore;
 /**
  * Created by pharris on 18/02/16.
  */
-@Root(name = "ALEXA")
+@Root(name = "ALEXA", strict = false)
 public class AlexaData implements AlexaScore {
 /*
 
@@ -27,19 +27,15 @@ public class AlexaData implements AlexaScore {
     </SD>
 </ALEXA>
  */
-    @Attribute(name = "VER")
-    float version;
-    @Attribute(name = "URL")
-    String url;
-    @Attribute(name = "HOME")
-    int home;
-    @Attribute(name = "IDN")
-    String idn;
-    @Attribute(name = "AID")
-    String aid;
-
-    @Element(name = "SD")
+    @Element(name = "SD", required = false)
     SearchDomain domain;
+
+    public boolean isComplete() {
+        return domain != null
+                && domain.popularity != null
+                && domain.reach != null
+                && domain.rank != null;
+    }
 
     public static class SearchDomain{
         @Element(name="POPULARITY")

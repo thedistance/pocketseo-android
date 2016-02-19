@@ -181,6 +181,13 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
 
     @Override
     public void showUrlMetrics(MozScape data) {
+        if(null == data){
+            mBinding.setMozscape(null);
+            domainAuthDrawable.setLevel(0);
+            pageAuthDrawable.setLevel(0);
+            spamDrawable.setLevel(0);
+            return;
+        }
         mBinding.setMozscape(new MozScapeViewModel(data, getActivity()));
 
         domainAuthDrawable.setLevel(Math.round(1000f * data.getDomainAuthority() / 100f));
@@ -195,7 +202,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
 
     @Override
     public void showAlexaScore(AlexaScore score) {
-        mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
+        if(null == score) mBinding.setAlexaScore(null);
+        else mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
     }
 
     @Override

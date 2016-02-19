@@ -51,6 +51,7 @@ public class UrlMetricsPresenter {
                 mozInProgress = false;
                 mView.showLoading(mozInProgress || alexaInProgress);
                 mView.showError(message);
+                mView.showUrlMetrics(null);
             }
         });
 
@@ -67,6 +68,7 @@ public class UrlMetricsPresenter {
                 alexaInProgress = false;
                 mView.showLoading(mozInProgress || alexaInProgress);
                 mView.showError(message);
+                mView.showAlexaScore(null);
             }
         });
     }

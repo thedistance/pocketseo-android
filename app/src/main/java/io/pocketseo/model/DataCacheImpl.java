@@ -41,7 +41,9 @@ public class DataCacheImpl implements DataRepository.DataCache {
         String cachedValue = mPrefs.getString("alexa:" + url, null);
         if(null == cachedValue) return null;
         try {
-            return mGson.fromJson(cachedValue, AlexaData.class);
+            AlexaData data = mGson.fromJson(cachedValue, AlexaData.class);
+            if(!data.isComplete()) return null;
+            return data;
         } catch (Exception e){
             return null;
         }

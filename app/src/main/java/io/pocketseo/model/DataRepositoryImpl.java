@@ -78,8 +78,13 @@ public class DataRepositoryImpl implements DataRepository {
             @Override
             public void onResponse(Call<AlexaData> call, Response<AlexaData> response) {
                 if(response.isSuccess()) {
-                    mCache.store(website, response.body());
-                    callbacks.success(response.body());
+                    AlexaData alexaData = response.body();
+                    if(!alexaData.isComplete()){
+                        callbacks.error("Cannot get response from Alexa");
+                    } else {
+                        mCache.store(website, response.body());
+                        callbacks.success(response.body());
+                    }
                 } else {
                     callbacks.error(String.format(Locale.US, "Error code %d", response.code()));
                 }
