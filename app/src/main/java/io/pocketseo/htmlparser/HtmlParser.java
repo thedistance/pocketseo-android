@@ -19,7 +19,7 @@ public class HtmlParser {
 
     }
 
-    public HtmlData getHtmlDate(String url){
+    public HtmlData getHtmlData(String url){
         return new HtmlData() {
             @Override
             public String getPageTitle() {

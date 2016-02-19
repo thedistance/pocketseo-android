@@ -68,7 +68,7 @@ public class DataRepositoryImpl implements DataRepository {
 
     @Override
     public void getHtmldata(String url, boolean refresh, Callback<HtmlData> callbacks) {
-        callbacks.success(mParser.getHtmlDate(url));
+        callbacks.success(mParser.getHtmlData(url));
     }
 
     private void loadWebsiteMetricsFromWeb(final String website, final Callback<MozScape> callbacks){
