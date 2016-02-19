@@ -237,7 +237,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     @Override
     public void showHtmldataResult(HtmlData result) {
         if(null == result) mBinding.setHtmldata(null);
-        else mBinding.setHtmldata(new HtmldataModel(result));
+        else mBinding.setHtmldata(new HtmldataModel(result, getActivity()));
     }
 
     @Override

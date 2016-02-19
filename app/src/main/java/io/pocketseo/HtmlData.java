@@ -4,6 +4,7 @@
 
 package io.pocketseo;
 
+import java.util.Date;
 import java.util.List;
 
 public interface HtmlData {
@@ -13,4 +14,6 @@ public interface HtmlData {
     List<String> getH1TagList();
     List<String> getH2TagList();
     boolean isSsl();
+
+    Date getDateChecked();
 }

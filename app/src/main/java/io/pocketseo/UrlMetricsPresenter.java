@@ -7,6 +7,7 @@ package io.pocketseo;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.pocketseo.model.AlexaScore;
@@ -92,6 +93,11 @@ public class UrlMetricsPresenter {
             @Override
             public boolean isSsl() {
                 return true;
+            }
+
+            @Override
+            public Date getDateChecked() {
+                return new Date();
             }
         });
     }

@@ -4,6 +4,10 @@
 
 package io.pocketseo.viewmodel;
 
+import android.content.Context;
+
+import java.text.DateFormat;
+
 import io.pocketseo.HtmlData;
 
 /**
@@ -11,9 +15,11 @@ import io.pocketseo.HtmlData;
  */
 public class HtmldataModel {
     private final HtmlData mData;
+    private final DateFormat df;
 
-    public HtmldataModel(HtmlData data) {
+    public HtmldataModel(HtmlData data, Context context) {
         this.mData = data;
+        df = DateFormat.getDateTimeInstance();
     }
 
     public String getPageTitle(){
@@ -38,7 +44,7 @@ public class HtmldataModel {
     public String getH1List(){
         StringBuilder sb = new StringBuilder();
         for(String s: mData.getH1TagList()){
-            if(sb.length() > 0) sb.append(" * ");
+            if(sb.length() > 0) sb.append(" • ");
             sb.append(s);
         }
         return sb.toString();
@@ -55,7 +61,7 @@ public class HtmldataModel {
     public String getH2List(){
         StringBuilder sb = new StringBuilder();
         for(String s: mData.getH2TagList()){
-            if(sb.length() > 0) sb.append(" * ");
+            if(sb.length() > 0) sb.append(" • ");
             sb.append(s);
         }
         return sb.toString();
@@ -66,5 +72,9 @@ public class HtmldataModel {
             length += s.length();
         }
         return String.valueOf(length);
+    }
+
+    public String getDateChecked(){
+        return df.format(mData.getDateChecked());
     }
 }

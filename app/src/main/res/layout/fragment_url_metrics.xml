@@ -149,7 +149,8 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
                                 android:id="@+id/htmldata_expanded"
-                                android:visibility="gone">
+                                android:visibility="gone"
+                                tools:visibility="visible">
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -219,12 +220,31 @@
                                     android:layout_height="match_parent"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                     android:text="@{htmldata.h2List}"/>
+
+                                <LinearLayout
+                                    android:layout_marginTop="16dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:text="@{htmldata.canonicalUrl}"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_weight="0"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:text="@{htmldata.dateChecked}"/>
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{ htmldataError }"/>
+                            android:text="@{ htmldataError }"
+                            android:visibility="@{ htmldataError == null ? View.GONE : View.VISIBLE }"/>
                     </LinearLayout>
 
                     <ProgressBar
@@ -475,7 +495,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{ mozError }"/>
+                            android:text="@{ mozError }"
+                            android:visibility="@{ mozError == null ? View.GONE : View.VISIBLE }"/>
                     </LinearLayout>
 
                     <ProgressBar
@@ -566,7 +587,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{ alexaError }"/>
+                            android:text="@{ alexaError }"
+                            android:visibility="@{ alexaError == null ? View.GONE : View.VISIBLE }"/>
                     </LinearLayout>
                     <ProgressBar
                         android:visibility="@{ alexaLoading ? View.VISIBLE : View.GONE }"
