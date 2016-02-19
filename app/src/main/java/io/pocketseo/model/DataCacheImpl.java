@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 
 /**
@@ -33,5 +34,21 @@ public class DataCacheImpl implements DataRepository.DataCache {
     @Override
     public void store(String url, MSUrlMetrics body) {
         mPrefs.edit().putString(url, mGson.toJson(body)).apply();
+    }
+
+    @Override
+    public AlexaScore getAlexaScore(String url) {
+        String cachedValue = mPrefs.getString("alexa:" + url, null);
+        if(null == cachedValue) return null;
+        try {
+            return mGson.fromJson(cachedValue, AlexaData.class);
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public void store(String url, AlexaData body) {
+        mPrefs.edit().putString("alexa:" + url, mGson.toJson(body)).apply();
     }
 }

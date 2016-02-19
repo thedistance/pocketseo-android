@@ -65,6 +65,12 @@ dependencies {
     compile project(':theDistanceKit')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    // http://stackoverflow.com/questions/18084285/using-simplexml-with-android-and-gradle
+    compile ('com.squareup.retrofit2:converter-simplexml:2.0.0-beta4'){
+        exclude module: 'stax'
+        exclude module: 'stax-api'
+        exclude module: 'xpp3'
+    }
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.android.support:support-v4:23.1.1'
     apt 'com.google.dagger:dagger-compiler:2.0.2'

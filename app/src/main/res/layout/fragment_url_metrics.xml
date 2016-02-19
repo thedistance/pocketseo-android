@@ -6,6 +6,9 @@
         <variable
             name="mozscape"
             type="io.pocketseo.viewmodel.MozScapeViewModel" />
+        <variable
+            name="alexaScore"
+            type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
         <import type="android.view.View" />
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -206,7 +209,7 @@
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                                     tools:text="5,527"
-                                    android:text="@{String.valueOf(mozscape.linksTotal)}"
+                                    android:text="@{ mozscape.linksTotal}"
                                     android:layout_marginRight="8dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -249,6 +252,78 @@
                                     android:text="@{mozscape.nextIndex}"/>
 
                             </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="8dp"
+                    android:visibility="@{ alexaScore == null ? View.GONE : View.VISIBLE }"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity=""
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/powered_by_alexa"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:text="@{ alexaScore.popularityText }"
+                                android:layout_marginRight="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:text="Popularity Text"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:text="@{ alexaScore.reachRank }"
+                                android:layout_marginRight="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:text="Reach Rank"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:text="@{ alexaScore.rankDelta }"
+                                android:layout_marginRight="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:text="Reach Delta"/>
                         </LinearLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

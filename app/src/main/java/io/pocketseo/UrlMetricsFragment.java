@@ -26,8 +26,10 @@ import android.widget.Toast;
 import java.util.List;
 
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
+import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
+import io.pocketseo.viewmodel.AlexaScoreViewModel;
 import io.pocketseo.viewmodel.MozScapeViewModel;
 
 
@@ -189,6 +191,11 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         } else {
             spamDrawable.setLevel(Math.round(1000f * (spam - 1) / 17f));
         }
+    }
+
+    @Override
+    public void showAlexaScore(AlexaScore score) {
+        mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
     }
 
     @Override

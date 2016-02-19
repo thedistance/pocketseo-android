@@ -6,6 +6,7 @@ package io.pocketseo;
 
 import android.text.TextUtils;
 
+import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
 
@@ -20,6 +21,7 @@ public class UrlMetricsPresenter {
     interface View {
         void showLoading(boolean loading);
         void showUrlMetrics(MozScape data);
+        void showAlexaScore(AlexaScore score);
         void showError(String message);
     }
 
@@ -28,20 +30,42 @@ public class UrlMetricsPresenter {
         mRepo = repo;
     }
 
+    boolean mozInProgress;
+    boolean alexaInProgress;
+
     public void performSearch(String websiteUrl, boolean force){
         if(TextUtils.isEmpty(websiteUrl)) return;
 
-        mView.showLoading(true);
+        mozInProgress = alexaInProgress = true;
+        mView.showLoading(mozInProgress || alexaInProgress);
         mRepo.getWebsiteMetrics(websiteUrl, force, new DataRepository.Callback<MozScape>() {
             @Override
             public void success(MozScape data) {
-                mView.showLoading(false);
+                mozInProgress = false;
+                mView.showLoading(mozInProgress || alexaInProgress);
                 mView.showUrlMetrics(data);
             }
 
             @Override
             public void error(String message) {
-                mView.showLoading(false);
+                mozInProgress = false;
+                mView.showLoading(mozInProgress || alexaInProgress);
+                mView.showError(message);
+            }
+        });
+
+        mRepo.getAlexaScore(websiteUrl, force, new DataRepository.Callback<AlexaScore>() {
+            @Override
+            public void success(AlexaScore data) {
+                alexaInProgress = false;
+                mView.showLoading(mozInProgress || alexaInProgress);
+                mView.showAlexaScore(data);
+            }
+
+            @Override
+            public void error(String message) {
+                alexaInProgress = false;
+                mView.showLoading(mozInProgress || alexaInProgress);
                 mView.showError(message);
             }
         });
