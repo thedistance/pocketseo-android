@@ -23,7 +23,7 @@ public class HtmlParser {
         return new HtmlData() {
             @Override
             public String getPageTitle() {
-                return "The Distance App Developers";
+                return "App Developers UK | Mobile App Development | The Distance, York";
             }
 
             @Override
