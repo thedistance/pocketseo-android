@@ -36,6 +36,11 @@ public class UrlMetricsPresenter {
     public void performSearch(String websiteUrl, boolean force){
         if(TextUtils.isEmpty(websiteUrl)) return;
 
+        loadMoz(websiteUrl, force);
+        loadAlexa(websiteUrl, force);
+    }
+
+    private void loadMoz(String websiteUrl, boolean force) {
         mView.showMozLoading(true);
         mView.showMozError(null);
         mRepo.getWebsiteMetrics(websiteUrl, force, new DataRepository.Callback<MozScape>() {
@@ -52,7 +57,9 @@ public class UrlMetricsPresenter {
                 mView.showMozResult(null);
             }
         });
+    }
 
+    private void loadAlexa(String websiteUrl, boolean force) {
         mView.showAlexaLoading(true);
         mView.showAlexaError(null);
         mRepo.getAlexaScore(websiteUrl, force, new DataRepository.Callback<AlexaScore>() {
@@ -70,4 +77,6 @@ public class UrlMetricsPresenter {
             }
         });
     }
+
+
 }
