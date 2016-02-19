@@ -4,6 +4,8 @@
 
 package io.pocketseo.model;
 
+import io.pocketseo.HtmlData;
+
 /**
  * Created by pharris on 17/02/16.
  */
@@ -16,5 +18,6 @@ public interface DataRepository {
 
     void getWebsiteMetrics(String url, boolean refresh, Callback<MozScape> callbacks);
     void getAlexaScore(String url, boolean refresh, Callback<AlexaScore> callbacks);
+    void getHtmldata(String url, boolean refresh, Callback<HtmlData> callbacks);
 
 }

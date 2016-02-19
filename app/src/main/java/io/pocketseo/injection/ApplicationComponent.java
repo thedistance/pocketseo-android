@@ -11,7 +11,7 @@ import io.pocketseo.PocketSeoApplication;
 import io.pocketseo.model.DataRepository;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, MozscapeModule.class, AlexaModule.class})
+@Component(modules = {ApplicationModule.class, MozscapeModule.class, AlexaModule.class, HtmldataModule.class})
 public interface ApplicationComponent {
     PocketSeoApplication appContext();
 

@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.pocketseo.PocketSeoApplication;
+import io.pocketseo.htmlparser.HtmlParser;
 import io.pocketseo.model.DataCacheImpl;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.DataRepositoryImpl;
@@ -37,13 +38,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataRepository provideDataRepository(AlexaWebService alexaWebService, MSWebService mozWebService, MSHelper.Authenticator mMozAuthenticator, DataRepository.DataCache cache){
-        return new DataRepositoryImpl(alexaWebService, mozWebService, mMozAuthenticator, cache);
+    DataRepository provideDataRepository(AlexaWebService alexaWebService, MSWebService mozWebService, MSHelper.Authenticator mMozAuthenticator, HtmlParser parser, DataRepositoryImpl.DataCache cache){
+        return new DataRepositoryImpl(alexaWebService, mozWebService, mMozAuthenticator, parser, cache);
     }
 
     @Provides
     @Singleton
-    DataRepository.DataCache provideDataCache(Gson gson, SharedPreferences prefs){
+    DataRepositoryImpl.DataCache provideDataCache(Gson gson, SharedPreferences prefs){
         return new DataCacheImpl(gson, prefs);
     }
 

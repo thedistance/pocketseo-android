@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.util.Locale;
 
+import io.pocketseo.HtmlData;
+import io.pocketseo.htmlparser.HtmlParser;
 import io.pocketseo.webservice.alexa.AlexaWebService;
 import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.MSHelper;
@@ -18,7 +20,7 @@ import retrofit2.Response;
 
 public class DataRepositoryImpl implements DataRepository {
 
-    interface DataCache {
+    public interface DataCache {
         MozScape getWebsiteMetrics(String url);
         AlexaScore getAlexaScore(String url);
 
@@ -33,12 +35,14 @@ public class DataRepositoryImpl implements DataRepository {
     private final MSHelper.Authenticator mMozAuthenticator;
     private final DataCache mCache;
     private final AlexaWebService mAlexaWebService;
+    private final HtmlParser mParser;
 
-    public DataRepositoryImpl(AlexaWebService alexaWebService, MSWebService mMozWebService, MSHelper.Authenticator mMozAuthenticator, DataCache cache) {
+    public DataRepositoryImpl(AlexaWebService alexaWebService, MSWebService mMozWebService, MSHelper.Authenticator mMozAuthenticator, HtmlParser parser, DataCache cache) {
         mAlexaWebService = alexaWebService;
         this.mMozWebService = mMozWebService;
         this.mMozAuthenticator = mMozAuthenticator;
         this.mCache = cache;
+        mParser = parser;
     }
 
     @Override
@@ -60,6 +64,11 @@ public class DataRepositoryImpl implements DataRepository {
         } else {
             callbacks.success(cachedValue);
         }
+    }
+
+    @Override
+    public void getHtmldata(String url, boolean refresh, Callback<HtmlData> callbacks) {
+        callbacks.success(mParser.getHtmlDate(url));
     }
 
     private void loadWebsiteMetricsFromWeb(final String website, final Callback<MozScape> callbacks){
