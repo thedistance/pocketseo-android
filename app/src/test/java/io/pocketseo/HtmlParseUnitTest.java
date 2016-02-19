@@ -4,6 +4,8 @@
 
 package io.pocketseo;
 
+import android.test.suitebuilder.annotation.LargeTest;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +25,16 @@ public class HtmlParseUnitTest {
     }
 
     @Test
+    @LargeTest
     public void check_html() {
         HtmlData data = mParser.getHtmlData("https://thedistance.co.uk/");
 
-        Assert.assertEquals(data.getPageTitle(), "App Developers UK | Mobile App Development | The Distance, York");
+        HtmlData testMega = HtmlParser.theDistanceMetaData();
+
+        Assert.assertEquals("Parsed title incorrectly.", data.getPageTitle(), testMega.getPageTitle());
+        Assert.assertEquals("Parsed description incorrectly", data.getMetaDescription(), testMega.getMetaDescription());
+        Assert.assertEquals("Parsed URL incorrectly", data.getCanonicalUrl(), testMega.getCanonicalUrl());
+        Assert.assertEquals("Parsed H1 incorrectly", data.getH1TagList(), testMega.getH1TagList());
+        Assert.assertEquals("Parsed H2 incorrectly", data.getH2TagList(), testMega.getH2TagList());
     }
 }

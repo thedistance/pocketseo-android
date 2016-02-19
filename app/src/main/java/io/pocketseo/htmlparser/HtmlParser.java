@@ -19,7 +19,7 @@ public class HtmlParser {
 
     }
 
-    public HtmlData getHtmlData(String url){
+    public static HtmlData theDistanceMetaData(){
         return new HtmlData() {
             @Override
             public String getPageTitle() {
@@ -28,33 +28,33 @@ public class HtmlParser {
 
             @Override
             public String getCanonicalUrl() {
-                return "https://thedistance.co.uk";
+                return "https://thedistance.co.uk/";
             }
 
             @Override
             public String getMetaDescription() {
-                return "we make apps, we rock";
+                return "We are award winning UK app developers UK who develop mobile app development solutions for IOS & Android for B2C, B2B & Enterprise. Call York team today.";
             }
 
             @Override
             public List<String> getH1TagList() {
                 ArrayList<String > testData = new ArrayList<String>();
-                testData.add("App Developers");
-                testData.add("Android");
-                testData.add("iOS");
-                testData.add("York");
+                testData.add("The Yorkshire & UK leading mobile app developers");
                 return testData;
             }
 
             @Override
             public List<String> getH2TagList() {
                 ArrayList<String > testData = new ArrayList<String>();
-                testData.add("h2 App Developers");
-                testData.add("Josh");
-                testData.add("Anthony");
-                testData.add("Rob");
-                testData.add("Ben");
-                testData.add("Pete");
+                for(String s: new String[]{"Mobile App Consultancy",
+                        "Mobile App Development",
+                        "Mobile App UI/UX",
+                        "Trusted By",
+                        "OUR TOOLS",
+                        "PLATFORMS",
+                        "TELL US YOUR APP IDEA"}){
+                    testData.add(s);
+                }
                 return testData;
             }
 
@@ -68,5 +68,9 @@ public class HtmlParser {
                 return new Date();
             }
         };
+    }
+
+    public HtmlData getHtmlData(String url){
+        return theDistanceMetaData();
     }
 }
