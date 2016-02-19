@@ -29,6 +29,7 @@ import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
 import io.pocketseo.viewmodel.AlexaScoreViewModel;
+import io.pocketseo.viewmodel.HtmldataModel;
 import io.pocketseo.viewmodel.MozScapeViewModel;
 
 
@@ -91,6 +92,13 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mBinding.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        mBinding.htmldataExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mBinding.htmldataExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
         int accentColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
@@ -167,15 +175,15 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         }
     }
 
-    @Override
-    public void showMozLoading(boolean loading) {
-        mBinding.setMozLoading(loading);
-    }
-
     public void performSearch(String website, boolean force){
         this.mWebsite = website;
         getActivity().supportInvalidateOptionsMenu();
         mPresenter.performSearch(website, force);
+    }
+
+    @Override
+    public void showMozLoading(boolean loading) {
+        mBinding.setMozLoading(loading);
     }
 
     @Override
@@ -200,14 +208,14 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
-    public void showAlexaResult(AlexaScore score) {
-        if(null == score) mBinding.setAlexaScore(null);
-        else mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
+    public void showMozError(String message) {
+        mBinding.setMozError(message);
     }
 
     @Override
-    public void showMozError(String message) {
-        mBinding.setMozError(message);
+    public void showAlexaResult(AlexaScore score) {
+        if(null == score) mBinding.setAlexaScore(null);
+        else mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
     }
 
     @Override
@@ -218,5 +226,22 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     @Override
     public void showAlexaError(String message) {
         mBinding.setAlexaError(message);
+    }
+
+
+    @Override
+    public void showHtmldataLoading(boolean loading) {
+        mBinding.setHtmldataLoading(loading);
+    }
+
+    @Override
+    public void showHtmldataResult(HtmlData result) {
+        if(null == result) mBinding.setHtmldata(null);
+        else mBinding.setHtmldata(new HtmldataModel(result));
+    }
+
+    @Override
+    public void showHtmldataError(String message) {
+        mBinding.setHtmldataError(message);
     }
 }

@@ -4,24 +4,35 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
+            name="htmldata"
+            type="io.pocketseo.viewmodel.HtmldataModel" />
+        <variable
+            name="htmldataError"
+            type="java.lang.String" />
+        <variable
+            name="htmldataLoading"
+            type="boolean" />
+
+        <variable
             name="mozscape"
             type="io.pocketseo.viewmodel.MozScapeViewModel" />
         <variable
-            name="alexaScore"
-            type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
-        
-        <variable
             name="mozError"
             type="java.lang.String" />
+        <variable
+            name="mozLoading"
+            type="boolean" />
+
+        <variable
+            name="alexaScore"
+            type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
         <variable
             name="alexaError"
             type="java.lang.String" />
         <variable
             name="alexaLoading"
             type="boolean" />
-        <variable
-            name="mozLoading"
-            type="boolean" />
+
         <import type="android.view.View" />
     </data>
     
@@ -38,6 +49,194 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="8dp"
+                    android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.GONE : View.VISIBLE }"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:gravity="center_horizontal"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                                android:text="HTML Metadata"/>
+                            <CheckBox
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/htmldata_expand_check"
+                                android:button="@drawable/ic_expand"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:animateLayoutChanges="true"
+                            android:visibility="@{htmldataError == null ? View.VISIBLE : View.GONE }">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="Page Title"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="@{htmldata.pageTitleLength}"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:text="@{htmldata.pageTitle}"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="Meta Description"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="@{htmldata.metaDescriptionLength}"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:text="@{htmldata.metaDescription}"/>
+
+                            <!-- start collapsed section -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:id="@+id/htmldata_expanded"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="Canonical URL"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:text="@{htmldata.canonicalUrl}"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:layout_marginBottom="8dp"
+                                        android:layout_marginTop="16dp"
+                                        android:text="H1"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:layout_marginBottom="8dp"
+                                        android:layout_marginTop="16dp"
+                                        android:text="@{htmldata.h1ListLength}"/>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:text="@{htmldata.h1List}"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:layout_marginBottom="8dp"
+                                        android:layout_marginTop="16dp"
+                                        android:text="H2"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:layout_marginBottom="8dp"
+                                        android:layout_marginTop="16dp"
+                                        android:text="@{htmldata.h2ListLength}"/>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:text="@{htmldata.h2List}"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{ htmldataError }"/>
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:visibility="@{ htmldataLoading ? View.VISIBLE : View.GONE }"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+                </android.support.v7.widget.CardView>
+
+
+
+                <!-- moz -->
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_margin="8dp"
@@ -280,7 +479,6 @@
                     </LinearLayout>
 
                     <ProgressBar
-                        android:id="@+id/mozProgress"
                         android:visibility="@{ mozLoading ? View.VISIBLE : View.GONE }"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -371,7 +569,6 @@
                             android:text="@{ alexaError }"/>
                     </LinearLayout>
                     <ProgressBar
-                        android:id="@+id/alexaProgress"
                         android:visibility="@{ alexaLoading ? View.VISIBLE : View.GONE }"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
