@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -94,7 +93,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
                 mBinding.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
-        int accentColor = ContextCompat.getColor(getActivity(), R.color.black87);
+        int accentColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
         int otherColor = ContextCompat.getColor(getActivity(), R.color.black20);
 
         float density = getResources().getDisplayMetrics().density;
