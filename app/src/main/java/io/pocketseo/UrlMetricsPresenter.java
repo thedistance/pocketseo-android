@@ -19,10 +19,13 @@ public class UrlMetricsPresenter {
     private final DataRepository mRepo;
 
     interface View {
-        void showLoading(boolean loading);
-        void showUrlMetrics(MozScape data);
-        void showAlexaScore(AlexaScore score);
-        void showError(String message);
+        void showMozLoading(boolean loading);
+        void showMozResult(MozScape data);
+        void showMozError(String message);
+
+        void showAlexaLoading(boolean loading);
+        void showAlexaResult(AlexaScore score);
+        void showAlexaError(String message);
     }
 
     public UrlMetricsPresenter(View view, DataRepository repo){
@@ -30,45 +33,40 @@ public class UrlMetricsPresenter {
         mRepo = repo;
     }
 
-    boolean mozInProgress;
-    boolean alexaInProgress;
-
     public void performSearch(String websiteUrl, boolean force){
         if(TextUtils.isEmpty(websiteUrl)) return;
 
-        mozInProgress = alexaInProgress = true;
-        mView.showLoading(mozInProgress || alexaInProgress);
+        mView.showMozLoading(true);
+        mView.showMozError(null);
         mRepo.getWebsiteMetrics(websiteUrl, force, new DataRepository.Callback<MozScape>() {
             @Override
             public void success(MozScape data) {
-                mozInProgress = false;
-                mView.showLoading(mozInProgress || alexaInProgress);
-                mView.showUrlMetrics(data);
+                mView.showMozLoading(false);
+                mView.showMozResult(data);
             }
 
             @Override
             public void error(String message) {
-                mozInProgress = false;
-                mView.showLoading(mozInProgress || alexaInProgress);
-                mView.showError(message);
-                mView.showUrlMetrics(null);
+                mView.showMozLoading(false);
+                mView.showMozError(message);
+                mView.showMozResult(null);
             }
         });
 
+        mView.showAlexaLoading(true);
+        mView.showAlexaError(null);
         mRepo.getAlexaScore(websiteUrl, force, new DataRepository.Callback<AlexaScore>() {
             @Override
             public void success(AlexaScore data) {
-                alexaInProgress = false;
-                mView.showLoading(mozInProgress || alexaInProgress);
-                mView.showAlexaScore(data);
+                mView.showAlexaLoading(false);
+                mView.showAlexaResult(data);
             }
 
             @Override
             public void error(String message) {
-                alexaInProgress = false;
-                mView.showLoading(mozInProgress || alexaInProgress);
-                mView.showError(message);
-                mView.showAlexaScore(null);
+                mView.showAlexaLoading(false);
+                mView.showAlexaError(message);
+                mView.showAlexaResult(null);
             }
         });
     }

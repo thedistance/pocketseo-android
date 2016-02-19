@@ -9,8 +9,22 @@
         <variable
             name="alexaScore"
             type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
+        
+        <variable
+            name="mozError"
+            type="java.lang.String" />
+        <variable
+            name="alexaError"
+            type="java.lang.String" />
+        <variable
+            name="alexaLoading"
+            type="boolean" />
+        <variable
+            name="mozLoading"
+            type="boolean" />
         <import type="android.view.View" />
     </data>
+    
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:tools="http://schemas.android.com/tools"
                  android:layout_width="match_parent"
@@ -27,14 +41,13 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_margin="8dp"
-                    android:visibility="@{ mozscape == null ? View.GONE : View.VISIBLE }"
+                    android:visibility="@{ mozscape == null &amp;&amp; mozError == null &amp;&amp; !mozLoading ? View.GONE : View.VISIBLE }"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:animateLayoutChanges="true"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -55,128 +68,17 @@
                                 />
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:text="@{mozscape.statusCode}"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/authority"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp">
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:id="@+id/page_authority_container">
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                        android:gravity="center"
-                                        android:text="@{mozscape.pageAuthority}"/>
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                        android:gravity="center"
-                                        android:text="100"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:gravity="center"
-                                    android:text="Page Authority"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:id="@+id/domain_authority_container">
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                        android:gravity="center"
-                                        android:text="@{mozscape.domainAuthority}"/>
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                        android:gravity="center"
-                                        android:text="100"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:gravity="center"
-                                    android:text="Domain Authority"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:id="@+id/spam_score_container">
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                        android:gravity="center"
-                                        android:text="@{mozscape.spamScore}"/>
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                        android:gravity="center"
-                                        android:text="17"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:gravity="center"
-                                    android:text="Spam Score"/>
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <!-- start collapsed section -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:id="@+id/mozscape_expanded"
-                            android:visibility="gone">
+                            android:animateLayoutChanges="true"
+                            android:visibility="@{mozError == null ? View.VISIBLE : View.GONE }">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:text="@{mozscape.statusCode}"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -184,83 +86,214 @@
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:layout_marginBottom="8dp"
                                 android:layout_marginTop="16dp"
-                                android:text="@string/established_links"/>
+                                android:text="@string/authority"/>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                    tools:text="138"
-                                    android:text="@{String.valueOf(mozscape.linksRoot)}"
-                                    android:layout_marginRight="8dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:text="@string/root_domains"/>
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:id="@+id/page_authority_container">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                            android:gravity="center"
+                                            android:text="@{mozscape.pageAuthority}"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                            android:gravity="center"
+                                            android:text="100"/>
+                                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:gravity="center"
+                                        android:text="Page Authority"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:id="@+id/domain_authority_container">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                            android:gravity="center"
+                                            android:text="@{mozscape.domainAuthority}"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                            android:gravity="center"
+                                            android:text="100"/>
+                                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:gravity="center"
+                                        android:text="Domain Authority"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:id="@+id/spam_score_container">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                            android:gravity="center"
+                                            android:text="@{mozscape.spamScore}"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                            android:gravity="center"
+                                            android:text="17"/>
+                                    </LinearLayout>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:gravity="center"
+                                        android:text="Spam Score"/>
+                                </LinearLayout>
                             </LinearLayout>
+
+                            <!-- start collapsed section -->
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:id="@+id/mozscape_expanded"
+                                android:visibility="gone">
+
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                    tools:text="5,527"
-                                    android:text="@{ mozscape.linksTotal}"
-                                    android:layout_marginRight="8dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:text="@string/total_links"/>
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="@string/established_links"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                        tools:text="138"
+                                        android:text="@{String.valueOf(mozscape.linksRoot)}"
+                                        android:layout_marginRight="8dp"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:text="@string/root_domains"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                        tools:text="5,527"
+                                        android:text="@{ mozscape.linksTotal}"
+                                        android:layout_marginRight="8dp"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:text="@string/total_links"/>
+                                </LinearLayout>
+
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:id="@+id/last_index_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:layout_alignParentLeft="true"
+                                        android:text="Last Indexed"/>
+                                    <TextView
+                                        android:id="@+id/next_index_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                        android:layout_alignParentRight="true"
+                                        android:text="Next Indexing"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_below="@+id/last_index_title"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                        android:text="@{mozscape.lastIndex}"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_below="@+id/next_index_title"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                        android:text="@{mozscape.nextIndex}"/>
+
+                                </RelativeLayout>
                             </LinearLayout>
-
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <TextView
-                                    android:id="@+id/last_index_title"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:layout_alignParentLeft="true"
-                                    android:text="Last Indexed"/>
-                                <TextView
-                                    android:id="@+id/next_index_title"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:layout_alignParentRight="true"
-                                    android:text="Next Indexing"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_below="@+id/last_index_title"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:text="@{mozscape.lastIndex}"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_below="@+id/next_index_title"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                                    android:text="@{mozscape.nextIndex}"/>
-
-                            </RelativeLayout>
                         </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{ mozError }"/>
                     </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/mozProgress"
+                        android:visibility="@{ mozLoading ? View.VISIBLE : View.GONE }"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
                 </android.support.v7.widget.CardView>
 
 
+                <!-- alexa card -->
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_margin="8dp"
-                    android:visibility="@{ alexaScore == null ? View.GONE : View.VISIBLE }"
+                    android:visibility="@{ alexaScore == null &amp;&amp; alexaError == null &amp;&amp; !alexaLoading ? View.GONE : View.VISIBLE }"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -278,64 +311,75 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                android:text="@{ alexaScore.popularityText }"
-                                android:layout_marginRight="8dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:text="Popularity Text"/>
-                        </LinearLayout>
+                            android:orientation="vertical"
+                            android:visibility="@{alexaError == null ? View.VISIBLE : View.GONE }">
 
-                        <LinearLayout
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                    android:text="@{ alexaScore.popularityText }"
+                                    android:layout_marginRight="8dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:text="Popularity Text"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                    android:text="@{ alexaScore.reachRank }"
+                                    android:layout_marginRight="8dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:text="Reach Rank"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                    android:text="@{ alexaScore.rankDelta }"
+                                    android:layout_marginRight="8dp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:text="Reach Delta"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                android:text="@{ alexaScore.reachRank }"
-                                android:layout_marginRight="8dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:text="Reach Rank"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                                android:text="@{ alexaScore.rankDelta }"
-                                android:layout_marginRight="8dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                android:text="Reach Delta"/>
-                        </LinearLayout>
+                            android:text="@{ alexaError }"/>
                     </LinearLayout>
+                    <ProgressBar
+                        android:id="@+id/alexaProgress"
+                        android:visibility="@{ alexaLoading ? View.VISIBLE : View.GONE }"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </ScrollView>
 
-        <ProgressBar
-            android:id="@+id/progress"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
 
     </FrameLayout>
 </layout>

@@ -169,8 +169,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
-    public void showLoading(boolean loading) {
-        mBinding.progress.setVisibility(loading ? View.VISIBLE : View.GONE);
+    public void showMozLoading(boolean loading) {
+        mBinding.setMozLoading(loading);
     }
 
     public void performSearch(String website, boolean force){
@@ -180,7 +180,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
-    public void showUrlMetrics(MozScape data) {
+    public void showMozResult(MozScape data) {
         if(null == data){
             mBinding.setMozscape(null);
             domainAuthDrawable.setLevel(0);
@@ -201,16 +201,23 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
-    public void showAlexaScore(AlexaScore score) {
+    public void showAlexaResult(AlexaScore score) {
         if(null == score) mBinding.setAlexaScore(null);
         else mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
     }
 
     @Override
-    public void showError(String message) {
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Error")
-                .setMessage(message)
-                .show();
+    public void showMozError(String message) {
+        mBinding.setMozError(message);
+    }
+
+    @Override
+    public void showAlexaLoading(boolean loading) {
+        mBinding.setAlexaLoading(loading);
+    }
+
+    @Override
+    public void showAlexaError(String message) {
+        mBinding.setAlexaError(message);
     }
 }
