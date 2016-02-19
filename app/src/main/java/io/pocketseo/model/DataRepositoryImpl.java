@@ -17,6 +17,16 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class DataRepositoryImpl implements DataRepository {
+
+    interface DataCache {
+        MozScape getWebsiteMetrics(String url);
+        AlexaScore getAlexaScore(String url);
+
+        void store(String url, MSUrlMetrics body);
+        void store(String url, AlexaData body);
+    }
+
+
     public static final String PREF_FILE = "cache";
 
     private final MSWebService mMozWebService;

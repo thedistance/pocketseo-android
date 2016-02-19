@@ -14,7 +14,7 @@ import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 /**
  * Created by pharris on 18/02/16.
  */
-public class DataCacheImpl implements DataRepository.DataCache {
+public class DataCacheImpl implements DataRepositoryImpl.DataCache {
 
     private final Gson mGson;
     private final SharedPreferences mPrefs;
