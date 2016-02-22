@@ -74,6 +74,11 @@ public class HtmldataModel {
         return String.valueOf(length);
     }
 
+    public String getSsl(){
+        if(mData.isSsl()) return "SSL Encrypted";
+        return "Not encrypted";
+    }
+
     public String getDateChecked(){
         return df.format(mData.getDateChecked());
     }

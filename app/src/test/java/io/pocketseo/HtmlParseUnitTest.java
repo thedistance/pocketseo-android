@@ -42,7 +42,13 @@ public class HtmlParseUnitTest {
         }
 
         // parsed data
-        HtmlData data = mParser.parseData(is);
+        HtmlData data = null;
+        try {
+            data = mParser.parseData(is);
+        } catch (HtmlParser.ParserError parserError) {
+            parserError.printStackTrace();
+            Assert.fail(parserError.toString());
+            return;        }
         if(null == data){
             Assert.fail("Data parsing failed - null response");
             return;
@@ -61,7 +67,13 @@ public class HtmlParseUnitTest {
     @Test
     @LargeTest
     public void check_html_from_web(){
-        HtmlData data = mParser.getHtmlData("http://thedistance.co.uk/");
+        HtmlData data = null;
+        try {
+            data = mParser.getHtmlData("http://thedistance.co.uk/");
+        } catch (HtmlParser.ParserError parserError) {
+            parserError.printStackTrace();
+            Assert.fail(parserError.getMessage());
+        }
 
         if(data == null){
             Assert.fail("Data parsing failed - null response");
@@ -72,5 +84,7 @@ public class HtmlParseUnitTest {
         Assert.assertNotNull("Meta description missing", data.getMetaDescription());
         Assert.assertNotNull("H1 missing", data.getH1TagList());
         Assert.assertNotNull("h2 missing", data.getH2TagList());
+        Assert.assertEquals("Redirect is incorrect", "https://thedistance.co.uk/", data.getCanonicalUrl());
+        Assert.assertTrue("SSL not detected", data.isSsl());
     }
 }

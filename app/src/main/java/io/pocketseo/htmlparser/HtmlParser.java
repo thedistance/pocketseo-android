@@ -92,21 +92,33 @@ public class HtmlParser {
      * @param url
      * @return
      */
-    public HtmlData getHtmlData(String url){
+    public HtmlData getHtmlData(String url) throws ParserError {
         InputStream is = null;
         try {
-            is = getUrl(url);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            boolean ssl;
+            try {
+                Response response = mOkHttpClient.newCall(request).execute();
+                url = response.request().url().toString();
+                is = response.body().byteStream();
+                ssl = response.request().isHttps();
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new ParserError(e.getMessage());
+            }
+
+
             if(null == is){
-                return null;
+                throw new ParserError("Cannot retrieve data");
             }
             ParsedData response = (ParsedData) parseData(is);
             response.parseDate = new Date();
+            response.ssl = ssl;
             response.canonicalUrl = url;
             return response;
-        } catch (IOException e) {
-            e.printStackTrace();
-            // todo: handle exception
-            return null;
         } finally {
             if(null != is){
                 try {
@@ -118,7 +130,7 @@ public class HtmlParser {
         }
     }
 
-    public HtmlData parseData(@NonNull InputStream htmlStream) {
+    public HtmlData parseData(@NonNull InputStream htmlStream) throws ParserError {
         try {
             XMLReader xmlReader = XMLReaderFactory.createXMLReader("org.ccil.cowan.tagsoup.Parser");
 
@@ -181,23 +193,12 @@ public class HtmlParser {
             xmlReader.setContentHandler(handler);
             xmlReader.parse(new InputSource(htmlStream));
             return data;
-        } catch (SAXException e) {
+        } catch (SAXException | IOException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            throw new ParserError("Error reading HTML");
         }
-        return null;
     }
 
-
-    InputStream getUrl(@NonNull  String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        Response response = mOkHttpClient.newCall(request).execute();
-        return response.body().byteStream();
-    }
 
     static class ParsedData implements HtmlData {
         String title = "";
@@ -206,6 +207,7 @@ public class HtmlParser {
         String meta = "";
         Date parseDate;
         String canonicalUrl;
+        boolean ssl;
 
         @Override
         public String getPageTitle() {
@@ -234,12 +236,19 @@ public class HtmlParser {
 
         @Override
         public boolean isSsl() {
-            return false;
+            return ssl;
         }
 
         @Override
         public Date getDateChecked() {
             return parseDate;
+        }
+    }
+
+    public static class ParserError extends Exception {
+
+        public ParserError(String message) {
+            super(message);
         }
     }
 }

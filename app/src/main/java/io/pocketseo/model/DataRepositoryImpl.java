@@ -81,16 +81,23 @@ public class DataRepositoryImpl implements DataRepository {
 
     private void loadHtmlDataFromWeb(String url, final Callback<HtmlData> callbacks){
         new AsyncTask<String, Void, HtmlData>(){
+            public HtmlParser.ParserError error;
+
             @Override
             protected HtmlData doInBackground(String... params) {
-                String url = params[0];
-                return mParser.getHtmlData(url);
+                try {
+                    String url = params[0];
+                    return mParser.getHtmlData(url);
+                } catch (HtmlParser.ParserError parserError) {
+                    error = parserError;
+                    return null;
+                }
             }
 
             @Override
             protected void onPostExecute(HtmlData htmlData) {
                 if(htmlData == null){
-                    callbacks.error("Cannot get webpage data");
+                    callbacks.error(error.getMessage());
                 } else {
                     callbacks.success(htmlData);
                 }

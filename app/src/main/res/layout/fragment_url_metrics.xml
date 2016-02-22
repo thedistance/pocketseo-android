@@ -118,22 +118,20 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="8dp"
+                                android:layout_marginTop="16dp">
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                    android:layout_marginBottom="8dp"
-                                    android:layout_marginTop="16dp"
                                     android:text="Meta Description"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                    android:layout_marginBottom="8dp"
-                                    android:layout_marginTop="16dp"
                                     android:text="@{htmldata.metaDescriptionLength}"/>
                             </LinearLayout>
 
@@ -154,7 +152,6 @@
 
                                 <TextView
                                     android:layout_width="match_parent"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                     android:layout_marginBottom="8dp"
@@ -169,22 +166,20 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp">
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="16dp"
                                         android:text="H1"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="16dp"
                                         android:text="@{htmldata.h1ListLength}"/>
                                 </LinearLayout>
 
@@ -196,22 +191,20 @@
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="16dp">
                                     <TextView
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="16dp"
                                         android:text="H2"/>
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                        android:layout_marginBottom="8dp"
-                                        android:layout_marginTop="16dp"
                                         android:text="@{htmldata.h2ListLength}"/>
                                 </LinearLayout>
 
@@ -220,6 +213,13 @@
                                     android:layout_height="match_parent"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                     android:text="@{htmldata.h2List}"/>
+
+                                <TextView
+                                    android:layout_marginTop="16dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                    android:text="@{htmldata.ssl}"/>
 
                                 <LinearLayout
                                     android:layout_marginTop="16dp"
