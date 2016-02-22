@@ -240,11 +240,8 @@
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@{ htmldataError }"
-                            android:visibility="@{ htmldataError == null ? View.GONE : View.VISIBLE }"/>
+                        <include layout="@layout/error"
+                                 errorMessage="@{htmldataError}" />
                     </LinearLayout>
 
                     <ProgressBar
@@ -492,11 +489,9 @@
                                 </RelativeLayout>
                             </LinearLayout>
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@{ mozError }"
-                            android:visibility="@{ mozError == null ? View.GONE : View.VISIBLE }"/>
+
+                        <include layout="@layout/error"
+                                 errorMessage="@{mozError}" />
                     </LinearLayout>
 
                     <ProgressBar
@@ -584,11 +579,10 @@
                                     android:text="Reach Delta"/>
                             </LinearLayout>
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@{ alexaError }"
-                            android:visibility="@{ alexaError == null ? View.GONE : View.VISIBLE }"/>
+
+                        <include layout="@layout/error"
+                                 errorMessage="@{alexaError}" />
+
                     </LinearLayout>
                     <ProgressBar
                         android:visibility="@{ alexaLoading ? View.VISIBLE : View.GONE }"
