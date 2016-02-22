@@ -87,9 +87,35 @@ public class HtmlParser {
         };
     }
 
+    /**
+     * Get HTML data by requesting the specified URL, then parsing the response content
+     * @param url
+     * @return
+     */
     public HtmlData getHtmlData(String url){
-
-        return theDistanceMetaData();
+        InputStream is = null;
+        try {
+            is = getUrl(url);
+            if(null == is){
+                return null;
+            }
+            ParsedData response = (ParsedData) parseData(is);
+            response.parseDate = new Date();
+            response.canonicalUrl = url;
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+            // todo: handle exception
+            return null;
+        } finally {
+            if(null != is){
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public HtmlData parseData(@NonNull InputStream htmlStream) {
@@ -174,10 +200,12 @@ public class HtmlParser {
     }
 
     static class ParsedData implements HtmlData {
-        public String title;
-        public List<String> h1 = new ArrayList<>(15);
-        public List<String> h2 = new ArrayList<>(15);
-        public String meta;
+        String title = "";
+        List<String> h1 = new ArrayList<>(15);
+        List<String> h2 = new ArrayList<>(15);
+        String meta = "";
+        Date parseDate;
+        String canonicalUrl;
 
         @Override
         public String getPageTitle() {
@@ -186,7 +214,7 @@ public class HtmlParser {
 
         @Override
         public String getCanonicalUrl() {
-            return null;
+            return canonicalUrl;
         }
 
         @Override
@@ -211,7 +239,7 @@ public class HtmlParser {
 
         @Override
         public Date getDateChecked() {
-            return null;
+            return parseDate;
         }
     }
 }

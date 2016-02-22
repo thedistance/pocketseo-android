@@ -4,6 +4,9 @@
 
 package io.pocketseo.model;
 
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.Locale;
@@ -67,8 +70,32 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public void getHtmldata(String url, boolean refresh, Callback<HtmlData> callbacks) {
-        callbacks.success(mParser.getHtmlData(url));
+    public void getHtmldata(String url, boolean refresh, final Callback<HtmlData> callbacks) {
+        String sanitisedUrl = sanitiseUrl(url);
+        if(null == sanitisedUrl){
+            callbacks.error("Cannot understand URL");
+            return;
+        }
+        loadHtmlDataFromWeb(sanitisedUrl, callbacks);
+    }
+
+    private void loadHtmlDataFromWeb(String url, final Callback<HtmlData> callbacks){
+        new AsyncTask<String, Void, HtmlData>(){
+            @Override
+            protected HtmlData doInBackground(String... params) {
+                String url = params[0];
+                return mParser.getHtmlData(url);
+            }
+
+            @Override
+            protected void onPostExecute(HtmlData htmlData) {
+                if(htmlData == null){
+                    callbacks.error("Cannot get webpage data");
+                } else {
+                    callbacks.success(htmlData);
+                }
+            }
+        }.execute(url);
     }
 
     private void loadWebsiteMetricsFromWeb(final String website, final Callback<MozScape> callbacks){
@@ -115,4 +142,31 @@ public class DataRepositoryImpl implements DataRepository {
             }
         });
     }
+
+    /**
+     * Try to work out what the user meant for a URL - try prefixing missing "http://"
+     * @param url
+     * @return null, or a validated URL
+     */
+    public static String sanitiseUrl(String url) {
+        Uri u = Uri.parse(url);
+
+        String scheme = u.getScheme();
+        if (scheme == null)  u = Uri.parse("http://" + url);
+
+        scheme = u.getScheme();
+        if(!scheme.equals("http") && !scheme.equals("https")){
+            Log.e("UrlSanitise", "Scheme not recognised");
+            return null;
+        }
+
+        String host = u.getHost();
+        if(TextUtils.isEmpty(host)){
+            Log.e("UrlSanitise", "Host not specified");
+            return null;
+        }
+
+        return u.toString();
+    }
+
 }

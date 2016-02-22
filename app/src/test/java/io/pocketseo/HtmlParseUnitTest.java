@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import io.pocketseo.htmlparser.HtmlParser;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by pharris on 19/02/16.
@@ -26,14 +27,12 @@ public class HtmlParseUnitTest {
 
     @Before
     public void setup(){
-        mParser = new HtmlParser(null);
+        mParser = new HtmlParser(new OkHttpClient());
     }
 
     @Test
     @LargeTest
     public void check_html_from_static_file() {
-//        HtmlData data = mParser.getHtmlData("https://thedistance.co.uk/");
-
         InputStream is = null;
         try {
             is = new FileInputStream(TEST_DATA_FILE);
@@ -57,5 +56,21 @@ public class HtmlParseUnitTest {
         Assert.assertEquals("Parsed H1 incorrectly", testMeta.getH1TagList(), data.getH1TagList());
         Assert.assertEquals("Parsed H2 incorrectly", testMeta.getH2TagList(), data.getH2TagList());
 //        Assert.assertEquals("Parsed URL incorrectly", testMeta.getCanonicalUrl(), data.getCanonicalUrl());
+    }
+
+    @Test
+    @LargeTest
+    public void check_html_from_web(){
+        HtmlData data = mParser.getHtmlData("http://thedistance.co.uk/");
+
+        if(data == null){
+            Assert.fail("Data parsing failed - null response");
+            return;
+        }
+
+        Assert.assertNotNull("Title missing", data.getPageTitle());
+        Assert.assertNotNull("Meta description missing", data.getMetaDescription());
+        Assert.assertNotNull("H1 missing", data.getH1TagList());
+        Assert.assertNotNull("h2 missing", data.getH2TagList());
     }
 }
