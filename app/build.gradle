@@ -78,4 +78,5 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'org.ccil.cowan.tagsoup:tagsoup:1.2.1'
 }

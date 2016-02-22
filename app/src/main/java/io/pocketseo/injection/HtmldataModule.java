@@ -21,7 +21,7 @@ public class HtmldataModule {
     @Provides
     @Singleton
     public HtmlParser provideParser(final PocketSeoApplication context, OkHttpClient okHttpClient) {
-        return new HtmlParser();
+        return new HtmlParser(okHttpClient);
     }
 
 }
