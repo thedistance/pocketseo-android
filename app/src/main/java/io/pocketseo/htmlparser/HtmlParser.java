@@ -92,7 +92,7 @@ public class HtmlParser {
      * @param url
      * @return
      */
-    public HtmlData getHtmlData(String url) throws ParserError {
+    public HtmlParser.HtmlDataImpl getHtmlData(String url) throws ParserError {
         InputStream is = null;
         try {
             Request request = new Request.Builder()
@@ -114,7 +114,7 @@ public class HtmlParser {
             if(null == is){
                 throw new ParserError("Cannot retrieve data");
             }
-            ParsedData response = (ParsedData) parseData(is);
+            HtmlDataImpl response = (HtmlDataImpl) parseData(is);
             response.parseDate = new Date();
             response.ssl = ssl;
             response.canonicalUrl = url;
@@ -134,7 +134,7 @@ public class HtmlParser {
         try {
             XMLReader xmlReader = XMLReaderFactory.createXMLReader("org.ccil.cowan.tagsoup.Parser");
 
-            final ParsedData data = new ParsedData();
+            final HtmlDataImpl data = new HtmlDataImpl();
             ContentHandler handler = new DefaultHandler() {
 
                 boolean inTitle = false;
@@ -200,7 +200,7 @@ public class HtmlParser {
     }
 
 
-    static class ParsedData implements HtmlData {
+    public static class HtmlDataImpl implements HtmlData {
         String title = "";
         List<String> h1 = new ArrayList<>(15);
         List<String> h2 = new ArrayList<>(15);

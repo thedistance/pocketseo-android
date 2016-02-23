@@ -5,9 +5,9 @@
 package io.pocketseo.webservice.alexa;
 
 import io.pocketseo.webservice.alexa.model.AlexaData;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by pharris on 18/02/16.
@@ -17,5 +17,5 @@ public interface AlexaWebService {
 
     // I don't know what these arguments mean
     @GET("data?cli=10&data=snbamz")
-    Call<AlexaData> getAlexaData(@Query("url") String url);
+    Observable<AlexaData> getAlexaData(@Query("url") String url);
 }

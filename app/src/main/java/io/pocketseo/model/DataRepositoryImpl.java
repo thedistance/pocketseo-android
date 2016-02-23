@@ -9,8 +9,6 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.util.Locale;
-
 import io.pocketseo.HtmlData;
 import io.pocketseo.htmlparser.HtmlParser;
 import io.pocketseo.webservice.alexa.AlexaWebService;
@@ -18,17 +16,21 @@ import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
-import retrofit2.Call;
-import retrofit2.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class DataRepositoryImpl implements DataRepository {
 
     public interface DataCache {
         MozScape getWebsiteMetrics(String url);
         AlexaScore getAlexaScore(String url);
+        HtmlData getHtmldata(String url);
 
         void store(String url, MSUrlMetrics body);
         void store(String url, AlexaData body);
+        void store(String url, HtmlParser.HtmlDataImpl body);
     }
 
 
@@ -49,34 +51,153 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public void getWebsiteMetrics(String website, boolean refresh, final Callback<MozScape> callbacks) {
-        MozScape cachedValue = mCache.getWebsiteMetrics(website);
-        if(null == cachedValue || refresh){
-            loadWebsiteMetricsFromWeb(website, callbacks);
-        } else {
-            Log.d("DataRepo", String.format("Cache hit for %s", website));
-            callbacks.success(cachedValue);
-        }
+    public Observable<MozScape> getWebsiteMetrics(final String website, final boolean refresh) {
+        Observable<MSUrlMetrics> webServiceResponse = mMozWebService.getUrlMetrics(website, MSUrlMetrics.getBitmask(), mMozAuthenticator.getAuthenticationMap())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .doOnEach(new Subscriber<MSUrlMetrics>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(MSUrlMetrics msUrlMetrics) {
+                        mCache.store(website, msUrlMetrics);
+                        Log.d("DataRepo", String.format("Caching %s", website));
+                    }
+                });
+
+        Observable<MozScape> cacheResponse = Observable.create(new Observable.OnSubscribe<MozScape>() {
+            @Override
+            public void call(Subscriber<? super MozScape> subscriber) {
+                if(!refresh) {
+                    MozScape cachedValue = mCache.getWebsiteMetrics(website);
+                    if (null != cachedValue) {
+                        Log.d("DataRepo", String.format("Cache hit for %s", website));
+                        subscriber.onNext(cachedValue);
+                    }
+                }
+                subscriber.onCompleted();
+            }
+        });
+
+        return Observable
+                .concat(cacheResponse, webServiceResponse)
+                .first();
     }
 
     @Override
-    public void getAlexaScore(String website, boolean refresh, Callback<AlexaScore> callbacks) {
-        AlexaScore cachedValue = mCache.getAlexaScore(website);
-        if(null == cachedValue || refresh) {
-            loadAlexaScoreFromWeb(website, callbacks);
-        } else {
-            callbacks.success(cachedValue);
-        }
+    public Observable<AlexaScore> getAlexaScore(final String website, final boolean refresh) {
+        Observable<AlexaData> webServiceResponse = mAlexaWebService.getAlexaData(website)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .doOnEach(new Subscriber<AlexaData>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(AlexaData alexaData) {
+                        mCache.store(website, alexaData);
+                        Log.d("DataRepo", String.format("Caching %s", website));
+                    }
+                });
+
+        Observable<AlexaScore> cacheResponse = Observable.create(new Observable.OnSubscribe<AlexaScore>() {
+            @Override
+            public void call(Subscriber<? super AlexaScore> subscriber) {
+                if(!refresh) {
+                    AlexaScore cachedValue = mCache.getAlexaScore(website);
+                    if (null != cachedValue) {
+                        Log.d("DataRepo", String.format("Cache hit for %s", website));
+                        subscriber.onNext(cachedValue);
+                    }
+                }
+                subscriber.onCompleted();
+            }
+        });
+
+        return Observable
+                .concat(cacheResponse, webServiceResponse)
+                .first();
     }
 
     @Override
-    public void getHtmldata(String url, boolean refresh, final Callback<HtmlData> callbacks) {
-        String sanitisedUrl = sanitiseUrl(url);
-        if(null == sanitisedUrl){
-            callbacks.error("Cannot understand URL");
-            return;
-        }
-        loadHtmlDataFromWeb(sanitisedUrl, callbacks);
+    public Observable<HtmlData> getHtmldata(final String url, final boolean refresh) {
+        Observable<HtmlParser.HtmlDataImpl> webServiceResponse =
+                Observable.create(new Observable.OnSubscribe<HtmlParser.HtmlDataImpl>() {
+                    @Override
+                    public void call(Subscriber<? super HtmlParser.HtmlDataImpl> subscriber) {
+                        try {
+                            String sanitisedUrl = sanitiseUrl(url);
+                            if (null == sanitisedUrl) {
+                                subscriber.onError(new HtmlParser.ParserError("Cannot understand URL"));
+                            } else {
+                                HtmlParser.HtmlDataImpl data = mParser.getHtmlData(sanitisedUrl);
+                                subscriber.onNext(data);
+                            }
+                        } catch (HtmlParser.ParserError parserError) {
+                            parserError.printStackTrace();
+                            subscriber.onError(parserError);
+                        } catch (RuntimeException e){
+                            e.printStackTrace();
+                            subscriber.onError(e);
+                        }
+                        subscriber.onCompleted();
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .doOnEach(new Subscriber<HtmlParser.HtmlDataImpl>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HtmlParser.HtmlDataImpl htmlData) {
+                        mCache.store(url, htmlData);
+                        Log.d("DataRepo", String.format("Caching %s", url));
+                    }
+                });
+
+        Observable<HtmlData> cacheResponse = Observable.create(new Observable.OnSubscribe<HtmlData>() {
+            @Override
+            public void call(Subscriber<? super HtmlData> subscriber) {
+                if(!refresh) {
+                    HtmlData cachedValue = mCache.getHtmldata(url);
+                    if (null != cachedValue) {
+                        Log.d("DataRepo", String.format("Cache hit for %s", url));
+                        subscriber.onNext(cachedValue);
+                    }
+                }
+                subscriber.onCompleted();
+            }
+        });
+
+        return Observable
+                .concat(cacheResponse, webServiceResponse)
+                .first();
     }
 
     private void loadHtmlDataFromWeb(String url, final Callback<HtmlData> callbacks){
@@ -105,49 +226,8 @@ public class DataRepositoryImpl implements DataRepository {
         }.execute(url);
     }
 
-    private void loadWebsiteMetricsFromWeb(final String website, final Callback<MozScape> callbacks){
-        Log.d("DataRepo", String.format("Load web for %s", website));
-        mMozWebService.getUrlMetrics(website, MSUrlMetrics.getBitmask(), mMozAuthenticator.getAuthenticationMap()).enqueue(new retrofit2.Callback<MSUrlMetrics>() {
-            @Override
-            public void onResponse(Call<MSUrlMetrics> call, Response<MSUrlMetrics> response) {
-                if(response.isSuccess()) {
-                    mCache.store(website, response.body());
-                    callbacks.success(response.body());
-                } else {
-                    callbacks.error(String.format(Locale.US, "Error code %d", response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MSUrlMetrics> call, Throwable t) {
-                callbacks.error(t.getMessage());
-            }
-        });
-    }
-
     private void loadAlexaScoreFromWeb(final String website, final Callback<AlexaScore> callbacks){
-        Log.d("DataRepo", String.format("Load web for %s", website));
-        mAlexaWebService.getAlexaData(website).enqueue(new retrofit2.Callback<AlexaData>() {
-            @Override
-            public void onResponse(Call<AlexaData> call, Response<AlexaData> response) {
-                if(response.isSuccess()) {
-                    AlexaData alexaData = response.body();
-                    if(!alexaData.isComplete()){
-                        callbacks.error("Cannot get response from Alexa");
-                    } else {
-                        mCache.store(website, response.body());
-                        callbacks.success(response.body());
-                    }
-                } else {
-                    callbacks.error(String.format(Locale.US, "Error code %d", response.code()));
-                }
-            }
 
-            @Override
-            public void onFailure(Call<AlexaData> call, Throwable t) {
-                callbacks.error(t.getMessage());
-            }
-        });
     }
 
     /**

@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import io.pocketseo.HtmlData;
+import io.pocketseo.htmlparser.HtmlParser;
 import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 
@@ -52,5 +54,22 @@ public class DataCacheImpl implements DataRepositoryImpl.DataCache {
     @Override
     public void store(String url, AlexaData body) {
         mPrefs.edit().putString("alexa:" + url, mGson.toJson(body)).apply();
+    }
+
+    @Override
+    public HtmlData getHtmldata(String url) {
+        String cachedValue = mPrefs.getString("htmldata:" + url, null);
+        if(null == cachedValue) return null;
+        try {
+            HtmlData data = mGson.fromJson(cachedValue, HtmlParser.HtmlDataImpl.class);
+            return data;
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public void store(String url, HtmlParser.HtmlDataImpl body) {
+        mPrefs.edit().putString("htmldata:" + url, mGson.toJson(body)).apply();
     }
 }

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
+import rx.Subscriber;
 
 /**
  * Created by pharris on 17/02/16.
@@ -49,18 +50,25 @@ public class UrlMetricsPresenter {
         mView.showHtmldataLoading(true);
         mView.showHtmldataError(null);
 
-        mRepo.getHtmldata(websiteUrl, force, new DataRepository.Callback<HtmlData>() {
+        mRepo.getHtmldata(websiteUrl, force).subscribe(new Subscriber<HtmlData>() {
             @Override
-            public void success(HtmlData data) {
-                mView.showHtmldataLoading(false);
-                mView.showHtmldataResult(data);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void error(String message) {
+            public void onError(Throwable e) {
                 mView.showHtmldataLoading(false);
                 mView.showHtmldataResult(null);
-                mView.showHtmldataError(message);
+                mView.showHtmldataError(e.getMessage());
+
+            }
+
+            @Override
+            public void onNext(HtmlData htmlData) {
+                mView.showHtmldataLoading(false);
+                mView.showHtmldataError(null);
+                mView.showHtmldataResult(htmlData);
             }
         });
     }
@@ -68,37 +76,50 @@ public class UrlMetricsPresenter {
     private void loadMoz(String websiteUrl, boolean force) {
         mView.showMozLoading(true);
         mView.showMozError(null);
-        mRepo.getWebsiteMetrics(websiteUrl, force, new DataRepository.Callback<MozScape>() {
-            @Override
-            public void success(MozScape data) {
-                mView.showMozLoading(false);
-                mView.showMozResult(data);
-            }
+        mRepo.getWebsiteMetrics(websiteUrl, force)
+                .subscribe(new Subscriber<MozScape>() {
+                    @Override
+                    public void onCompleted() {
 
-            @Override
-            public void error(String message) {
-                mView.showMozLoading(false);
-                mView.showMozError(message);
-                mView.showMozResult(null);
-            }
-        });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.showMozLoading(false);
+                        mView.showMozError(e.getMessage());
+                        mView.showMozResult(null);
+                    }
+
+                    @Override
+                    public void onNext(MozScape mozScape) {
+                        mView.showMozLoading(false);
+                        mView.showMozError(null);
+                        mView.showMozResult(mozScape);
+                    }
+                });
     }
 
     private void loadAlexa(String websiteUrl, boolean force) {
         mView.showAlexaLoading(true);
         mView.showAlexaError(null);
-        mRepo.getAlexaScore(websiteUrl, force, new DataRepository.Callback<AlexaScore>() {
+        mRepo.getAlexaScore(websiteUrl, force).subscribe(new Subscriber<AlexaScore>() {
             @Override
-            public void success(AlexaScore data) {
-                mView.showAlexaLoading(false);
-                mView.showAlexaResult(data);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void error(String message) {
+            public void onError(Throwable e) {
                 mView.showAlexaLoading(false);
-                mView.showAlexaError(message);
+                mView.showAlexaError(e.getMessage());
                 mView.showAlexaResult(null);
+            }
+
+            @Override
+            public void onNext(AlexaScore alexaScore) {
+                mView.showAlexaLoading(false);
+                mView.showAlexaError(null);
+                mView.showAlexaResult(alexaScore);
             }
         });
     }
