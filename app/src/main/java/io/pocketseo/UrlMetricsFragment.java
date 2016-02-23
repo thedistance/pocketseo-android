@@ -88,17 +88,17 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         // Inflate the layout for this fragment
         mBinding = FragmentUrlMetricsBinding.inflate(inflater, container, false);
 
-        mBinding.mozscapeExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.cardMoz.mozscapeExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mBinding.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
 
-        mBinding.htmldataExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.cardHtmldata.htmldataExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mBinding.htmldataExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                mBinding.cardHtmldata.htmldataExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
         int accentColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
@@ -107,11 +107,11 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         float density = getResources().getDisplayMetrics().density;
 
         pageAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
-        mBinding.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
+        mBinding.cardMoz.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
         domainAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
-        mBinding.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
+        mBinding.cardMoz.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
         spamDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
-        mBinding.spamScoreContainer.setBackgroundDrawable(spamDrawable);
+        mBinding.cardMoz.spamScoreContainer.setBackgroundDrawable(spamDrawable);
         return mBinding.getRoot();
     }
 
