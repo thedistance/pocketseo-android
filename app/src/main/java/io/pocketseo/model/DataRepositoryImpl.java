@@ -19,6 +19,7 @@ import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class DataRepositoryImpl implements DataRepository {
@@ -99,6 +100,12 @@ public class DataRepositoryImpl implements DataRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
+                .filter(new Func1<AlexaData, Boolean>() {
+                    @Override
+                    public Boolean call(AlexaData alexaData) {
+                        return null != alexaData && alexaData.isComplete();
+                    }
+                })
                 .doOnEach(new Subscriber<AlexaData>() {
                     @Override
                     public void onCompleted() {
