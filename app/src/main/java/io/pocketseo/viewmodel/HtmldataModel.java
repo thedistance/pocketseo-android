@@ -79,6 +79,10 @@ public class HtmldataModel {
         return "Not encrypted";
     }
 
+    public String getFinalUrl(){
+        return mData.getFinalUrl();
+    }
+
     public String getDateChecked(){
         return df.format(mData.getDateChecked());
     }

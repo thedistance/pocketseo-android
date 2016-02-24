@@ -81,6 +81,11 @@ public class HtmlParser {
             }
 
             @Override
+            public String getFinalUrl() {
+                return "http://thedistance.co.uk/";
+            }
+
+            @Override
             public Date getDateChecked() {
                 return new Date();
             }
@@ -117,7 +122,7 @@ public class HtmlParser {
             HtmlDataImpl response = (HtmlDataImpl) parseData(is);
             response.parseDate = new Date();
             response.ssl = ssl;
-            response.canonicalUrl = url;
+            response.finalUrl = url;
             return response;
         } finally {
             if(null != is){
@@ -138,6 +143,7 @@ public class HtmlParser {
             ContentHandler handler = new DefaultHandler() {
 
                 boolean inTitle = false;
+                boolean inHead = false;
                 boolean inH1= false;
                 boolean inH2= false;
 
@@ -145,7 +151,9 @@ public class HtmlParser {
 
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     // ...
-                    if(qName.equals("title")){
+                    if(qName.equals("head")){
+                        inHead = true;
+                    } else if(inHead && qName.equals("title")){
                         inTitle = true;
                         inProgress = new StringBuilder();
                     } else if(qName.toLowerCase().equals("h1")) {
@@ -154,17 +162,26 @@ public class HtmlParser {
                     } else if(qName.toLowerCase().equals("h2")) {
                         inH2 = true;
                         inProgress = new StringBuilder();
-                    } else if(qName.toLowerCase().equals("meta")){
-                        if("description".equals(attributes.getValue("name"))) {
+                    } else if(inHead && qName.toLowerCase().equals("meta")) {
+                        String name = attributes.getValue("name");
+                        if (null != name) name = name.toLowerCase();
+                        if ("description".equals(name)) {
                             data.meta = attributes.getValue("content");
                         }
+                    } else if(inHead && qName.toLowerCase().equals("link")) {
+                        String rel = attributes.getValue("rel");
+                        if(null != rel) rel = rel.toLowerCase();
+                        if("canonical".equals(rel)){
+                            data.canonicalUrl = attributes.getValue("href");
+                        }
                     }
-
                 }
 
                 @Override
                 public void endElement(String uri, String localName, String qName) throws SAXException {
-                    if(qName.toLowerCase().equals("title")){
+                    if (qName.toLowerCase().equals("head")){
+                        inHead = false;
+                    } else if(qName.toLowerCase().equals("title")){
                         data.title = inProgress.toString();
                         inTitle = false;
                         inProgress = null;
@@ -207,6 +224,7 @@ public class HtmlParser {
         String meta = "";
         Date parseDate;
         String canonicalUrl;
+        String finalUrl;
         boolean ssl;
 
         @Override
@@ -237,6 +255,11 @@ public class HtmlParser {
         @Override
         public boolean isSsl() {
             return ssl;
+        }
+
+        @Override
+        public String getFinalUrl() {
+            return finalUrl;
         }
 
         @Override

@@ -15,5 +15,6 @@ public interface HtmlData {
     List<String> getH2TagList();
     boolean isSsl();
 
+    String getFinalUrl();
     Date getDateChecked();
 }

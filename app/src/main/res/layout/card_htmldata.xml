@@ -203,7 +203,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:text="@{htmldata.canonicalUrl}"/>
+                            android:text="@{htmldata.finalUrl}"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_weight="0"
