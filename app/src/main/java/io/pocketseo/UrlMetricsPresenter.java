@@ -35,6 +35,8 @@ public class UrlMetricsPresenter {
         void sendEmail(String recipient, String subject, String body, String userInstruction);
 
         void openWebsite(String url, String userInstruction);
+
+        void makePhoneCall(String phoneNumber);
     }
 
     public UrlMetricsPresenter(View view, DataRepository repo){
@@ -133,8 +135,12 @@ public class UrlMetricsPresenter {
         mView.sendEmail("pocketseo@thedistance.co.uk", "Pocket SEO Feedback", null, "Send Feedback");
     }
 
-    public void getInTouch(){
-        
+    public void getInTouchByEmail(){
+        mView.sendEmail("hello@thedistance.co.uk", null, null, "Get in touch");
+    }
+
+    public void getInTouchByPhone() {
+        mView.makePhoneCall("01904999999");
     }
 
     public void visitWebsite(){

@@ -5,14 +5,14 @@
 package io.pocketseo;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +22,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import java.util.List;
-
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
 import io.pocketseo.injection.ApplicationComponent;
 import io.pocketseo.model.AlexaScore;
@@ -31,6 +29,7 @@ import io.pocketseo.model.MozScape;
 import io.pocketseo.viewmodel.AlexaScoreViewModel;
 import io.pocketseo.viewmodel.HtmldataModel;
 import io.pocketseo.viewmodel.MozScapeViewModel;
+import uk.co.thedistance.thedistancekit.IntentHelper;
 
 
 /**
@@ -122,7 +121,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         mBinding.cardThedistance.buttonGetInTouch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.getInTouch();
+//                mPresenter.getInTouch();
+                showGetInTouchOptions();
             }
         });
         mBinding.cardThedistance.buttonVisitWebsite.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +133,31 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         });
 
         return mBinding.getRoot();
+    }
+
+    private void showGetInTouchOptions() {
+        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1234"));
+        if(!IntentHelper.canSystemHandleIntent(getActivity(), dialIntent)){
+            // system cannot dial out so only show email option
+            mPresenter.getInTouchByEmail();
+            return;
+        }
+
+        final String[] options = new String[]{"Phone","Email"};
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Get in touch")
+                .setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0){
+                            mPresenter.getInTouchByPhone();
+                        } else {
+                            mPresenter.getInTouchByEmail();
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     @Override
@@ -184,9 +209,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
         viewIntent.setData(uri);
 
-        PackageManager manager = getActivity().getPackageManager();
-        List<ResolveInfo> infos = manager.queryIntentActivities(viewIntent, 0);
-        if (infos.size() > 0) {
+        if(IntentHelper.canSystemHandleIntent(getActivity(), viewIntent)) {
             // Then there is application can handle your intent
             startActivity(viewIntent);
         }else{
@@ -275,5 +298,19 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
         viewWebsite.setData(Uri.parse(url));
         startActivity(Intent.createChooser(viewWebsite, userInstruction));
+    }
+
+    @Override
+    public void makePhoneCall(String phoneNumber) {
+        Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        if( IntentHelper.canSystemHandleIntent(getActivity(), dialIntent) ) {
+            startActivity(dialIntent);
+        } else {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Cannot dial")
+                    .setMessage("Cannot dial a phone number from this device")
+                    .setNegativeButton("Dismiss", null)
+                    .show();
+        }
     }
 }
