@@ -22,10 +22,8 @@
     </data>
 
 
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_margin="8dp"
         android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.GONE : View.VISIBLE }"
         android:layout_height="wrap_content">
 

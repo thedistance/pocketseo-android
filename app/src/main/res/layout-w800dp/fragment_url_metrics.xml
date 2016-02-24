@@ -44,14 +44,19 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="4dp">
 
                 <include layout="@layout/card_htmldata"
                          android:id="@+id/card_htmldata"
+                         android:layout_margin="4dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
                          htmldata="@{htmldata}"
                          htmldataError="@{htmldataError}"
                          htmldataLoading="@{htmldataLoading}" />
@@ -61,11 +66,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-
                     <include layout="@layout/card_moz"
                              android:layout_width="0dp"
                              android:layout_weight="1"
                              android:layout_height="wrap_content"
+                             android:layout_margin="4dp"
                              android:id="@+id/card_moz"
                              mozscape="@{mozscape}"
                              mozError="@{mozError}"
@@ -76,11 +81,22 @@
                              android:layout_width="0dp"
                              android:layout_weight="1"
                              android:layout_height="wrap_content"
+                             android:layout_margin="4dp"
                              alexaScore="@{alexaScore}"
                              alexaError="@{alexaError}"
                              alexaLoading="@{alexaLoading}" />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <include layout="@layout/card_thedistance"
+                         android:layout_margin="4dp"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
