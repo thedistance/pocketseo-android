@@ -25,8 +25,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
+import io.pocketseo.injection.ApplicationComponent;
 import io.pocketseo.model.AlexaScore;
-import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
 import io.pocketseo.viewmodel.AlexaScoreViewModel;
 import io.pocketseo.viewmodel.HtmldataModel;
@@ -112,14 +112,34 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         mBinding.cardMoz.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
         spamDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
         mBinding.cardMoz.spamScoreContainer.setBackgroundDrawable(spamDrawable);
+
+        mBinding.cardThedistance.buttonSendFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.sendFeedback();
+            }
+        });
+        mBinding.cardThedistance.buttonGetInTouch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getInTouch();
+            }
+        });
+        mBinding.cardThedistance.buttonVisitWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.visitWebsite();
+            }
+        });
+
         return mBinding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        DataRepository repo = PocketSeoApplication.getApplicationComponent(getActivity()).repository();
-        mPresenter = new UrlMetricsPresenter(this, repo);
+        ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
+        mPresenter = new UrlMetricsPresenter(this, component.repository());
 
         if(null != mWebsite) performSearch(mWebsite, false);
     }
@@ -243,5 +263,17 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     @Override
     public void showHtmldataError(String message) {
         mBinding.setHtmldataError(message);
+    }
+
+    @Override
+    public void sendEmail(String recipient, String subject, String body, String userInstruction) {
+        EmailHelper.sendEmail(getActivity(), recipient, subject, body, userInstruction);
+    }
+
+    @Override
+    public void openWebsite(String url, String userInstruction) {
+        Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
+        viewWebsite.setData(Uri.parse(url));
+        startActivity(Intent.createChooser(viewWebsite, userInstruction));
     }
 }

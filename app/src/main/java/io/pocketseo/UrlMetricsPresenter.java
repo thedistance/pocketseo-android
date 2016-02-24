@@ -31,6 +31,10 @@ public class UrlMetricsPresenter {
         void showHtmldataLoading(boolean loading);
         void showHtmldataResult(HtmlData result);
         void showHtmldataError(String message);
+
+        void sendEmail(String recipient, String subject, String body, String userInstruction);
+
+        void openWebsite(String url, String userInstruction);
     }
 
     public UrlMetricsPresenter(View view, DataRepository repo){
@@ -124,5 +128,17 @@ public class UrlMetricsPresenter {
         });
     }
 
+
+    public void sendFeedback(){
+        mView.sendEmail("pocketseo@thedistance.co.uk", "Pocket SEO Feedback", null, "Send Feedback");
+    }
+
+    public void getInTouch(){
+        
+    }
+
+    public void visitWebsite(){
+        mView.openWebsite("https://thedistance.co.uk/", "Visit The Distance Website");
+    }
 
 }
