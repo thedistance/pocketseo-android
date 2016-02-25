@@ -37,6 +37,7 @@ public class AlexaData implements AlexaScore {
                 && domain.rank != null;
     }
 
+    @Root(strict = false)
     public static class SearchDomain{
         @Element(name="POPULARITY")
         Popularity popularity;
@@ -48,6 +49,7 @@ public class AlexaData implements AlexaScore {
         Rank rank;
     }
 
+    @Root(strict = false)
     public static class Popularity {
         @Attribute(name="URL")
         String url;
@@ -60,11 +62,13 @@ public class AlexaData implements AlexaScore {
 
     }
 
+    @Root(strict = false)
     public static class Reach {
         @Attribute(name="RANK")
         int rank;
     }
 
+    @Root(strict = false)
     public static class Rank {
         @Attribute(name="DELTA")
         int delta;
