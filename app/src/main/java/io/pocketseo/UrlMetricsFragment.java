@@ -143,9 +143,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
             return;
         }
 
-        final String[] options = new String[]{"Phone","Email"};
+        final String[] options = new String[]{"Call Us", "Email Us"};
         new AlertDialog.Builder(getActivity())
-                .setTitle("Get in touch")
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
