@@ -6,6 +6,7 @@ package io.pocketseo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
 /**
@@ -13,10 +14,8 @@ import android.support.annotation.NonNull;
  */
 public class EmailHelper {
 
-    public static void sendEmail(Context context, @NonNull  String recipient, String subject, String body, String userInstruction){
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, recipient);
+    public static void sendEmail(Context context, @NonNull String recipient, String subject, String body, String userInstruction){
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", recipient, null));
         intent.putExtra(Intent.EXTRA_SUBJECT, null != subject ? subject : "");
         intent.putExtra(Intent.EXTRA_TEXT, null != body ? body : "");
 

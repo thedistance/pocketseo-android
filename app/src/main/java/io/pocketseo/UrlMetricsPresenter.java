@@ -6,6 +6,8 @@ package io.pocketseo;
 
 import android.text.TextUtils;
 
+import java.util.Locale;
+
 import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
@@ -132,7 +134,8 @@ public class UrlMetricsPresenter {
 
 
     public void sendFeedback(){
-        mView.sendEmail("pocketseo@thedistance.co.uk", "Pocket SEO Feedback", null, "Send Feedback");
+        String body = String.format(Locale.US, "\n\nSent from PocketSEO %s (%d) on Android", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
+        mView.sendEmail("pocketseo@thedistance.co.uk", "Pocket SEO Feedback", body, "Send Feedback");
     }
 
     public void getInTouchByEmail(){
@@ -140,7 +143,7 @@ public class UrlMetricsPresenter {
     }
 
     public void getInTouchByPhone() {
-        mView.makePhoneCall("01904999999");
+        mView.makePhoneCall("+441904217171");
     }
 
     public void visitWebsite(){
