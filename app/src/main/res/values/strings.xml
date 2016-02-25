@@ -25,4 +25,14 @@
     <string name="website_name_hint">Enter a URL</string>
     <string name="status_code">Status</string>
     <string name="settings">Settings</string>
+
+
+    <string-array name="libraries">
+        <item>com.squareup:otto</item>
+        <item>com.squareup:butterknife</item>
+        <item>com.squareup:okhttp3</item>
+        <item>com.squareup:retrofit2</item>
+        <item>io.reactivex:rxandroid</item>
+        <item>com.google.dagger:dagger</item>
+    </string-array>
 </resources>
