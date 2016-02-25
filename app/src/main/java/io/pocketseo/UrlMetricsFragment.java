@@ -166,7 +166,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
         mPresenter = new UrlMetricsPresenter(this, component.repository());
 
-        if(null != mWebsite) performSearch(mWebsite, false);
+        if(null != mWebsite) performSearch(mWebsite, savedInstanceState == null);
     }
 
     @Override
