@@ -5,10 +5,12 @@
 package io.pocketseo.viewmodel;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.text.DateFormat;
 
 import io.pocketseo.HtmlData;
+import io.pocketseo.R;
 
 /**
  * Created by pharris on 19/02/16.
@@ -23,6 +25,7 @@ public class HtmldataModel {
     }
 
     public String getPageTitle(){
+        if(TextUtils.isEmpty(mData.getPageTitle())) return "(No content)";
         return mData.getPageTitle();
     }
     public String getPageTitleLength(){
@@ -30,10 +33,12 @@ public class HtmldataModel {
     }
 
     public String getCanonicalUrl(){
+        if(TextUtils.isEmpty(mData.getCanonicalUrl())) return "(No content)";
         return mData.getCanonicalUrl();
     }
 
     public String getMetaDescription(){
+        if(TextUtils.isEmpty(mData.getMetaDescription())) return "(No content)";
         return mData.getMetaDescription();
     }
 
@@ -47,6 +52,7 @@ public class HtmldataModel {
             if(sb.length() > 0) sb.append(" • ");
             sb.append(s);
         }
+        if(sb.length() == 0) return "(No content)";
         return sb.toString();
     }
 
@@ -64,6 +70,7 @@ public class HtmldataModel {
             if(sb.length() > 0) sb.append(" • ");
             sb.append(s);
         }
+        if(sb.length() == 0) return "(No content)";
         return sb.toString();
     }
     public String getH2ListLength(){
@@ -75,9 +82,15 @@ public class HtmldataModel {
     }
 
     public String getSsl(){
-        if(mData.isSsl()) return "SSL Encrypted";
-        return "Not encrypted";
+        if(mData.isSsl()) return "Yes";
+        return "No";
     }
+
+    public int getSslImage(){
+        if(mData.isSsl()) return R.drawable.ic_lock_outline_black_48dp;
+        return R.drawable.ic_lock_open_black_48dp;
+    }
+
 
     public String getFinalUrl(){
         return mData.getFinalUrl();
