@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import io.pocketseo.PocketSeoApplication;
+import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 
 @Singleton
@@ -16,4 +17,6 @@ public interface ApplicationComponent {
     PocketSeoApplication appContext();
 
     DataRepository repository();
+
+    AnalyticsTracker analytics();
 }

@@ -4,11 +4,13 @@
 
 package io.pocketseo;
 
+import android.net.Uri;
 import android.text.TextUtils;
 
 import java.util.Locale;
 
 import io.pocketseo.model.AlexaScore;
+import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
 import rx.Subscriber;
@@ -20,6 +22,8 @@ public class UrlMetricsPresenter {
 
     private final View mView;
     private final DataRepository mRepo;
+    private final AnalyticsTracker mAnalytics;
+    private String mWebsite;
 
     interface View {
         void showMozLoading(boolean loading);
@@ -36,22 +40,30 @@ public class UrlMetricsPresenter {
 
         void sendEmail(String recipient, String subject, String body, String userInstruction);
 
-        void openWebsite(String url, String userInstruction);
+        void openWebsite(String url);
 
         void makePhoneCall(String phoneNumber);
     }
 
-    public UrlMetricsPresenter(View view, DataRepository repo){
+    public UrlMetricsPresenter(View view, DataRepository repo, AnalyticsTracker analytics){
         mView = view;
         mRepo = repo;
+        mAnalytics = analytics;
     }
 
-    public void performSearch(String websiteUrl, boolean force){
+    public void performSearch(String websiteUrl, boolean firstLoad, boolean refresh){
         if(TextUtils.isEmpty(websiteUrl)) return;
+        mWebsite = websiteUrl;
 
-        loadMoz(websiteUrl, force);
-        loadAlexa(websiteUrl, force);
-        loadHtmlData(websiteUrl, force);
+        if(firstLoad) {
+            mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_LOADURL, mWebsite);
+        } else if(refresh){
+            mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_REFRESHDATA, mWebsite);
+        }
+
+        loadMoz(websiteUrl, firstLoad || refresh);
+        loadAlexa(websiteUrl, firstLoad || refresh);
+        loadHtmlData(websiteUrl, firstLoad || refresh);
     }
 
     private void loadHtmlData(String websiteUrl, boolean force) {
@@ -132,6 +144,17 @@ public class UrlMetricsPresenter {
         });
     }
 
+    public void openInBrowser(){
+        mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_OPEN_IN_BROWSER, mWebsite);
+
+        Uri uri = Uri.parse(mWebsite);
+        // TODO: parse URL and check it can be launched
+        if(uri.getScheme() == null){
+            uri = Uri.parse("http://" + mWebsite);
+        }
+        mView.openWebsite(uri.toString());
+    }
+
 
     public void sendFeedback(){
         String body = String.format(Locale.US, "\n\nSent from PocketSEO %s (%d) on Android", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
@@ -146,8 +169,9 @@ public class UrlMetricsPresenter {
         mView.makePhoneCall("+441904217171");
     }
 
-    public void visitWebsite(){
-        mView.openWebsite("https://thedistance.co.uk/", "Visit The Distance Website");
+    public void visitTheDistanceWebsite(){
+        mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_VIEW_DISTANCE_WEBSITE, null);
+        mView.openWebsite("https://thedistance.co.uk/");
     }
 
 }

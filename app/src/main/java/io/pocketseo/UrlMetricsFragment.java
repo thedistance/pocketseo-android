@@ -30,6 +30,7 @@ import io.pocketseo.viewmodel.AlexaScoreViewModel;
 import io.pocketseo.viewmodel.HtmldataModel;
 import io.pocketseo.viewmodel.MozScapeViewModel;
 import uk.co.thedistance.thedistancekit.IntentHelper;
+import uk.co.thedistance.thedistancekit.TheDistanceFragment;
 
 
 /**
@@ -37,7 +38,7 @@ import uk.co.thedistance.thedistancekit.IntentHelper;
  * Use the {@link UrlMetricsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.View {
+public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetricsPresenter.View {
 
     private static final String ARG_WEBSITE = "website";
 
@@ -67,6 +68,8 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        setScreenName(AnalyticsValues.SCREEN_URLMETRICS);
 
         if(null != savedInstanceState){
             mWebsite = savedInstanceState.getString(ARG_WEBSITE);
@@ -128,7 +131,7 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
         mBinding.cardThedistance.buttonVisitWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.visitWebsite();
+                mPresenter.visitTheDistanceWebsite();
             }
         });
 
@@ -163,9 +166,9 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
-        mPresenter = new UrlMetricsPresenter(this, component.repository());
+        mPresenter = new UrlMetricsPresenter(this, component.repository(), component.analytics());
 
-        if(null != mWebsite) performSearch(mWebsite, savedInstanceState == null);
+        if(null != mWebsite) performSearch(mWebsite, savedInstanceState == null, false);
     }
 
     @Override
@@ -185,42 +188,19 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_browser:
-                showInBrowser();
+                mPresenter.openInBrowser();
                 return true;
             case R.id.action_refresh:
-                performSearch(mWebsite, true);
+                performSearch(mWebsite, false, true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void showInBrowser() {
-        if(null == mWebsite){
-            Toast.makeText(getActivity(), "Load website first before trying to open", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Uri uri = Uri.parse(mWebsite);
-        // TODO: parse URL and check it can be launched
-        if(uri.getScheme() == null){
-            uri = Uri.parse("http://" + mWebsite);
-        }
-        Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-        viewIntent.setData(uri);
-
-        if(IntentHelper.canSystemHandleIntent(getActivity(), viewIntent)) {
-            // Then there is application can handle your intent
-            startActivity(viewIntent);
-        }else{
-            // No Application can handle your intent
-            Toast.makeText(getActivity(), "Cannot open this site", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void performSearch(String website, boolean force){
+    public void performSearch(String website, boolean firstLoad, boolean refresh){
         this.mWebsite = website;
         getActivity().supportInvalidateOptionsMenu();
-        mPresenter.performSearch(website, force);
+        mPresenter.performSearch(website, firstLoad, refresh);
     }
 
     @Override
@@ -293,10 +273,17 @@ public class UrlMetricsFragment extends Fragment implements UrlMetricsPresenter.
     }
 
     @Override
-    public void openWebsite(String url, String userInstruction) {
+    public void openWebsite(String url) {
         Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
         viewWebsite.setData(Uri.parse(url));
-        startActivity(Intent.createChooser(viewWebsite, userInstruction));
+
+        if(IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
+            // Then there is application can handle your intent
+            startActivity(viewWebsite);
+        }else{
+            // No Application can handle your intent
+            Toast.makeText(getActivity(), "Cannot open this site", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

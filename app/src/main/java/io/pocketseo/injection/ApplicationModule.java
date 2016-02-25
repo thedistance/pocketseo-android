@@ -15,6 +15,8 @@ import dagger.Module;
 import dagger.Provides;
 import io.pocketseo.PocketSeoApplication;
 import io.pocketseo.htmlparser.HtmlParser;
+import io.pocketseo.model.AnalyticsTracker;
+import io.pocketseo.model.AnalyticsTrackerImpl;
 import io.pocketseo.model.DataCacheImpl;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.DataRepositoryImpl;
@@ -51,5 +53,10 @@ public class ApplicationModule {
     @Provides
     SharedPreferences provideSharedPreferences(PocketSeoApplication mApplication){
         return mApplication.getSharedPreferences(DataRepositoryImpl.PREF_FILE, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    AnalyticsTracker provideAnalytics(PocketSeoApplication application){
+        return new AnalyticsTrackerImpl(application);
     }
 }
