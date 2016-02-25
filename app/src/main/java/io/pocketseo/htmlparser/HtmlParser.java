@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.pocketseo.HtmlData;
 import okhttp3.OkHttpClient;
@@ -107,9 +108,13 @@ public class HtmlParser {
             boolean ssl;
             try {
                 Response response = mOkHttpClient.newCall(request).execute();
+                int code = response.code();
+                if (code < 200 || code >= 400) {
+                    throw new ParserError(String.format(Locale.US, "Server responded with status code %d", code));
+                }
                 url = response.request().url().toString();
-                is = response.body().byteStream();
                 ssl = response.request().isHttps();
+                is = response.body().byteStream();
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new ParserError(e.getMessage());
@@ -119,6 +124,7 @@ public class HtmlParser {
             if(null == is){
                 throw new ParserError("Cannot retrieve data");
             }
+
             HtmlDataImpl response = (HtmlDataImpl) parseData(is);
             response.parseDate = new Date();
             response.ssl = ssl;
