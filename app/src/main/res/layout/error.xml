@@ -19,6 +19,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:alpha="0.54"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +29,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/black54"
             android:text="@{ errorMessage }"/>
     </LinearLayout>
 </layout>
