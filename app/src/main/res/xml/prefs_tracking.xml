@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="@string/pref_key_data_collection"
+        android:title="@string/pref_header_data_collection">
+
+        <Preference
+            android:persistent="true"
+            android:selectable="false"
+            android:summary="@string/prefs_summary" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_analytics_enabled"
+            android:summaryOff="@string/pref_description_analytics_off"
+            android:summaryOn="@string/pref_description_analytics_on"
+            android:title="@string/pref_title_analytics" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_crashlytics_enabled"
+            android:summaryOff="@string/pref_description_crashlytics_off"
+            android:summaryOn="@string/pref_description_crashlytics_on"
+            android:title="@string/pref_title_crashlytics" />
+    </PreferenceCategory>
+</PreferenceScreen>

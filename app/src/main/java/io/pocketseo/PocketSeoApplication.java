@@ -5,6 +5,7 @@
 package io.pocketseo;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -24,8 +25,7 @@ public class PocketSeoApplication extends TheDistanceApplication {
     public void onCreate() {
         super.onCreate();
 
-//        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (BuildConfig.USE_CRASHLYTICS /* && preferences.getBoolean(getString(R.string.pref_key_send_crashes), true) */) {
+        if (BuildConfig.USE_CRASHLYTICS && PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_analytics_enabled), true)) {
             Fabric.with(this, new Crashlytics());
         }
 
@@ -37,11 +37,10 @@ public class PocketSeoApplication extends TheDistanceApplication {
 
     @Override
     protected synchronized void initializeTracker() {
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        if (mTracker == null && preferences.getBoolean("send_usage", true)) {
+        if (mTracker == null && PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_crashlytics_enabled), true)) {
             mTracker = GoogleAnalytics.getInstance(this)
                     .newTracker(R.xml.global_tracker);
-//        }
+        }
     }
 
     public static ApplicationComponent getApplicationComponent(Context context){

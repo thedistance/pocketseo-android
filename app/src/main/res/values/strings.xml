@@ -1,4 +1,17 @@
 <resources>
+
+    <string name="pref_title_crashlytics">Send crash reports</string>
+    <string name="pref_description_crashlytics_on">Crashlytics is used to collect crash reports which help us fix any issues more quickly.</string>
+    <string name="pref_description_crashlytics_off">Crash reports will not be collected.</string>
+    <string name="pref_title_analytics">Send usage data</string>
+    <string name="pref_description_analytics_on">Google Analytics is used to help us build a picture of how the app is used to inform updates and new developments.</string>
+    <string name="pref_description_analytics_off">Usage data will not be collected.</string>
+    <string name="pref_key_data_collection">data_collection</string>
+    <string name="prefs_summary">We collect data on the usage of this app to understand how we can make it better and ensure that it meets your needs. All the data collected is anonymous and cannot be traced to you.</string>
+    <string name="pref_header_data_collection">Data Collected</string>
+    <string name="pref_key_crashlytics_enabled">send_crashes</string>
+    <string name="pref_key_analytics_enabled">send_analytics</string>
+
     <string name="app_name">PocketSEO</string>
     <string name="libraries">Libraries used in this app:</string>
     <string name="about_this_app">About this app</string>
@@ -11,4 +24,5 @@
     <string name="mozscape">MOZscape</string>
     <string name="website_name_hint">Enter a URL</string>
     <string name="status_code">Status</string>
+    <string name="settings">Settings</string>
 </resources>

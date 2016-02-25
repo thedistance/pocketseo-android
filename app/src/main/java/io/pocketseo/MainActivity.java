@@ -96,8 +96,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_about:
                 showAboutActivity();
                 return true;
+            case R.id.action_settings:
+                showSettingsActivity();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private void showAboutActivity() {
