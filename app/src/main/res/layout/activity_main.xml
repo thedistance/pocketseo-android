@@ -12,32 +12,25 @@
         android:orientation="vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:elevation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:minHeight="?attr/actionBarSize">
+            <!-- elevation of zero is a hack to remove the shadow between toolbar and the fragment -->
+            <EditText
+                android:id="@+id/website_name"
+                android:inputType="textWebEditText"
+                android:imeOptions="actionGo"
+                android:hint="@string/website_name_hint"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:layout_collapseMode="none"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:minHeight="?attr/actionBarSize">
+                android:layout_height="wrap_content"/>
 
-                <EditText
-                    android:id="@+id/website_name"
-                    android:inputType="textWebEditText"
-                    android:imeOptions="actionGo"
-                    android:hint="@string/website_name_hint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+        </android.support.v7.widget.Toolbar>
 
         <FrameLayout
             android:layout_width="match_parent"

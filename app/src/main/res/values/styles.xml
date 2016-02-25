@@ -10,4 +10,8 @@
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.TabStrip">
+        <item name="android:textColor">@color/white87</item>
+    </style>
+
 </resources>

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if(null == savedInstanceState){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.content, UrlMetricsFragment.newInstance(null), FRAGMENT_URL_METRICS)
+                    .add(R.id.content, TabManagerFragment.newInstance(null), FRAGMENT_URL_METRICS)
                     .commit();
         }
     }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.content, UrlMetricsFragment.newInstance(website), FRAGMENT_URL_METRICS)
+                .replace(R.id.content, TabManagerFragment.newInstance(website), FRAGMENT_URL_METRICS)
                 .commit();
 
 //        UrlMetricsFragment frag = (UrlMetricsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_URL_METRICS);
