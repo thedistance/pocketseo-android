@@ -94,6 +94,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mBinding.cardMoz.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.statusCode.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             }
         });
 
