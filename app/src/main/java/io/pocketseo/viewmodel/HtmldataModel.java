@@ -87,8 +87,8 @@ public class HtmldataModel {
     }
 
     public int getSslImage(){
-        if(mData.isSsl()) return R.drawable.ic_lock_outline_black_48dp;
-        return R.drawable.ic_lock_open_black_48dp;
+        if(mData.isSsl()) return R.drawable.ic_lock_outline_black_24dp;
+        return R.drawable.ic_lock_open_black_24dp;
     }
 
 
