@@ -68,7 +68,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/PocketSeo.Subhead"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp"
                         android:text="Page Title"/>
@@ -76,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/PocketSeo.Subhead"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp"
                         android:text="@{htmldata.pageTitleLength}"/>
@@ -97,13 +97,13 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/PocketSeo.Subhead"
                         android:text="Meta Description"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/PocketSeo.Subhead"
                         android:text="@{htmldata.metaDescriptionLength}"/>
                 </LinearLayout>
 
@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/PocketSeo.Subhead"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp"
                         android:text="Canonical URL"/>
@@ -145,13 +145,13 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textAppearance="@style/PocketSeo.Subhead"
                             android:text="H1"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textAppearance="@style/PocketSeo.Subhead"
                             android:text="@{htmldata.h1ListLength}"/>
                     </LinearLayout>
 
@@ -170,13 +170,13 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textAppearance="@style/PocketSeo.Subhead"
                             android:text="H2"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textAppearance="@style/PocketSeo.Subhead"
                             android:text="@{htmldata.h2ListLength}"/>
                     </LinearLayout>
 
@@ -196,7 +196,7 @@
                             android:id="@+id/title_ssl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textAppearance="@style/PocketSeo.Subhead"
                             android:text="SSL"/>
 
                         <TextView

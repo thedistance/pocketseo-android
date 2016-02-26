@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textAppearance="@style/PocketSeo.Subhead"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/authority"/>
@@ -186,7 +186,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/PocketSeo.Subhead"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp"
                         android:text="@string/established_links"/>

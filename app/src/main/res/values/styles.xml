@@ -21,4 +21,8 @@
         <item name="android:textColor">@color/white87</item>
     </style>
 
+    <style name="PocketSeo.Subhead" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
 </resources>
