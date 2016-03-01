@@ -86,7 +86,7 @@ public class PieDrawable extends Drawable {
 
     @Override
     public boolean getPadding(Rect padding) {
-        padding.set(48,48,48,48);
+        padding.set(0,48,0,48);
         return true;
     }
 
