@@ -1,12 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'pl.droidsonroids.localization'
 apply from: "$rootDir/libraries/thedistancekit/utils.gradle"
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
-
+localization {
+    csvFile = file('strings.tsv')
+    csvStrategy = org.apache.commons.csv.CSVStrategy.TDF_STRATEGY
+    outputFileName = 'generated_strings.xml'
+}
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
