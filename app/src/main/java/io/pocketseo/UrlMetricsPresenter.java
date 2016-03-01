@@ -4,10 +4,9 @@
 
 package io.pocketseo;
 
+import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-
-import java.util.Locale;
 
 import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.AnalyticsTracker;
@@ -24,6 +23,14 @@ public class UrlMetricsPresenter {
     private final DataRepository mRepo;
     private final AnalyticsTracker mAnalytics;
     private String mWebsite;
+
+    private String distanceWebsite;
+    private String distancePhoneNumber;
+    private String distanceEmail;
+    private String feedbackEmail;
+    private String feedbackSubject;
+    private String feedbackPrompt;
+    private String feedbackBody;
 
     interface View {
         void showMozLoading(boolean loading);
@@ -45,10 +52,20 @@ public class UrlMetricsPresenter {
         void makePhoneCall(String phoneNumber);
     }
 
-    public UrlMetricsPresenter(View view, DataRepository repo, AnalyticsTracker analytics){
+    public UrlMetricsPresenter(Context context, View view, DataRepository repo, AnalyticsTracker analytics){
         mView = view;
         mRepo = repo;
         mAnalytics = analytics;
+
+        distanceWebsite = context.getString(R.string.TheDistanceContactWebsiteURL);
+        distancePhoneNumber = context.getString(R.string.TheDistanceContactPhone);
+        distanceEmail = context.getString(R.string.TheDistanceContactEmail);
+        feedbackEmail = context.getString(R.string.TheDistancePanelSendFeedbackEmailAddress);
+        feedbackPrompt = context.getString(R.string.TheDistancePanelButtonSendFeedback);
+        feedbackSubject = context.getString(R.string.TheDistancePanelSendFeedbackSubject);
+        feedbackBody = context.getString(R.string.TheDistancePanelEmailBody, context.getString(R.string.app_name), "Android", BuildConfig.VERSION_NAME);
+
+        // String body = String.format(Locale.US, "\n\nSent from PocketSEO %s (%d) on Android", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
     }
 
     public void performSearch(String websiteUrl, boolean firstLoad, boolean refresh){
@@ -157,21 +174,20 @@ public class UrlMetricsPresenter {
 
 
     public void sendFeedback(){
-        String body = String.format(Locale.US, "\n\nSent from PocketSEO %s (%d) on Android", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
-        mView.sendEmail("pocketseo@thedistance.co.uk", "Pocket SEO Feedback", body, "Send Feedback");
+        mView.sendEmail(feedbackEmail, feedbackSubject, feedbackBody, feedbackPrompt);
     }
 
     public void getInTouchByEmail(){
-        mView.sendEmail("hello@thedistance.co.uk", null, null, "Get in touch");
+        mView.sendEmail(distanceEmail, null, null, "Get in touch");
     }
 
     public void getInTouchByPhone() {
-        mView.makePhoneCall("+441904217171");
+        mView.makePhoneCall(distancePhoneNumber);
     }
 
     public void visitTheDistanceWebsite(){
         mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_VIEW_DISTANCE_WEBSITE, null);
-        mView.openWebsite("https://thedistance.co.uk/");
+        mView.openWebsite(distanceWebsite);
     }
 
 }

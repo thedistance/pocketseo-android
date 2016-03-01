@@ -44,7 +44,7 @@ URLAlexaPopularity	Popularity Text	The text accompanying the Alexa Popularity Te
 URLAlexaReachRank	Reach Rank	The text accompanying the Alexa Reach Rank value
 URLAlexaRankDelta	Rank Delta	The text accompanying the Alexa Rank Delta value
 TheDistancePanelHeadline	PocketSEO developed by	The headline text above TheDistance Logo
-TheDistancePanelTagline	Yorkshire's leading iOS & Android App Developers	The tagline text below TheDistance Logo
+TheDistancePanelTagline	Yorkshire's Leading iOS & Android App Development Agency	The tagline text below TheDistance Logo
 TheDistancePanelButtonGetInTouch	Get In Touch	The button text for the get in touch button on TheDistance panel
 TheDistancePanelGetInTouchOptionEmail	Email Us	The button text for the sending an email via Get In Touch on TheDistance panel
 TheDistancePanelGetInTouchOptionPhone	Call Us	The button text for making a phone call via Get In Touch on TheDistance panel
@@ -53,22 +53,24 @@ TheDistancePanelGetInTouchOptionCancel	Cancel	The button text for cancelling fro
 TheDistanceContactCompany	The Distance	The company field for The Distance contact
 TheDistanceContactPhone	+441904 217 171	The phone number field for The Distance contact
 TheDistanceContactEmail	hello+pocketseo@thedistance.co.uk	The email address field for The Distance contact
+TheDistanceContactWebsiteURL	https://thedistance.co.uk	The url for TheDistance homepage.
 TheDistancePanelButtonSendFeedback	Send Feedback	The button text for the feeback button on TheDistance panel
 TheDistancePanelSendFeedbackSubject	Pocket SEO Feedback	The email subject text for feeback on TheDistance panel
-TheDistancePanelEmailBody	Sent from %@, version %@	The email body for the feedback and get in touch emails. The first argument should be the app name, the second should be the app version.
+TheDistancePanelEmailBody	Sent from %1$@ (%2$@), version %3$@	The email body for the feedback and get in touch emails. The first argument should be the app name, the second should be the device and platform (i.e. iPhone 6s iPhone OS 9.2), the third should be the app version.
 TheDistancePanelSendFeedbackEmailAddress	pocketseo@thedistance.co.uk	The email address for contacting The Distance for feedback
 TheDistancePanelButtonVisitWebsite	Visit Website	The button text for the Visit Website button on TheDistance panel
 TheDistancePanelVisitWebsiteURL	https://thedistance.co.uk	The url the user should visit from the Visit Website button on TheDistance panel.
 URLLinksTitle	Links	The tab title for the links tab on the URL details screen.
+URLExtensionOpenInAppButtonTitle	Open In App	The button title for the 'Open In App' button.
 SettingsTitle	Settings	Title for Settings used in menu item and as page title
 AboutTitle	About	Title for about screen, used in menu item and as page title
 AboutLibrariesTitle	Libraries used in this app:	The title used when listing libaries used in the app
 ApplicationName	PocketSEO	Application name - used in Android app drawer and as title of the main activity
-SettingsDataCollectionTitle	Data Collected	
-SettingsDataCollectionSummary	We collect data on the usage of this app to understand how we can make it better and ensure that it meets your needs. All the data collected is anonymous and cannot be traced to you.	
-SettingsCrashlyticsTitle	Send crash reports	
-SettingsCrashlyticsOn	Crashlytics is used to collect crash reports which help us fix any issues more quickly.	
-SettingsCrashlyticsOff	Crash reports will not be collected.	
-SettingsAnalyticsTitle	Send usage data	
-SettingsAnalyticsOn	Google Analytics is used to help us build a picture of how the app is used to inform updates and new developments.	
-SettingsAnalyticsOff	Usage data will not be collected.	
+SettingsDataCollectionTitle	Data Collected	Title for settings section
+SettingsDataCollectionSummary	We collect data on the usage of this app to understand how we can make it better and ensure that it meets your needs. All the data collected is anonymous and cannot be traced to you.	Summay for data collection settings
+SettingsCrashlyticsTitle	Send crash reports	Subtitle for crashlytics settings
+SettingsCrashlyticsOn	Crashlytics is used to collect crash reports which help us fix any issues more quickly.	Shown when crashlytics is enabled
+SettingsCrashlyticsOff	Crash reports will not be collected.	Shown when crashlytics is disabled
+SettingsAnalyticsTitle	Send usage data	Subtitle for analytics settings
+SettingsAnalyticsOn	Google Analytics is used to help us build a picture of how the app is used to inform updates and new developments.	Shown when analytics is enabled
+SettingsAnalyticsOff	Usage data will not be collected.	Shown when analytics is enabled
