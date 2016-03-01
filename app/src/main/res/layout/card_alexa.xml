@@ -58,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:text="Popularity Text"/>
+                        android:text="@string/URLAlexaPopularity"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:text="Reach Rank"/>
+                        android:text="@string/URLAlexaReachRank"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:text="Reach Delta"/>
+                        android:text="@string/URLAlexaRankDelta"/>
                 </LinearLayout>
             </LinearLayout>
 

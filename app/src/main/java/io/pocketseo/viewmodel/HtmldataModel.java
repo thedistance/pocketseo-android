@@ -19,13 +19,20 @@ public class HtmldataModel {
     private final HtmlData mData;
     private final DateFormat df;
 
+    private String sslYes;
+    private String sslNo;
+    private String noContent;
+
     public HtmldataModel(HtmlData data, Context context) {
         this.mData = data;
         df = DateFormat.getDateTimeInstance();
+        sslYes = context.getString(R.string.URLPageMetaDataUsingSSL);
+        sslNo = context.getString(R.string.URLPageMetaDataNotUsingSSL);
+        noContent = context.getString(R.string.URLPageMetaDataNoContent);
     }
 
     public String getPageTitle(){
-        if(TextUtils.isEmpty(mData.getPageTitle())) return "(No content)";
+        if(TextUtils.isEmpty(mData.getPageTitle())) return noContent;
         return mData.getPageTitle();
     }
     public String getPageTitleLength(){
@@ -33,12 +40,12 @@ public class HtmldataModel {
     }
 
     public String getCanonicalUrl(){
-        if(TextUtils.isEmpty(mData.getCanonicalUrl())) return "(No content)";
+        if(TextUtils.isEmpty(mData.getCanonicalUrl())) return noContent;
         return mData.getCanonicalUrl();
     }
 
     public String getMetaDescription(){
-        if(TextUtils.isEmpty(mData.getMetaDescription())) return "(No content)";
+        if(TextUtils.isEmpty(mData.getMetaDescription())) return noContent;
         return mData.getMetaDescription();
     }
 
@@ -52,7 +59,7 @@ public class HtmldataModel {
             if(sb.length() > 0) sb.append(" • ");
             sb.append(s);
         }
-        if(sb.length() == 0) return "(No content)";
+        if(sb.length() == 0) return noContent;
         return sb.toString();
     }
 
@@ -70,7 +77,7 @@ public class HtmldataModel {
             if(sb.length() > 0) sb.append(" • ");
             sb.append(s);
         }
-        if(sb.length() == 0) return "(No content)";
+        if(sb.length() == 0) return noContent;
         return sb.toString();
     }
     public String getH2ListLength(){
@@ -82,8 +89,8 @@ public class HtmldataModel {
     }
 
     public String getSsl(){
-        if(mData.isSsl()) return "Yes";
-        return "No";
+        if(mData.isSsl()) return sslYes;
+        return sslNo;
     }
 
     public int getSslImage(){

@@ -7,25 +7,25 @@
 
     <PreferenceCategory
         android:key="@string/pref_key_data_collection"
-        android:title="@string/pref_header_data_collection">
+        android:title="@string/SettingsDataCollectionTitle">
 
         <Preference
             android:persistent="true"
             android:selectable="false"
-            android:summary="@string/prefs_summary" />
+            android:summary="@string/SettingsDataCollectionSummary" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key_analytics_enabled"
-            android:summaryOff="@string/pref_description_analytics_off"
-            android:summaryOn="@string/pref_description_analytics_on"
-            android:title="@string/pref_title_analytics" />
+            android:summaryOff="@string/SettingsAnalyticsOff"
+            android:summaryOn="@string/SettingsAnalyticsOn"
+            android:title="@string/SettingsAnalyticsTitle" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/pref_key_crashlytics_enabled"
-            android:summaryOff="@string/pref_description_crashlytics_off"
-            android:summaryOn="@string/pref_description_crashlytics_on"
-            android:title="@string/pref_title_crashlytics" />
+            android:summaryOff="@string/SettingsCrashlyticsOff"
+            android:summaryOn="@string/SettingsCrashlyticsOn"
+            android:title="@string/SettingsCrashlyticsTitle" />
     </PreferenceCategory>
 </PreferenceScreen>

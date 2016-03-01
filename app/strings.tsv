@@ -1,0 +1,74 @@
+name	default	comment
+URLDataSearchHint	Search For Metrics	The text field hint on the URL Data page.
+URLMetricsTitle	URL Metrics	The tab title for the URL Metrics tab.
+URLMetricsEmptyText	Enter a URL above to get started.	The text displayed on first launch when there is no content to show.
+URLMetricsOpenInBrowser	Open in browser	Shown in menu to open URL in browser (if no room for icon)
+URLMetricsRefresh	Refresh	Shown in menu to refresh content (if no room for icon)
+URLPageMetaDataNoContent	(No Content)	The text shown on the HTML Page Meta Data if there is no data found for a given field.
+URLPageMetaDataHeadline	HTML Metadata	The headline on the top of the HTML Metadata page.
+URLPageMetaDataPageTitle	Page Title	The title on the meta data panel for the page title
+URLPageMetaDataCanonicalURL	Canonical URL	The title on the meta data panel for the canonical url
+URLPageMetaDataMetaDescription	Meta Description	The title on the meta data panel for the page description
+URLPageMetaDataH1Tags	H1	The title on the meta data panel for the h1 tag elements
+URLPageMetaDataH2Tags	H2	The title on the meta data panel for the h2 tag elements
+URLPageMetaDataSSLTitle	SSL	The title on the meta data panel for whether the site is using SSL
+URLPageMetaDataUsingSSL	Yes	The affirmative on the meta data panel for whether the site is using SSL
+URLPageMetaDataNotUsingSSL	No	The negative on the meta data panel for whether the site is using SSL
+URLMozscapeAuthorityTitle	AUTHORITY	The title for the Authroity section of the Mozscape panel
+URLMozscapeAuthorityPage	Page Authority	The subtitle for the mozscape page authority
+URLMozscapeAuthorityDomain	Domain Authority	The subtitle for the mozscape domain authority
+URLMozscapeAuthoritySpamScore	Spam Score	The subtitle for the mozscape spam score
+URLMozscapeAuthorityInfo	<#value#>	The help info shown for the authority section of the mozscape panel
+URLMozscapeLinksTitle	ESTABLISHED LINKS	The title for the Links section of the mozscape panel
+URLMozscapeLinksRootDomain	Root Domains	The subtitle for the number of Root Domains in the links section of the mozscape panel
+URLMozscapeLinksTotalLinks	Total Links	The subtitle for the total number of links in the links section of the mozscape panel
+URLMozscapeLinksInfo	<#value#>	The help info shown for the links section of the mozscape panel
+URLMozscapeLastIndexedTitle	LAST INDEXED	The subtitle of the last index date on the mozscape panel
+URLMozscapeNextIndexedTitle	NEXT INDEXING	The subtitle of the next index date on the mozscape panel
+URLMozscapeStatusCode0	Not Crawled	The text to display for a Mozscape HTTP Status Code error 0
+URLMozscapeStatusCode1	Network Error	The text to display for a Mozscape HTTP Status Code error 1
+URLMozscapeStatusCode2	Transcode Failure (failure detecting content type)	The text to display for a Mozscape HTTP Status Code error 2
+URLMozscapeStatusCode3	Binary Content	The text to display for a Mozscape HTTP Status Code error 3
+URLMozscapeStatusCode4	Invalid HTTP status code	The text to display for a Mozscape HTTP Status Code error 4
+URLMozscapeStatusCode5	Blocked by robots.txt	The text to display for a Mozscape HTTP Status Code error 5
+URLMozscapeStatusCode6	Blocked by request	The text to display for a Mozscape HTTP Status Code error 6
+URLMozscapeStatusCode7	Internal status code to crawler	The text to display for a Mozscape HTTP Status Code error 7
+URLMozscapeStatusCode8	Internal status code to crawler	The text to display for a Mozscape HTTP Status Code error 8
+URLMozscapeStatusCode9	Page has a meta no-index tag	The text to display for a Mozscape HTTP Status Code error 9
+URLMozscapeStatusCode10	Page too big	The text to display for a Mozscape HTTP Status Code error 10
+URLMozscapeStatusCode11	Currently unused	The text to display for a Mozscape HTTP Status Code error 11
+URLMozscapeStatusCode12	Currently unused	The text to display for a Mozscape HTTP Status Code error 12
+URLMozscapeStatusCode13	Failed to fetch robots.txt	The text to display for a Mozscape HTTP Status Code error 13
+URLMozscapeStatusCodeHTTP	HTTP Response code %d	The text to display for non-Mozscape specific HTTP Status Codes
+URLAlexaPopularity	Popularity Text	The text accompanying the Alexa Popularity Text value
+URLAlexaReachRank	Reach Rank	The text accompanying the Alexa Reach Rank value
+URLAlexaRankDelta	Rank Delta	The text accompanying the Alexa Rank Delta value
+TheDistancePanelHeadline	PocketSEO developed by	The headline text above TheDistance Logo
+TheDistancePanelTagline	Yorkshire's leading iOS & Android App Developers	The tagline text below TheDistance Logo
+TheDistancePanelButtonGetInTouch	Get In Touch	The button text for the get in touch button on TheDistance panel
+TheDistancePanelGetInTouchOptionEmail	Email Us	The button text for the sending an email via Get In Touch on TheDistance panel
+TheDistancePanelGetInTouchOptionPhone	Call Us	The button text for making a phone call via Get In Touch on TheDistance panel
+TheDistancePanelGetInTouchOptionContact	Add to Contacts	The button text for adding The Distance Contact via Get In Touch on TheDistance panel
+TheDistancePanelGetInTouchOptionCancel	Cancel	The button text for cancelling from the Get In Touch menu on TheDistance panel
+TheDistanceContactCompany	The Distance	The company field for The Distance contact
+TheDistanceContactPhone	+441904 217 171	The phone number field for The Distance contact
+TheDistanceContactEmail	hello+pocketseo@thedistance.co.uk	The email address field for The Distance contact
+TheDistancePanelButtonSendFeedback	Send Feedback	The button text for the feeback button on TheDistance panel
+TheDistancePanelSendFeedbackSubject	Pocket SEO Feedback	The email subject text for feeback on TheDistance panel
+TheDistancePanelEmailBody	Sent from %@, version %@	The email body for the feedback and get in touch emails. The first argument should be the app name, the second should be the app version.
+TheDistancePanelSendFeedbackEmailAddress	pocketseo@thedistance.co.uk	The email address for contacting The Distance for feedback
+TheDistancePanelButtonVisitWebsite	Visit Website	The button text for the Visit Website button on TheDistance panel
+TheDistancePanelVisitWebsiteURL	https://thedistance.co.uk	The url the user should visit from the Visit Website button on TheDistance panel.
+URLLinksTitle	Links	The tab title for the links tab on the URL details screen.
+SettingsTitle	Settings	Title for Settings used in menu item and as page title
+AboutTitle	About	Title for about screen, used in menu item and as page title
+AboutLibrariesTitle	Libraries used in this app:	The title used when listing libaries used in the app
+ApplicationName	PocketSEO	Application name - used in Android app drawer and as title of the main activity
+SettingsDataCollectionTitle	Data Collected	
+SettingsDataCollectionSummary	We collect data on the usage of this app to understand how we can make it better and ensure that it meets your needs. All the data collected is anonymous and cannot be traced to you.	
+SettingsCrashlyticsTitle	Send crash reports	
+SettingsCrashlyticsOn	Crashlytics is used to collect crash reports which help us fix any issues more quickly.	
+SettingsCrashlyticsOff	Crash reports will not be collected.	
+SettingsAnalyticsTitle	Send usage data	
+SettingsAnalyticsOn	Google Analytics is used to help us build a picture of how the app is used to inform updates and new developments.	
+SettingsAnalyticsOff	Usage data will not be collected.	

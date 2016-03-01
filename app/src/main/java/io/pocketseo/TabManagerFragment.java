@@ -4,6 +4,7 @@
 
 package io.pocketseo;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,7 +52,7 @@ public class TabManagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab_manager, container, false);
-        mBinding.pager.setAdapter(new TabPager(getChildFragmentManager(), mWebsite));
+        mBinding.pager.setAdapter(new TabPager(getChildFragmentManager(), mWebsite, getActivity()));
         mBinding.pagerTabs.setViewPager(mBinding.pager);
 
         final int indicatorColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
@@ -67,15 +68,19 @@ public class TabManagerFragment extends Fragment {
 
     static class TabPager extends FragmentPagerAdapter {
         private final String mWebsite;
+        String[] titles;
 
-        public TabPager(FragmentManager fm, String website) {
+        public TabPager(FragmentManager fm, String website, Context context) {
             super(fm);
             this.mWebsite = website;
+            titles = new String[]{
+                    context.getString(R.string.URLMetricsTitle)
+            };
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return titles.length;
         }
 
         @Override
@@ -83,21 +88,13 @@ public class TabManagerFragment extends Fragment {
             switch (position){
                 case 0:
                     return UrlMetricsFragment.newInstance(mWebsite);
-                case 1:
-                    return new Fragment();
             }
             return null;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "URL Metrics";
-                case 1:
-                    return "Links";
-            }
-            return super.getPageTitle(position);
+            return titles[position];
         }
     }
 }

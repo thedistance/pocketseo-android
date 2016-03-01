@@ -72,7 +72,7 @@
                     android:textAppearance="@style/PocketSeo.Subhead"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/authority"/>
+                    android:text="@string/URLMozscapeAuthorityTitle"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:gravity="center"
-                            android:text="Page Authority"/>
+                            android:text="@string/URLMozscapeAuthorityPage"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:gravity="center"
-                            android:text="Domain Authority"/>
+                            android:text="@string/URLMozscapeAuthorityDomain"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -171,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:gravity="center"
-                            android:text="Spam Score"/>
+                            android:text="@string/URLMozscapeAuthoritySpamScore"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -189,7 +189,7 @@
                         android:textAppearance="@style/PocketSeo.Subhead"
                         android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/established_links"/>
+                        android:text="@string/URLMozscapeLinksTitle"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -204,7 +204,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:text="@string/root_domains"/>
+                            android:text="@string/URLMozscapeLinksRootDomain"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:text="@string/total_links"/>
+                            android:text="@string/URLMozscapeLinksTotalLinks"/>
                     </LinearLayout>
 
 
@@ -233,14 +233,14 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:layout_alignParentLeft="true"
-                            android:text="Last Indexed"/>
+                            android:text="@string/URLMozscapeLastIndexedTitle"/>
                         <TextView
                             android:id="@+id/next_index_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:layout_alignParentRight="true"
-                            android:text="Next Indexing"/>
+                            android:text="@string/URLMozscapeNextIndexedTitle"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

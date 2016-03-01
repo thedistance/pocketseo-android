@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import io.pocketseo.R;
 import io.pocketseo.model.MozScape;
 
 /**
@@ -25,32 +26,32 @@ public class MozScapeViewModel {
     /**
      * lookups for responses from <a href="https://moz.com/help/guides/moz-api/mozscape/api-reference/http">Reference page</a>
      */
-    private static final SparseArray<String> STATUS_CODE_LOOKUP = new SparseArray<>();
-    static {
-        STATUS_CODE_LOOKUP.put(0, "Not Crawled");
-        STATUS_CODE_LOOKUP.put(1, "Network error");
-        STATUS_CODE_LOOKUP.put(2, "Transcode failure (failure detecting content type)");
-        STATUS_CODE_LOOKUP.put(3, "Binary Content");
-        STATUS_CODE_LOOKUP.put(4, "Invalid HTTP status code");
-        STATUS_CODE_LOOKUP.put(5, "Blocked by robots.txt");
-        STATUS_CODE_LOOKUP.put(6, "Blocked by request");
-        STATUS_CODE_LOOKUP.put(7, "Internal status code to crawler");
-        STATUS_CODE_LOOKUP.put(8, "Internal status code to crawler");
-        STATUS_CODE_LOOKUP.put(9, "Page has a meta no-index tag");
-        STATUS_CODE_LOOKUP.put(10, "Page too big");
-        STATUS_CODE_LOOKUP.put(11, "Currently unused");
-        STATUS_CODE_LOOKUP.put(12, "Currently unused");
-        STATUS_CODE_LOOKUP.put(13, "Failed to fetch robots.txt");
-    }
+    private final SparseArray<String> statusCodeLookup = new SparseArray<>();
 
     public MozScapeViewModel(MozScape model, Context context) {
         df = android.text.format.DateFormat.getDateFormat(context);
         nf = NumberFormat.getInstance(context.getResources().getConfiguration().locale);
+
+        statusCodeLookup.put(0, context.getString(R.string.URLMozscapeStatusCode0));
+        statusCodeLookup.put(1, context.getString(R.string.URLMozscapeStatusCode1));
+        statusCodeLookup.put(2, context.getString(R.string.URLMozscapeStatusCode2));
+        statusCodeLookup.put(3, context.getString(R.string.URLMozscapeStatusCode3));
+        statusCodeLookup.put(4, context.getString(R.string.URLMozscapeStatusCode4));
+        statusCodeLookup.put(5, context.getString(R.string.URLMozscapeStatusCode5));
+        statusCodeLookup.put(6, context.getString(R.string.URLMozscapeStatusCode6));
+        statusCodeLookup.put(7, context.getString(R.string.URLMozscapeStatusCode7));
+        statusCodeLookup.put(8, context.getString(R.string.URLMozscapeStatusCode8));
+        statusCodeLookup.put(9, context.getString(R.string.URLMozscapeStatusCode9));
+        statusCodeLookup.put(10, context.getString(R.string.URLMozscapeStatusCode10));
+        statusCodeLookup.put(11, context.getString(R.string.URLMozscapeStatusCode11));
+        statusCodeLookup.put(12, context.getString(R.string.URLMozscapeStatusCode12));
+        statusCodeLookup.put(13, context.getString(R.string.URLMozscapeStatusCode13));
+
         this.model = model;
     }
 
     public String getStatusCode() {
-        String mozError = STATUS_CODE_LOOKUP.get(model.getStatusCode());
+        String mozError = statusCodeLookup.get(model.getStatusCode());
         if(null != mozError) return mozError;
         return String.format(Locale.US, "HTTP Response %d", model.getStatusCode());
     }
