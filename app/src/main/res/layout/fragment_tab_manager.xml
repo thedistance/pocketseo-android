@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+    </data>
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+        <io.pocketseo.SlidingTabLayout
+            android:id="@+id/pager_tabs"
+            android:elevation="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            app:theme="@style/AppTheme.TabStrip"
+            />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</layout>

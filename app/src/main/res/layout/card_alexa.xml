@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="alexaScore"
+            type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
+        <variable
+            name="alexaError"
+            type="java.lang.String" />
+        <variable
+            name="alexaLoading"
+            type="boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+    <!-- alexa card -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:visibility="@{ alexaScore == null &amp;&amp; alexaError == null &amp;&amp; !alexaLoading ? View.GONE : View.VISIBLE }"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/powered_by_alexa"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="@{alexaError == null ? View.VISIBLE : View.GONE }">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:text="@{ alexaScore.popularityText }"
+                        android:layout_marginRight="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:text="@string/URLAlexaPopularity"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:text="@{ alexaScore.reachRank }"
+                        android:layout_marginRight="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:text="@string/URLAlexaReachRank"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:text="@{ alexaScore.rankDelta }"
+                        android:layout_marginRight="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:text="@string/URLAlexaRankDelta"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/error"
+                     errorMessage="@{alexaError}" />
+
+        </LinearLayout>
+        <ProgressBar
+            android:visibility="@{ alexaLoading ? View.VISIBLE : View.GONE }"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </android.support.v7.widget.CardView>
+</layout>
