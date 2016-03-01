@@ -15,11 +15,13 @@ import io.pocketseo.webservice.alexa.AlexaWebService;
 import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
+import io.pocketseo.webservice.mozscape.model.MSNextUpdate;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 public class DataRepositoryImpl implements DataRepository {
@@ -75,6 +77,27 @@ public class DataRepositoryImpl implements DataRepository {
                     }
                 });
 
+
+        Observable<MSNextUpdate> nextUpdateTime = mMozWebService.getNextUpdate(mMozAuthenticator.getAuthenticationMap())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io());
+
+        Observable<MSUrlMetrics> combined = Observable.combineLatest(webServiceResponse, nextUpdateTime, new Func2<MSUrlMetrics, MSNextUpdate, MSUrlMetrics>() {
+            @Override
+            public MSUrlMetrics call(MSUrlMetrics msUrlMetrics, MSNextUpdate msNextUpdate) {
+                if(null == msNextUpdate || null == msUrlMetrics) return null;
+
+                msUrlMetrics.setNextCrawl(msNextUpdate.nextUpdate);
+                return msUrlMetrics;
+            }
+        }).filter(new Func1<MSUrlMetrics, Boolean>() {
+            @Override
+            public Boolean call(MSUrlMetrics msUrlMetrics) {
+                return msUrlMetrics != null;
+            }
+        });
+
         Observable<MozScape> cacheResponse = Observable.create(new Observable.OnSubscribe<MozScape>() {
             @Override
             public void call(Subscriber<? super MozScape> subscriber) {
@@ -90,7 +113,7 @@ public class DataRepositoryImpl implements DataRepository {
         });
 
         return Observable
-                .concat(cacheResponse, webServiceResponse)
+                .concat(cacheResponse, combined)
                 .first();
     }
 

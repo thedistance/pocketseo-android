@@ -6,6 +6,7 @@ package io.pocketseo.webservice.mozscape;
 
 import java.util.Map;
 
+import io.pocketseo.webservice.mozscape.model.MSNextUpdate;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,4 +23,7 @@ public interface MSWebService {
 
     @GET("url-metrics/{website}/")
     Observable<MSUrlMetrics> getUrlMetrics(@Path("website") String website, @Query("Cols") long parameterBitmask, @QueryMap Map<String, String> authParams);
+
+    @GET("metadata/next_update.json")
+    Observable<MSNextUpdate> getNextUpdate(@QueryMap Map<String, String> authParams);
 }

@@ -22,6 +22,8 @@ public class MSUrlMetrics implements MozScape {
     public static final long FLAG_ESTABLISHED_LINKS_TOTAL = 2048l;
     public static final long FLAG_LAST_CRAWL = 144115188075855872l;
 
+    long nextCrawl;
+
     @SerializedName("pda")
     public float domainAuthority;
 
@@ -91,6 +93,11 @@ public class MSUrlMetrics implements MozScape {
 
     @Override
     public Date getNextIndex() {
-        return null;
+        if(0 == nextCrawl) return null;
+        return new Date(nextCrawl* 1000);
+    }
+
+    public void setNextCrawl(long nextCrawl) {
+        this.nextCrawl = nextCrawl;
     }
 }
