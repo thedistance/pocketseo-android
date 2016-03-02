@@ -58,24 +58,7 @@ public class DataRepositoryImpl implements DataRepository {
         Observable<MSUrlMetrics> webServiceResponse = mMozWebService.getUrlMetrics(website, MSUrlMetrics.getBitmask(), mMozAuthenticator.getAuthenticationMap())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .doOnEach(new Subscriber<MSUrlMetrics>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(MSUrlMetrics msUrlMetrics) {
-                        mCache.store(website, msUrlMetrics);
-                        Log.d("DataRepo", String.format("Caching %s", website));
-                    }
-                });
+                .unsubscribeOn(Schedulers.io());
 
 
         Observable<MSNextUpdate> nextUpdateTime = mMozWebService.getNextUpdate(mMozAuthenticator.getAuthenticationMap())
@@ -96,7 +79,23 @@ public class DataRepositoryImpl implements DataRepository {
             public Boolean call(MSUrlMetrics msUrlMetrics) {
                 return msUrlMetrics != null;
             }
-        });
+        }).doOnEach(new Subscriber<MSUrlMetrics>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(MSUrlMetrics msUrlMetrics) {
+                        mCache.store(website, msUrlMetrics);
+                        Log.d("DataRepo", String.format("Caching %s", website));
+                    }
+                });;
 
         Observable<MozScape> cacheResponse = Observable.create(new Observable.OnSubscribe<MozScape>() {
             @Override
