@@ -18,7 +18,7 @@ public class MSUrlMetrics implements MozScape {
     public static final long FLAG_HTTP_STATUS_CODE = 536870912l;
     public static final long FLAG_PAGE_AUTHORITY = 34359738368l;
     public static final long FLAG_SPAM_SCORE = 67108864l;
-    public static final long FLAG_ESTABLISHED_LINKS_ROOT = 512l;
+    public static final long FLAG_ESTABLISHED_LINKS_ROOT = 1024l;
     public static final long FLAG_ESTABLISHED_LINKS_TOTAL = 2048l;
     public static final long FLAG_LAST_CRAWL = 144115188075855872l;
 
@@ -36,7 +36,7 @@ public class MSUrlMetrics implements MozScape {
     @SerializedName("fspsc")
     public int spamScore;
 
-    @SerializedName("uifq")
+    @SerializedName("uipl")
     public int establishedLinksRoot;
 
     @SerializedName("uid")
