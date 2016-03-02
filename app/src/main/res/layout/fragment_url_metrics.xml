@@ -79,6 +79,29 @@
                          alexaError="@{alexaError}"
                          alexaLoading="@{alexaLoading}" />
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1000"
+                    android:padding="16dp"
+                    android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.VISIBLE : View.GONE }">
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/logo_bw"/>
+                        <TextView
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/URLMetricsEmptyText"/>
+                    </LinearLayout>
+                </FrameLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
