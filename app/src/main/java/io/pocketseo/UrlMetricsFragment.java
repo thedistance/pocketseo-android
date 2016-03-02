@@ -167,7 +167,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
-        mPresenter = new UrlMetricsPresenter(this, component.repository(), component.analytics());
+        mPresenter = new UrlMetricsPresenter(getActivity(), this, component.repository(), component.analytics());
 
         if(null != mWebsite) performSearch(mWebsite, savedInstanceState == null, false);
     }
