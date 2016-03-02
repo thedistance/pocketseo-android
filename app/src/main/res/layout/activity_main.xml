@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <variable
+            name="standalone"
+            type="boolean" />
 
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
@@ -22,7 +26,9 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:minHeight="?attr/actionBarSize">
             <!-- elevation of zero is a hack to remove the shadow between toolbar and the fragment -->
+
             <EditText
+                android:visibility="@{standalone ? View.GONE : View.VISIBLE}"
                 android:id="@+id/website_name"
                 android:inputType="textWebEditText"
                 android:imeOptions="actionGo"
@@ -37,5 +43,23 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/content"/>
+
+        <FrameLayout
+            android:background="@color/white87"
+            android:layout_gravity="bottom"
+            android:visibility="@{standalone ? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_gravity="bottom"
+                android:id="@+id/launch_full_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColor="@color/white"
+                android:text="@string/StandaloneLaunchFullAppButton"/>
+
+        </FrameLayout>
     </LinearLayout>
 </layout>

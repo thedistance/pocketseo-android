@@ -4,6 +4,7 @@
 
 package io.pocketseo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -22,6 +24,8 @@ import io.pocketseo.databinding.ActivityMainBinding;
 import uk.co.thedistance.thedistancekit.Analytics;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String EXTRA_WEBSITE = "io.pocketso.website";
 
     private static final String FRAGMENT_URL_METRICS = "urlMetrics";
     private ActivityMainBinding mBinding;
@@ -50,10 +54,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        String website = getIntent().getStringExtra(EXTRA_WEBSITE);
+        if(null != website){
+            mBinding.websiteName.setText(website);
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mBinding.websiteName.getWindowToken(), 0);
+        }
+
         if(null == savedInstanceState){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.content, TabManagerFragment.newInstance(null), FRAGMENT_URL_METRICS)
+                    .add(R.id.content, TabManagerFragment.newInstance(website), FRAGMENT_URL_METRICS)
                     .commit();
         }
     }

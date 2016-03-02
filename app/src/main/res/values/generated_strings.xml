@@ -76,4 +76,5 @@
   <string name="SettingsAnalyticsTitle">Send usage data</string><!-- Subtitle for analytics settings -->
   <string name="SettingsAnalyticsOn">Google Analytics is used to help us build a picture of how the app is used to inform updates and new developments.</string><!-- Shown when analytics is enabled -->
   <string name="SettingsAnalyticsOff">Usage data will not be collected.</string><!-- Shown when analytics is enabled -->
+  <string name="StandaloneLaunchFullAppButton">Launch Full App</string>
 </resources>

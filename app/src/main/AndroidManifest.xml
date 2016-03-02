@@ -21,6 +21,25 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".InlineDetailActivity"
+                  android:noHistory="true"
+                  android:theme="@style/AppTheme.Dialog">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                      android:host="*" />
+                <data android:scheme="https"
+                      android:host="*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="015a3121c76ea8baec90c4a97c7bd1976400adad"/>
