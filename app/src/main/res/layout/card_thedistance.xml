@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textAppearance="@style/PocketSeo.Headline"
                 android:text="@string/TheDistancePanelHeadline"/>
 
             <ImageView
@@ -40,7 +40,9 @@
                 android:id="@+id/button_send_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:textColor="@color/white87"
                 android:text="@string/TheDistancePanelButtonSendFeedback"/>
 
@@ -48,7 +50,9 @@
                 android:id="@+id/button_get_in_touch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:textColor="@color/white87"
                 android:text="@string/TheDistancePanelButtonGetInTouch"/>
 
