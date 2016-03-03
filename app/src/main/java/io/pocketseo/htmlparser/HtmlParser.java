@@ -187,15 +187,15 @@ public class HtmlParser {
                 public void endElement(String uri, String localName, String qName) throws SAXException {
                     if (qName.toLowerCase().equals("head")){
                         inHead = false;
-                    } else if(qName.toLowerCase().equals("title")){
+                    } else if(inTitle && qName.toLowerCase().equals("title")){
                         data.title = inProgress.toString();
                         inTitle = false;
                         inProgress = null;
-                    } else if(qName.toLowerCase().equals("h1")) {
+                    } else if(inH1 && qName.toLowerCase().equals("h1")) {
                         data.h1.add(inProgress.toString());
                         inH1 = false;
                         inProgress = null;
-                    } else if(qName.toLowerCase().equals("h2")) {
+                    } else if(inH2 && qName.toLowerCase().equals("h2")) {
                         data.h2.add(inProgress.toString());
                         inH2 = false;
                         inProgress = null;
