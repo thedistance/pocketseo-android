@@ -25,7 +25,7 @@ public class PocketSeoApplication extends TheDistanceApplication {
     public void onCreate() {
         super.onCreate();
 
-        if (BuildConfig.USE_CRASHLYTICS && PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_analytics_enabled), true)) {
+        if (BuildConfig.USE_CRASHLYTICS && PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_crashlytics_enabled), true)) {
             Fabric.with(this, new Crashlytics());
         }
 
@@ -37,7 +37,7 @@ public class PocketSeoApplication extends TheDistanceApplication {
 
     @Override
     protected synchronized void initializeTracker() {
-        if (mTracker == null && PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_crashlytics_enabled), true)) {
+        if (mTracker == null && PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.pref_key_analytics_enabled), true)) {
             mTracker = GoogleAnalytics.getInstance(this)
                     .newTracker(R.xml.global_tracker);
         }
