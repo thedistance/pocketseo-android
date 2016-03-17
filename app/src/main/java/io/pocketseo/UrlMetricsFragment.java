@@ -90,18 +90,23 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         // Inflate the layout for this fragment
         mBinding = FragmentUrlMetricsBinding.inflate(inflater, container, false);
 
-        mBinding.cardMoz.mozscapeExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.cardMoz.header.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mBinding.cardMoz.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-                mBinding.cardMoz.statusCode.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            public void onClick(View v) {
+                boolean expand = mBinding.cardMoz.mozscapeExpanded.getVisibility() == View.GONE;
+                mBinding.cardMoz.mozscapeExpanded.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.statusCode.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.authorityHeader.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.mozscapeExpandCheck.animate().rotation(expand ? 180 : 0);
             }
         });
 
-        mBinding.cardHtmldata.htmldataExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.cardHtmldata.header.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mBinding.cardHtmldata.htmldataExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            public void onClick(View v) {
+                boolean expand = mBinding.cardHtmldata.htmldataExpanded.getVisibility() == View.GONE;
+                mBinding.cardHtmldata.htmldataExpanded.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardHtmldata.htmldataExpandCheck.animate().rotation(expand ? 180 : 0);
             }
         });
         int accentColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
@@ -109,11 +114,11 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
 
         float density = getResources().getDisplayMetrics().density;
 
-        pageAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        pageAuthDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
-        domainAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        domainAuthDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
-        spamDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        spamDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.spamScoreContainer.setBackgroundDrawable(spamDrawable);
 
         mBinding.cardThedistance.buttonSendFeedback.setOnClickListener(new View.OnClickListener() {

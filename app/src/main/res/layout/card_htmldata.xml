@@ -4,246 +4,256 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
             name="htmldata"
-            type="io.pocketseo.viewmodel.HtmldataModel" />
+            type="io.pocketseo.viewmodel.HtmldataModel"/>
+
         <variable
             name="htmldataError"
-            type="java.lang.String" />
+            type="java.lang.String"/>
+
         <variable
             name="htmldataLoading"
-            type="boolean" />
+            type="boolean"/>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
     </data>
 
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.GONE : View.VISIBLE }"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.GONE : View.VISIBLE }">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_padding_top"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding"
+            android:paddingTop="@dimen/card_padding_top">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/header"
+                android:foreground="?selectableItemBackground"
                 android:layout_marginBottom="8dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textAppearance="@style/PocketSeo.Headline"
-                    android:text="@string/URLPageMetaDataHeadline"/>
-                <CheckBox
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    android:gravity="left"
+                    android:text="@string/URLPageMetaDataHeadline"
+                    android:textAppearance="@style/PocketSeo.Headline"/>
+
+                <ImageView
+                    android:id="@+id/htmldata_expand_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/htmldata_expand_check"
-                    android:button="@drawable/ic_expand"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_expand"
+                    bind:drawableTint="@{@color/black54}"
                     />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:animateLayoutChanges="true"
+                android:orientation="vertical"
                 android:visibility="@{htmldataError == null ? View.VISIBLE : View.GONE }">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/PocketSeo.Subhead"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/URLPageMetaDataPageTitle"/>
+                        android:layout_weight="1"
+                        android:text="@string/URLPageMetaDataPageTitle"
+                        android:textAppearance="@style/PocketSeo.Subhead"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/PocketSeo.Subhead"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@{htmldata.pageTitleLength}"/>
+                        android:text="@{htmldata.pageTitleLength}"
+                        android:textAppearance="@style/PocketSeo.Subhead"/>
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@{htmldata.pageTitle}"/>
+                    android:text="@{htmldata.pageTitle}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="16dp">
+
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/PocketSeo.Subhead"
-                        android:text="@string/URLPageMetaDataMetaDescription"/>
+                        android:layout_weight="1"
+                        android:text="@string/URLPageMetaDataMetaDescription"
+                        android:textAppearance="@style/PocketSeo.Subhead"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/PocketSeo.Subhead"
-                        android:text="@{htmldata.metaDescriptionLength}"/>
+                        android:text="@{htmldata.metaDescriptionLength}"
+                        android:textAppearance="@style/PocketSeo.Subhead"/>
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:text="@{htmldata.metaDescription}"/>
+                    android:text="@{htmldata.metaDescription}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 <!-- start collapsed section -->
                 <LinearLayout
+                    android:id="@+id/htmldata_expanded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:id="@+id/htmldata_expanded"
                     android:visibility="gone"
                     tools:visibility="visible">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/PocketSeo.Subhead"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/URLPageMetaDataCanonicalURL"/>
+                        android:text="@string/URLPageMetaDataCanonicalURL"
+                        android:textAppearance="@style/PocketSeo.Subhead"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:text="@{htmldata.canonicalUrl}"/>
+                        android:text="@{htmldata.canonicalUrl}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp">
+
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/PocketSeo.Subhead"
-                            android:text="@string/URLPageMetaDataH1Tags"/>
+                            android:layout_weight="1"
+                            android:text="@string/URLPageMetaDataH1Tags"
+                            android:textAppearance="@style/PocketSeo.Subhead"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/PocketSeo.Subhead"
-                            android:text="@{htmldata.h1ListLength}"/>
+                            android:text="@{htmldata.h1ListLength}"
+                            android:textAppearance="@style/PocketSeo.Subhead"/>
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:text="@{htmldata.h1List}"/>
+                        android:text="@{htmldata.h1List}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="16dp">
+
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/PocketSeo.Subhead"
-                            android:text="@string/URLPageMetaDataH2Tags"/>
+                            android:layout_weight="1"
+                            android:text="@string/URLPageMetaDataH2Tags"
+                            android:textAppearance="@style/PocketSeo.Subhead"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/PocketSeo.Subhead"
-                            android:text="@{htmldata.h2ListLength}"/>
+                            android:text="@{htmldata.h2ListLength}"
+                            android:textAppearance="@style/PocketSeo.Subhead"/>
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:text="@{htmldata.h2List}"/>
+                        android:text="@{htmldata.h2List}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                     <RelativeLayout
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
 
                         <TextView
                             android:id="@+id/title_ssl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/PocketSeo.Subhead"
-                            android:text="@string/URLPageMetaDataSSLTitle"/>
+                            android:text="@string/URLPageMetaDataSSLTitle"
+                            android:textAppearance="@style/PocketSeo.Subhead"/>
 
                         <TextView
-                            android:layout_below="@+id/title_ssl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:text="@{htmldata.ssl}"/>
+                            android:layout_below="@+id/title_ssl"
+                            android:text="@{htmldata.ssl}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:alpha="0.54"
-                            android:layout_centerVertical="true"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:alpha="0.54"
                             bind:imageResource="@{htmldata.sslImage}"/>
 
                     </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:text="@{htmldata.finalUrl}"/>
+                            android:text="@{htmldata.finalUrl}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_weight="0"
                             android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:text="@{htmldata.dateChecked}"/>
+                            android:layout_weight="0"
+                            android:text="@{htmldata.dateChecked}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <include layout="@layout/error"
-                     errorMessage="@{htmldataError}" />
+
+            <include
+                errorMessage="@{htmldataError}"
+                layout="@layout/error"/>
         </LinearLayout>
 
         <ProgressBar
-            android:visibility="@{ htmldataLoading ? View.VISIBLE : View.GONE }"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:visibility="@{ htmldataLoading ? View.VISIBLE : View.GONE }"/>
     </android.support.v7.widget.CardView>
 
 
