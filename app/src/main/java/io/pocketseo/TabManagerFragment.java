@@ -74,7 +74,8 @@ public class TabManagerFragment extends Fragment {
             super(fm);
             this.mWebsite = website;
             titles = new String[]{
-                    context.getString(R.string.URLMetricsTitle)
+                    context.getString(R.string.URLMetricsTitle),
+                    "Links"
             };
         }
 
@@ -88,6 +89,8 @@ public class TabManagerFragment extends Fragment {
             switch (position){
                 case 0:
                     return UrlMetricsFragment.newInstance(mWebsite);
+                case 1:
+                    return new LinksFragment();
             }
             return null;
         }
