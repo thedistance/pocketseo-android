@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mBinding.toolbar);
 
         if(BuildConfig.DEBUG){
-            mBinding.websiteName.setText("thedistance.co.uk");
+            mBinding.websiteName.setText("");
+            mBinding.websiteName.append("thedistance.co.uk");
         }
 
         mBinding.websiteName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -56,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         String website = getIntent().getStringExtra(EXTRA_WEBSITE);
         if(null != website){
-            mBinding.websiteName.setText(website);
+            mBinding.websiteName.setText("");
+            mBinding.websiteName.append(website);
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mBinding.websiteName.getWindowToken(), 0);
         }

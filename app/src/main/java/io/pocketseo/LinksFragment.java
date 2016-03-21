@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,13 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     public void onResume() {
         super.onResume();
 
-        presenter.onViewAttached(this);
+        binding.swipeRefresh.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                binding.swipeRefresh.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                presenter.onViewAttached(LinksFragment.this);
+            }
+        });
     }
 
     @Override
