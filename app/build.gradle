@@ -6,6 +6,7 @@ apply from: "$rootDir/libraries/thedistancekit/utils.gradle"
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
 }
 localization {
     csvFile = file('strings.tsv')

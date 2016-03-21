@@ -4,74 +4,300 @@
 
 package io.pocketseo;
 
-import android.graphics.Color;
+import android.content.res.Resources;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.pocketseo.databinding.FragmentLinksBinding;
+import io.pocketseo.databinding.ItemLinkBinding;
+import io.pocketseo.databinding.ItemLoadingBinding;
+import io.pocketseo.injection.ApplicationComponent;
+import io.pocketseo.model.MozScapeLink;
+import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import uk.co.thedistance.thedistancekit.TheDistanceFragment;
 
-public class LinksFragment extends TheDistanceFragment {
+public class LinksFragment extends TheDistanceFragment implements LinksPresenter.View, LoaderManager.LoaderCallbacks<LinksPresenter> {
+
+    private static final int LOADER_ID = 0x1;
+    private static final String ARG_WEBSITE = "website";
+    private LinksPresenter presenter;
+    private FragmentLinksBinding binding;
+    private LinksAdapter adapter;
+    private String website;
+
+    public static LinksFragment newInstance(String website) {
+
+        Bundle args = new Bundle();
+        args.putString(ARG_WEBSITE, website);
+        LinksFragment fragment = new LinksFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (null != savedInstanceState) {
+            website = savedInstanceState.getString(ARG_WEBSITE);
+        } else if (getArguments() != null) {
+            website = getArguments().getString(ARG_WEBSITE);
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        RecyclerView recycler = new RecyclerView(getActivity());
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycler.setAdapter(new LinksAdapter());
-        return recycler;
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_links, container, false);
+
+        binding.recycler.setAdapter(adapter = new LinksAdapter(new ArrayList<MozScapeLink>()));
+
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.performSearch(website, false, true);
+            }
+        });
+
+        binding.recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (recyclerView.isAnimating()) {
+                    return;
+                }
+                if (adapter.showLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition() == adapter.getItemCount() - 1) {
+                    presenter.loadNext();
+                }
+            }
+        });
+
+        Resources resources = getResources();
+        binding.swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorAccent), resources.getColor(R.color.colorPrimary));
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ARG_WEBSITE, website);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        presenter.onViewDetached();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        presenter.onViewAttached(this);
     }
 
     class LinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+        private static final int TYPE_LINK = 0;
+        private static final int TYPE_LOADING = 1;
         private final LayoutInflater inflater;
+        private MozScapeLinkViewModel selected;
+        private boolean showLoading;
 
-        public LinksAdapter() {
+        SortedList<MozScapeLink> sortedLinks = new SortedList<MozScapeLink>(MozScapeLink.class, new SortedList.Callback<MozScapeLink>() {
+            @Override
+            public int compare(MozScapeLink o1, MozScapeLink o2) {
+                return Float.compare(o2.getPageAuthority(), o1.getPageAuthority());
+            }
+
+            @Override
+            public void onInserted(int position, int count) {
+                notifyItemRangeInserted(position, count);
+            }
+
+            @Override
+            public void onRemoved(int position, int count) {
+                notifyItemRangeRemoved(position, count);
+            }
+
+            @Override
+            public void onMoved(int fromPosition, int toPosition) {
+                notifyItemMoved(fromPosition, toPosition);
+            }
+
+            @Override
+            public void onChanged(int position, int count) {
+                notifyItemRangeChanged(position, count);
+            }
+
+            @Override
+            public boolean areContentsTheSame(MozScapeLink oldItem, MozScapeLink newItem) {
+                return oldItem.equals(newItem);
+            }
+
+            @Override
+            public boolean areItemsTheSame(MozScapeLink item1, MozScapeLink item2) {
+                return item1.getUrl().equals(item2.getUrl()) && item1.getAnchorText().equals(item2.getAnchorText());
+            }
+        });
+
+        public LinksAdapter(List<MozScapeLink> links) {
+            sortedLinks.addAll(links);
             inflater = LayoutInflater.from(getActivity());
         }
 
         @Override
+        public int getItemViewType(int position) {
+            if (showLoading && position == getItemCount() - 1) {
+                return TYPE_LOADING;
+            }
+            return TYPE_LINK;
+        }
+
+        @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.item_link, parent, false);
-            return new LinkViewHolder(view);
+            if (viewType == TYPE_LOADING) {
+                ItemLoadingBinding binding = ItemLoadingBinding.inflate(inflater, parent, false);
+                return new LoadingViewHolder(binding.getRoot());
+            }
+            ItemLinkBinding binding = ItemLinkBinding.inflate(inflater, parent, false);
+            return new LinkViewHolder(binding);
+
         }
 
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            if (!(holder instanceof LinkViewHolder)) {
+                return;
+            }
+
+            LinkViewHolder viewHolder = (LinkViewHolder) holder;
+
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    v.setSelected(!v.isSelected());
-                    v.setBackgroundColor(v.isSelected() ? Color.WHITE : getResources().getColor(R.color.white87));
-                    ((LinkViewHolder) holder).anchor.setVisibility(v.isSelected() ? View.VISIBLE : View.GONE);
-                    ((LinkViewHolder) holder).spam.setVisibility(v.isSelected() ? View.VISIBLE : View.GONE);
+                    ItemLinkBinding binding = DataBindingUtil.findBinding(v);
+                    MozScapeLinkViewModel viewModel = binding.getViewModel();
+
+                    if (selected != null) {
+                        selected.setSelected(false);
+                        if (selected.equals(viewModel)) {
+                            selected = null;
+                            return;
+                        }
+                    }
+
+                    viewModel.setSelected(true);
+                    selected = viewModel;
                 }
             });
+
+            viewHolder.binding.setViewModel(new MozScapeLinkViewModel(sortedLinks.get(position), getActivity()));
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return sortedLinks.size() + (showLoading ? 1 : 0);
+        }
+
+        public void addLinks(List<MozScapeLink> links, boolean clear) {
+            sortedLinks.beginBatchedUpdates();
+            if (clear) {
+                sortedLinks.clear();
+            }
+            sortedLinks.addAll(links);
+            sortedLinks.endBatchedUpdates();
+        }
+
+        public void showLoading(boolean moreToLoad) {
+            if (showLoading != moreToLoad) {
+                showLoading = moreToLoad;
+
+                if (showLoading) {
+                    notifyItemInserted(sortedLinks.size());
+                } else {
+                    notifyItemRemoved(sortedLinks.size());
+                }
+            }
         }
 
         class LinkViewHolder extends RecyclerView.ViewHolder {
 
-            @Bind(R.id.anchor)
-            View anchor;
-            @Bind(R.id.spam)
-            View spam;
+            ItemLinkBinding binding;
 
-            public LinkViewHolder(View itemView) {
-                super(itemView);
+            public LinkViewHolder(ItemLinkBinding binding) {
+                super(binding.getRoot());
+                this.binding = binding;
                 itemView.setTag(this);
-                ButterKnife.bind(this, itemView);
             }
         }
+
+        class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+            public LoadingViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
+    }
+
+    @Override
+    public Loader<LinksPresenter> onCreateLoader(int id, Bundle args) {
+        final ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
+        return new PresenterLoader<LinksPresenter>(getActivity(), new PresenterFactory<LinksPresenter>() {
+            @Override
+            public LinksPresenter create() {
+                return new LinksPresenter(website, component.repository(), component.analytics());
+            }
+        });
+    }
+
+    @Override
+    public void onLoadFinished(Loader<LinksPresenter> loader, LinksPresenter data) {
+        this.presenter = data;
+    }
+
+    @Override
+    public void onLoaderReset(Loader<LinksPresenter> loader) {
+
+    }
+
+    @Override
+    public void showLoading(boolean loading) {
+        binding.swipeRefresh.setRefreshing(loading);
+    }
+
+    @Override
+    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad) {
+        adapter.addLinks(links, clear);
+        adapter.showLoading(moreToLoad);
+    }
+
+    @Override
+    public void showError(String message) {
+
     }
 }
