@@ -7,6 +7,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="io.pocketseo.viewmodel.MozScapeLinkViewModel"/>
@@ -43,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.title}"
                     android:ellipsize="end"
-                    android:maxLines="@{viewModel.titleLines}"
+                    android:maxLines="@{viewModel.titleLines ?? 1}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     tools:text="User Anthony Main - Stack Overflow"/>
 
@@ -134,7 +135,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginLeft="@dimen/default_padding"
                     android:layout_marginRight="@dimen/default_padding"
-                    android:visibility="@{viewModel.anchorTextVisibility}">
+                    android:visibility="@{viewModel.anchorTextVisibility ?? View.GONE}">
 
                     <TextView
                         android:id="@+id/anchor_label"

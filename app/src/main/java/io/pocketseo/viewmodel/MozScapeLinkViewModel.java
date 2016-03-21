@@ -91,7 +91,7 @@ public class MozScapeLinkViewModel extends BaseObservable {
     }
 
     @Bindable
-    public int getAnchorTextVisibility() {
+    public Integer getAnchorTextVisibility() {
         return selected ? View.VISIBLE : View.GONE;
     }
 
@@ -106,7 +106,7 @@ public class MozScapeLinkViewModel extends BaseObservable {
     }
 
     @Bindable
-    public int getTitleLines() {
+    public Integer getTitleLines() {
         return selected ? Integer.MAX_VALUE : 1;
     }
 

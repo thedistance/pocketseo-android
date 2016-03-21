@@ -10,10 +10,12 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +23,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.pocketseo.databinding.FragmentTabManagerBinding;
 import io.pocketseo.injection.ApplicationComponent;
@@ -61,20 +67,33 @@ public class TabManagerFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(ARG_WEBSITE, mWebsite);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab_manager, container, false);
         mBinding.pager.setAdapter(new TabPager(getChildFragmentManager(), mWebsite, getActivity()));
-        mBinding.pagerTabs.setViewPager(mBinding.pager);
 
-        final int indicatorColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
-        mBinding.pagerTabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+        mBinding.tabs.setupWithViewPager(mBinding.pager);
+        mBinding.tabs.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mBinding.pager) {
             @Override
-            public int getIndicatorColor(int position) {
-                return indicatorColor;
+            public void onTabReselected(TabLayout.Tab tab) {
+                super.onTabReselected(tab);
+
+                Fragment fragment = ((TabPager) mBinding.pager.getAdapter()).getFragmentAt(tab.getPosition());
+                if (fragment != null && fragment instanceof ScrollableTab) {
+                    ((ScrollableTab) fragment).scrollToTop();
+                }
+
             }
         });
+
         return mBinding.getRoot();
     }
 
@@ -125,6 +144,7 @@ public class TabManagerFragment extends Fragment {
 
     static class TabPager extends FragmentPagerAdapter {
         private final String mWebsite;
+        private ArrayMap<Integer, WeakReference<Fragment>> fragmentArrayMap = new ArrayMap<>();
         String[] titles;
 
         public TabPager(FragmentManager fm, String website, Context context) {
@@ -148,6 +168,23 @@ public class TabManagerFragment extends Fragment {
                     return UrlMetricsFragment.newInstance(mWebsite);
                 case 1:
                     return LinksFragment.newInstance(mWebsite);
+            }
+
+            return null;
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
+
+            if (object != null && object instanceof Fragment) {
+                fragmentArrayMap.put(position, new WeakReference<Fragment>((Fragment) object));
+            }
+        }
+
+        public Fragment getFragmentAt(int position) {
+            if (fragmentArrayMap.get(position) != null) {
+                return fragmentArrayMap.get(position).get();
             }
             return null;
         }

@@ -7,6 +7,7 @@ package io.pocketseo;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -29,7 +30,7 @@ import io.pocketseo.model.MozScapeLink;
 import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import uk.co.thedistance.thedistancekit.TheDistanceFragment;
 
-public class LinksFragment extends TheDistanceFragment implements LinksPresenter.View, LoaderManager.LoaderCallbacks<LinksPresenter> {
+public class LinksFragment extends TheDistanceFragment implements LinksPresenter.View, LoaderManager.LoaderCallbacks<LinksPresenter>, ScrollableTab {
 
     private static final int LOADER_ID = 0x1;
     private static final String ARG_WEBSITE = "website";
@@ -79,7 +80,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
                 if (recyclerView.isAnimating()) {
                     return;
                 }
-                if (adapter.showLoading && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition() == adapter.getItemCount() - 1) {
+                if (adapter.shouldLoadNext() && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() == adapter.getItemCount() - 2) {
                     presenter.loadNext();
                 }
             }
@@ -117,6 +118,11 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
         super.onResume();
 
         presenter.onViewAttached(this);
+    }
+
+    @Override
+    public void scrollToTop() {
+        binding.recycler.smoothScrollToPosition(0);
     }
 
     class LinksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -224,13 +230,16 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
             return sortedLinks.size() + (showLoading ? 1 : 0);
         }
 
-        public void addLinks(List<MozScapeLink> links, boolean clear) {
-            sortedLinks.beginBatchedUpdates();
+        public void addLinks(final List<MozScapeLink> links, boolean clear) {
             if (clear) {
                 sortedLinks.clear();
             }
-            sortedLinks.addAll(links);
-            sortedLinks.endBatchedUpdates();
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+                    sortedLinks.addAll(links);
+//                }
+//            }, clear ? 400 : 9);
         }
 
         public void showLoading(boolean moreToLoad) {
@@ -243,6 +252,10 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
                     notifyItemRemoved(sortedLinks.size());
                 }
             }
+        }
+
+        public boolean shouldLoadNext() {
+            return showLoading && sortedLinks.size() > 0;
         }
 
         class LinkViewHolder extends RecyclerView.ViewHolder {
@@ -292,8 +305,12 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
     @Override
     public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad) {
+        boolean scrollToTop = clear && adapter.showLoading;
         adapter.addLinks(links, clear);
         adapter.showLoading(moreToLoad);
+        if (scrollToTop) {
+            binding.recycler.scrollToPosition(0);
+        }
     }
 
     @Override
