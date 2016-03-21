@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="io.pocketseo.viewmodel.MozScapeLinkViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{viewModel.backgroundColor}"
+        android:selected="@{viewModel.selected}"
+        android:stateListAnimator="@anim/lift_up">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                android:paddingTop="@dimen/default_padding"
+                >
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.title}"
+                    android:ellipsize="end"
+                    android:maxLines="@{viewModel.titleLines ?? 1}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="User Anthony Main - Stack Overflow"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="@{viewModel.url}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    tools:text="stackoverflow.com/users/258/anthony-main"/>
+
+                <LinearLayout
+                    android:id="@+id/stats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/pa_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="PA"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <TextView
+                        android:id="@+id/pa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:text="@{viewModel.pageAuthority}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        tools:text="46"/>
+
+                    <TextView
+                        android:id="@+id/da_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="DA"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <TextView
+                        android:id="@+id/da"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:text="@{viewModel.domainAuthority}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        tools:text="91"/>
+
+                    <TextView
+                        android:id="@+id/spam_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="Spam Score"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <TextView
+                        android:id="@+id/spam_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        tools:text="4"
+                        android:text="@{viewModel.spamScore}"
+                        android:textColor="@{viewModel.spamScoreColor}"
+                        tools:textColor="@color/spam_good"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"/>
+
+                <LinearLayout
+                    android:id="@+id/anchor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="@dimen/default_padding"
+                    android:layout_marginRight="@dimen/default_padding"
+                    android:visibility="@{viewModel.anchorTextVisibility ?? View.GONE}">
+
+                    <TextView
+                        android:id="@+id/anchor_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="Anchor Text"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <TextView
+                        android:id="@+id/anchor_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        tools:text="thedistance.co.uk"
+                        android:text="@{viewModel.anchorText}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/black20"/>
+
+        <View
+            android:layout_width="3dp"
+            tools:background="@color/spam_good"
+            android:background="@{viewModel.spamScoreColor}"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+</layout>

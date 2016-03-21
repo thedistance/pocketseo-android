@@ -12,8 +12,10 @@
         android:label="@string/ApplicationName"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-                  android:theme="@style/AppTheme.NoActionbar">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionbar"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -21,22 +23,27 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".InlineDetailActivity"
-                  android:noHistory="true"
-                  android:theme="@style/AppTheme.Dialog">
+        <activity
+            android:name=".InlineDetailActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.Dialog">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http"
-                      android:host="*" />
-                <data android:scheme="https"
-                      android:host="*" />
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="*"
+                    android:scheme="http"/>
+                <data
+                    android:host="*"
+                    android:scheme="https"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
 
@@ -44,20 +51,22 @@
             android:name="io.fabric.ApiKey"
             android:value="015a3121c76ea8baec90c4a97c7bd1976400adad"/>
 
-        <activity android:name=".AboutActivity"
-                  android:label="@string/AboutTitle"
-                  android:parentActivityName=".MainActivity" >
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/AboutTitle"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MainActivity"/>
         </activity>
 
-        <activity android:name=".SettingsActivity"
-                  android:label="@string/SettingsTitle"
-                  android:parentActivityName=".MainActivity">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/SettingsTitle"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MainActivity"/>
         </activity>
 
 

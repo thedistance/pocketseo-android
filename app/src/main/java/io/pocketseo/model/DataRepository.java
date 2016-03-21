@@ -4,6 +4,8 @@
 
 package io.pocketseo.model;
 
+import java.util.List;
+
 import io.pocketseo.HtmlData;
 import rx.Observable;
 
@@ -18,6 +20,7 @@ public interface DataRepository {
     }
 
     Observable<MozScape> getWebsiteMetrics(String url, boolean refresh);
+    Observable<List<MozScapeLink>> getLinkMetrics(String url, int page, boolean refresh);
     Observable<AlexaScore> getAlexaScore(String url, boolean refresh);
     Observable<HtmlData> getHtmldata(String url, boolean refresh);
 

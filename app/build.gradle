@@ -6,6 +6,7 @@ apply from: "$rootDir/libraries/thedistancekit/utils.gradle"
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
 }
 localization {
     csvFile = file('strings.tsv')
@@ -87,4 +88,6 @@ dependencies {
 
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'org.apmem.tools:layouts:1.9@aar'
+    compile 'com.android.support:percent:23.1.1'
 }

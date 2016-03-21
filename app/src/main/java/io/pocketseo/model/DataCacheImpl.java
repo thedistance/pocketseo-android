@@ -7,10 +7,15 @@ package io.pocketseo.model;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import io.pocketseo.HtmlData;
 import io.pocketseo.htmlparser.HtmlParser;
 import io.pocketseo.webservice.alexa.model.AlexaData;
+import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 
 /**

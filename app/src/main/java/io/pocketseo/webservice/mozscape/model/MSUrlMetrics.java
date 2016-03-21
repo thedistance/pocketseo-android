@@ -100,4 +100,53 @@ public class MSUrlMetrics implements MozScape {
     public void setNextCrawl(long nextCrawl) {
         this.nextCrawl = nextCrawl;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MSUrlMetrics metrics = (MSUrlMetrics) o;
+
+        if (nextCrawl != metrics.nextCrawl) {
+            return false;
+        }
+        if (Float.compare(metrics.domainAuthority, domainAuthority) != 0) {
+            return false;
+        }
+        if (statusCode != metrics.statusCode) {
+            return false;
+        }
+        if (Float.compare(metrics.pageAuthority, pageAuthority) != 0) {
+            return false;
+        }
+        if (spamScore != metrics.spamScore) {
+            return false;
+        }
+        if (establishedLinksRoot != metrics.establishedLinksRoot) {
+            return false;
+        }
+        if (establishedLinksTotal != metrics.establishedLinksTotal) {
+            return false;
+        }
+        return lastCrawl == metrics.lastCrawl;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (nextCrawl ^ (nextCrawl >>> 32));
+        result = 31 * result + (domainAuthority != +0.0f ? Float.floatToIntBits(domainAuthority) : 0);
+        result = 31 * result + statusCode;
+        result = 31 * result + (pageAuthority != +0.0f ? Float.floatToIntBits(pageAuthority) : 0);
+        result = 31 * result + spamScore;
+        result = 31 * result + establishedLinksRoot;
+        result = 31 * result + establishedLinksTotal;
+        result = 31 * result + (int) (lastCrawl ^ (lastCrawl >>> 32));
+        return result;
+    }
 }
