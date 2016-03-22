@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/LinksOpenLink">
+        <menu>
+            <item
+                android:id="@+id/action_app"
+                android:icon="@drawable/open_in_pocketseo"
+                android:title="@string/ApplicationName"/>
+            <item
+                android:id="@+id/action_browser"
+                android:icon="@drawable/ic_open_in_browser_blue_24dp"
+                android:title="@string/LinksOpenLinkBrowser"/>
+        </menu>
+    </item>
+
+</menu>

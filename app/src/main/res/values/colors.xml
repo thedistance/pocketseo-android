@@ -5,4 +5,7 @@
     <color name="colorAccent">#fbb03b</color>
     <color name="colorBackground">#EDEDED</color>
     <color name="white">#ffffff</color>
+    <color name="spam_medium">#FF9800</color>
+    <color name="spam_bad">#F44336</color>
+    <color name="spam_good">#4CAF50</color>
 </resources>

@@ -161,17 +161,6 @@ public class UrlMetricsPresenter {
         });
     }
 
-    public void openInBrowser(){
-        mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_OPEN_IN_BROWSER, mWebsite);
-
-        Uri uri = Uri.parse(mWebsite);
-        // TODO: parse URL and check it can be launched
-        if(uri.getScheme() == null){
-            uri = Uri.parse("http://" + mWebsite);
-        }
-        mView.openWebsite(uri.toString());
-    }
-
 
     public void sendFeedback(){
         mView.sendEmail(feedbackEmail, feedbackSubject, feedbackBody, feedbackPrompt);

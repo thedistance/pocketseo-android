@@ -182,15 +182,11 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.action_refresh).setVisible(mWebsite != null);
-        menu.findItem(R.id.action_browser).setVisible(mWebsite != null);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_browser:
-                mPresenter.openInBrowser();
-                return true;
             case R.id.action_refresh:
                 performSearch(mWebsite, false, true);
                 return true;
