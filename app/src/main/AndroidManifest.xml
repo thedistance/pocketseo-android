@@ -30,11 +30,8 @@
             android:noHistory="true"
             android:theme="@style/AppTheme.Dialog">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
+                <action android:name="android.intent.action.SEND"/>
                 <data
                     android:host="*"
                     android:scheme="http"/>
