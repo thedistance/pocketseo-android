@@ -158,7 +158,7 @@ public class TabManagerFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return titles.length;
+            return mWebsite == null ? 1 : titles.length;
         }
 
         @Override

@@ -4,21 +4,30 @@
 
 package io.pocketseo;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
+
+import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder;
+import com.github.rubensousa.bottomsheetbuilder.BottomSheetItemClickListener;
+import com.github.rubensousa.bottomsheetbuilder.items.BottomSheetMenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +38,7 @@ import io.pocketseo.databinding.ItemLoadingBinding;
 import io.pocketseo.injection.ApplicationComponent;
 import io.pocketseo.model.MozScapeLink;
 import io.pocketseo.viewmodel.MozScapeLinkViewModel;
+import uk.co.thedistance.thedistancekit.IntentHelper;
 import uk.co.thedistance.thedistancekit.TheDistanceFragment;
 
 public class LinksFragment extends TheDistanceFragment implements LinksPresenter.View, LoaderManager.LoaderCallbacks<LinksPresenter>, ScrollableTab {
@@ -64,6 +74,14 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_links, container, false);
+
+        binding.fab.hide();
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.openSelected();
+            }
+        });
 
         binding.recycler.setAdapter(adapter = new LinksAdapter(new ArrayList<MozScapeLink>()));
 
@@ -137,6 +155,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
         private static final int TYPE_LINK = 0;
         private static final int TYPE_LOADING = 1;
         private final LayoutInflater inflater;
+        private SparseArray<MozScapeLinkViewModel> viewModelArray = new SparseArray<>();
         private MozScapeLinkViewModel selected;
         private boolean showLoading;
 
@@ -220,16 +239,21 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
                         selected.setSelected(false);
                         if (selected.equals(viewModel)) {
                             selected = null;
+                            presenter.setSelectedLink(null);
                             return;
                         }
                     }
 
                     viewModel.setSelected(true);
                     selected = viewModel;
+                    presenter.setSelectedLink(selected.model);
                 }
             });
 
-            viewHolder.binding.setViewModel(new MozScapeLinkViewModel(sortedLinks.get(position), getActivity()));
+            MozScapeLinkViewModel viewModel = viewModelArray.get(position, new MozScapeLinkViewModel(sortedLinks.get(position), getActivity()));
+            viewModelArray.put(position, viewModel);
+            viewHolder.binding.setViewModel(viewModel);
+
         }
 
         @Override
@@ -240,13 +264,12 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
         public void addLinks(final List<MozScapeLink> links, boolean clear) {
             if (clear) {
                 sortedLinks.clear();
+                selected = null;
+                presenter.setSelectedLink(null);
+                viewModelArray.clear();
             }
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-                    sortedLinks.addAll(links);
-//                }
-//            }, clear ? 400 : 9);
+
+            sortedLinks.addAll(links);
         }
 
         public void showLoading(boolean moreToLoad) {
@@ -323,5 +346,67 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     @Override
     public void showError(String message) {
 
+    }
+
+    @Override
+    public void showFab(boolean show) {
+        if (show) {
+            binding.fab.show();
+        } else {
+            binding.fab.hide();
+        }
+    }
+
+    BottomSheetDialog bottomSheetDialog;
+
+    @Override
+    public void openLink(final MozScapeLink link) {
+        bottomSheetDialog = new BottomSheetBuilder(getActivity(), binding.coordinator)
+                .setMode(BottomSheetBuilder.MODE_LIST)
+                .setMenu(R.menu.sheet_open_link)
+                .setBackgroundColor(android.R.color.white)
+
+                .setItemClickListener(new BottomSheetItemClickListener() {
+                    @Override
+                    public void onBottomSheetItemClick(BottomSheetMenuItem bottomSheetMenuItem) {
+                        bottomSheetDialog.dismiss();
+                        bottomSheetDialog = null;
+
+                        switch (bottomSheetMenuItem.getId()) {
+                            case R.id.action_app:
+                                openInApp(link);
+                                break;
+                            case R.id.action_browser:
+                                openInBrowser(link);
+                                break;
+                        }
+                    }
+                }).createDialog();
+        bottomSheetDialog.show();
+    }
+
+    private void openInBrowser(MozScapeLink link) {
+        Uri uri = Uri.parse(link.getUrl());
+        if (uri.getScheme() == null) {
+            uri = Uri.parse("http://" + link.getUrl());
+        }
+
+
+        Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
+        viewWebsite.setData(uri);
+
+        if (IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
+            // Then there is application can handle your intent
+            startActivity(viewWebsite);
+        } else {
+            // No Application can handle your intent
+            Toast.makeText(getActivity(), "Cannot open this site", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openInApp(MozScapeLink link) {
+        Uri uri = Uri.parse(link.getUrl());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri, getActivity(), InlineDetailActivity.class);
+        startActivity(intent);
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScapeLink;
+import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -28,6 +29,13 @@ public class LinksPresenter implements Presenter {
     List<MozScapeLink> links = new ArrayList<>();
     private boolean moreToLoad;
     private int currentPage;
+    private MozScapeLink selectedLink;
+
+    public void openSelected() {
+        if (selectedLink != null) {
+            mView.openLink(selectedLink);
+        }
+    }
 
     interface View {
         void showLoading(boolean loading);
@@ -35,6 +43,10 @@ public class LinksPresenter implements Presenter {
         void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad);
 
         void showError(String message);
+
+        void showFab(boolean show);
+
+        void openLink(MozScapeLink link);
     }
 
     public LinksPresenter(String website, DataRepository repo, AnalyticsTracker analytics) {
@@ -120,5 +132,10 @@ public class LinksPresenter implements Presenter {
     @Override
     public void onDestroyed() {
         onViewDetached();
+    }
+
+    public void setSelectedLink(MozScapeLink link) {
+        selectedLink = link;
+        mView.showFab(selectedLink != null);
     }
 }

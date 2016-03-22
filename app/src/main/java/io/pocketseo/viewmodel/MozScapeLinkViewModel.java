@@ -25,7 +25,7 @@ import io.pocketseo.model.MozScapeLink;
  */
 public class MozScapeLinkViewModel extends BaseObservable {
 
-    final MozScapeLink model;
+    public final MozScapeLink model;
     private final Resources resources;
     DateFormat df;
     NumberFormat nf;
