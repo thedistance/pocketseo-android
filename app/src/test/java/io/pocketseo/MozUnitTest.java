@@ -61,4 +61,28 @@ public class MozUnitTest {
         }
 
     }
+
+    @Test
+    public void testTheDistanceFilters() throws Exception {
+
+        MSHelper.Authenticator authenticator = new MSHelper.Authenticator(BuildConfig.MOZSCAPE_ACCESS_KEY, BuildConfig.MOZSCAPE_SECRET_KEY, 300);
+
+        TestSubscriber<List<MSLinkMetrics>> subscriber = new TestSubscriber<>();
+
+        webService.getLinks("thedistance.co.uk", MSLinkMetrics.getBitmask(), 25, 0, "page_to_page", "spam_score", authenticator.getAuthenticationMap())
+                .subscribe(subscriber);
+
+        List<List<MSLinkMetrics>> events = subscriber.getOnNextEvents();
+        List<Throwable> errors = subscriber.getOnErrorEvents();
+
+        for (Throwable throwable : errors) {
+            System.out.println(throwable.getLocalizedMessage());
+        }
+        for (List<MSLinkMetrics> result : events) {
+            for (MSLinkMetrics metrics : result) {
+                System.out.println(metrics.url +" (spam score = " + metrics.getSpamScore() + ")");
+            }
+        }
+
+    }
 }

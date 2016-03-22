@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/fragment_links"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="io.pocketseo.LinksFragment"
+            tools:layout="@layout/fragment_links"/>
+
+    </FrameLayout>
+
+</layout>

@@ -5,4 +5,5 @@
 
 <resources>
     <dimen name="default_padding">16dp</dimen>
+    <dimen name="card_padding_top">24dp</dimen>
 </resources>

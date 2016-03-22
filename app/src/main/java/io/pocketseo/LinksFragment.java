@@ -67,6 +67,8 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
             website = savedInstanceState.getString(ARG_WEBSITE);
         } else if (getArguments() != null) {
             website = getArguments().getString(ARG_WEBSITE);
+        } else if (getParentFragment().getArguments() != null) {
+            website = getParentFragment().getArguments().getString(ARG_WEBSITE);
         }
     }
 

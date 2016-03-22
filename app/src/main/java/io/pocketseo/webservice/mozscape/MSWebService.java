@@ -34,4 +34,9 @@ public interface MSWebService {
     Observable<List<MSLinkMetrics>> getLinks(@Path("website") String website, @Query("SourceCols") long sourceBitmask,
                                              @Query("Limit") int limit, @Query("Offset") int offset,
                                              @QueryMap Map<String, String> authParams);
+
+    @GET("links/{website}?TargetCols=0&LinkCols=8")
+    Observable<List<MSLinkMetrics>> getLinks(@Path("website") String website, @Query("SourceCols") long sourceBitmask,
+                                             @Query("Limit") int limit, @Query("Offset") int offset, @Query("Scope") String scope,
+                                             @Query("Sort") String sort, @QueryMap Map<String, String> authParams);
 }
