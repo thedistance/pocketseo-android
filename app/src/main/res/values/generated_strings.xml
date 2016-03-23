@@ -56,11 +56,11 @@
   <string name="TheDistanceContactPhone">+441904 217 171</string><!-- The phone number field for The Distance contact -->
   <string name="TheDistanceContactEmail">hello+pocketseo@thedistance.co.uk</string><!-- The email address field for The Distance contact -->
   <string name="TheDistanceContactWebsiteURL">https://thedistance.co.uk</string><!-- The url for TheDistance homepage. -->
-  <string name="TheDistancePanelButtonSendFeedback">Send Feedback</string><!-- The button text for the feeback button on TheDistance panel -->
+  <string name="TheDistancePanelButtonSendFeedback">Feedback</string><!-- The button text for the feeback button on TheDistance panel -->
   <string name="TheDistancePanelSendFeedbackSubject">Pocket SEO Feedback</string><!-- The email subject text for feeback on TheDistance panel -->
   <string name="TheDistancePanelEmailBody">Sent from %1$s (%2$s), version %3$s</string><!-- The email body for the feedback and get in touch emails. The first argument should be the app name, the second should be the device and platform (i.e. iPhone 6s iPhone OS 9.2), the third should be the app version. -->
   <string name="TheDistancePanelSendFeedbackEmailAddress">pocketseo@thedistance.co.uk</string><!-- The email address for contacting The Distance for feedback -->
-  <string name="TheDistancePanelButtonVisitWebsite">Visit Website</string><!-- The button text for the Visit Website button on TheDistance panel -->
+  <string name="TheDistancePanelButtonVisitWebsite">Visit</string><!-- The button text for the Visit Website button on TheDistance panel -->
   <string name="TheDistancePanelVisitWebsiteURL">https://thedistance.co.uk</string><!-- The url the user should visit from the Visit Website button on TheDistance panel. -->
   <string name="URLLinksTitle">Links</string><!-- The tab title for the links tab on the URL details screen. -->
   <string name="URLExtensionOpenInAppButtonTitle">Open In App</string><!-- The button title for the 'Open In App' button. -->
@@ -76,5 +76,5 @@
   <string name="SettingsAnalyticsTitle">Send usage data</string><!-- Subtitle for analytics settings -->
   <string name="SettingsAnalyticsOn">Google Analytics is used to help us build a picture of how the app is used to inform updates and new developments.</string><!-- Shown when analytics is enabled -->
   <string name="SettingsAnalyticsOff">Usage data will not be collected.</string><!-- Shown when analytics is enabled -->
-  <string name="StandaloneLaunchFullAppButton">Launch Full App</string>
+  <string name="StandaloneLaunchFullAppButton">Launch Full App</string><!-- Button label used to launch full app from standalone UI -->
 </resources>

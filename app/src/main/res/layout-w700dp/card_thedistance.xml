@@ -13,69 +13,82 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:paddingTop="@dimen/card_padding_top"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/card_padding_top">
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
                 android:paddingLeft="@dimen/default_padding"
-                android:paddingRight="@dimen/default_padding"
-                android:layout_marginBottom="16dp"
-                android:layout_height="wrap_content">
+                android:paddingRight="@dimen/default_padding">
 
                 <TextView
+                    android:id="@+id/developed_by"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/TheDistancePanelHeadline"
                     android:textAppearance="@style/PocketSeo.Headline"/>
 
-                <ImageView
-                    android:id="@+id/thedistance_logo"
-                    android:layout_width="400dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginBottom="8dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/thedistance_logo"/>
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/thedistance_logo"
-                    android:layout_alignRight="@+id/thedistance_logo"
-                    android:layout_below="@+id/thedistance_logo"
-                    android:gravity="center_horizontal"
-                    android:text="@string/TheDistancePanelTagline"/>
+                    android:layout_below="@id/developed_by"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/thedistance_logo"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="4dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/thedistance_logo"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/thedistance_logo"
+                        android:layout_alignRight="@+id/thedistance_logo"
+                        android:layout_below="@+id/thedistance_logo"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/TheDistancePanelTagline"/>
+                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_gravity="bottom"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_height="wrap_content">
+                android:paddingRight="8dp">
 
                 <Button
                     android:id="@+id/button_send_feedback"
-                    android:layout_width="wrap_content"
                     style="@style/PocketSeo.CardButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/TheDistancePanelButtonSendFeedback"/>
 
                 <Button
                     android:id="@+id/button_get_in_touch"
-                    android:layout_width="wrap_content"
                     style="@style/PocketSeo.CardButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/TheDistancePanelButtonGetInTouch"/>
 
                 <Button
                     android:id="@+id/button_visit_website"
-                    android:layout_width="wrap_content"
                     style="@style/PocketSeo.CardButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/TheDistancePanelButtonVisitWebsite"/>
             </LinearLayout>
