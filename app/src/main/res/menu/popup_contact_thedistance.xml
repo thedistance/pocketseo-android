@@ -4,8 +4,17 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_phone"
-          android:title="@string/TheDistancePanelGetInTouchOptionPhone" />
-    <item android:id="@+id/action_email"
-          android:title="@string/TheDistancePanelGetInTouchOptionEmail" />
+
+    <item android:title="@string/TheDistancePanelButtonGetInTouch">
+        <menu>
+            <item
+                android:id="@+id/action_phone"
+                android:icon="@drawable/ic_call_black_24dp"
+                android:title="@string/TheDistancePanelGetInTouchOptionPhone"/>
+            <item
+                android:id="@+id/action_email"
+                android:icon="@drawable/ic_email_black_24dp"
+                android:title="@string/TheDistancePanelGetInTouchOptionEmail"/>
+        </menu>
+    </item>
 </menu>

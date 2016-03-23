@@ -54,11 +54,11 @@ TheDistanceContactCompany	The Distance	The company field for The Distance contac
 TheDistanceContactPhone	+441904 217 171	The phone number field for The Distance contact
 TheDistanceContactEmail	hello+pocketseo@thedistance.co.uk	The email address field for The Distance contact
 TheDistanceContactWebsiteURL	https://thedistance.co.uk	The url for TheDistance homepage.
-TheDistancePanelButtonSendFeedback	Send Feedback	The button text for the feeback button on TheDistance panel
+TheDistancePanelButtonSendFeedback	Feedback	The button text for the feeback button on TheDistance panel
 TheDistancePanelSendFeedbackSubject	Pocket SEO Feedback	The email subject text for feeback on TheDistance panel
 TheDistancePanelEmailBody	Sent from %1$s (%2$s), version %3$s	The email body for the feedback and get in touch emails. The first argument should be the app name, the second should be the device and platform (i.e. iPhone 6s iPhone OS 9.2), the third should be the app version.
 TheDistancePanelSendFeedbackEmailAddress	pocketseo@thedistance.co.uk	The email address for contacting The Distance for feedback
-TheDistancePanelButtonVisitWebsite	Visit Website	The button text for the Visit Website button on TheDistance panel
+TheDistancePanelButtonVisitWebsite	Visit	The button text for the Visit Website button on TheDistance panel
 TheDistancePanelVisitWebsiteURL	https://thedistance.co.uk	The url the user should visit from the Visit Website button on TheDistance panel.
 URLLinksTitle	Links	The tab title for the links tab on the URL details screen.
 URLExtensionOpenInAppButtonTitle	Open In App	The button title for the 'Open In App' button.

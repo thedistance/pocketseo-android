@@ -14,10 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionbar"
-            android:windowSoftInputMode="stateHidden">
+
+        <activity android:name=".MainActivity"
+                  android:theme="@style/AppTheme.NoActionbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
