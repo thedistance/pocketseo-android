@@ -4,10 +4,14 @@
 
 package io.pocketseo;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -19,15 +23,24 @@ public class InlineDetailActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
     private String mWebsite = null;
-    private int oldScreenWidthDp;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            int width = newBase.getResources().getConfiguration().screenWidthDp;
+            if (width > 600) {
+                final Configuration override = new Configuration();
+                override.screenWidthDp = 600;
+                applyOverrideConfiguration(override);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Configuration configuration = getResources().getConfiguration();
-        oldScreenWidthDp = configuration.screenWidthDp;
-        configuration.screenWidthDp = Math.min(oldScreenWidthDp, 600);
 
         Intent intent = getIntent();
         final String action = intent.getAction();
@@ -61,19 +74,5 @@ public class InlineDetailActivity extends AppCompatActivity {
                     .add(R.id.content, TabManagerFragment.newInstance(mWebsite))
                     .commit();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getResources().getConfiguration().screenWidthDp = Math.min(oldScreenWidthDp, 600);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        getResources().getConfiguration().screenWidthDp = oldScreenWidthDp;
     }
 }
