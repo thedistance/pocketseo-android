@@ -5,7 +5,6 @@
 package io.pocketseo;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,8 +18,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Toast;
+
+import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder;
+import com.github.rubensousa.bottomsheetbuilder.BottomSheetItemClickListener;
+import com.github.rubensousa.bottomsheetbuilder.BottomSheetMenuDialog;
+import com.github.rubensousa.bottomsheetbuilder.items.BottomSheetMenuItem;
 
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
 import io.pocketseo.injection.ApplicationComponent;
@@ -71,7 +74,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
 
         setScreenName(AnalyticsValues.SCREEN_URLMETRICS);
 
-        if(null != savedInstanceState){
+        if (null != savedInstanceState) {
             mWebsite = savedInstanceState.getString(ARG_WEBSITE);
         } else if (getArguments() != null) {
             mWebsite = getArguments().getString(ARG_WEBSITE);
@@ -90,18 +93,23 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         // Inflate the layout for this fragment
         mBinding = FragmentUrlMetricsBinding.inflate(inflater, container, false);
 
-        mBinding.cardMoz.mozscapeExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.cardMoz.header.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mBinding.cardMoz.mozscapeExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-                mBinding.cardMoz.statusCode.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            public void onClick(View v) {
+                boolean expand = mBinding.cardMoz.mozscapeExpanded.getVisibility() == View.GONE;
+                mBinding.cardMoz.mozscapeExpanded.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.statusCode.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.authorityHeader.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardMoz.mozscapeExpandCheck.animate().rotation(expand ? 180 : 0);
             }
         });
 
-        mBinding.cardHtmldata.htmldataExpandCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mBinding.cardHtmldata.header.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mBinding.cardHtmldata.htmldataExpanded.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            public void onClick(View v) {
+                boolean expand = mBinding.cardHtmldata.htmldataExpanded.getVisibility() == View.GONE;
+                mBinding.cardHtmldata.htmldataExpanded.setVisibility(expand ? View.VISIBLE : View.GONE);
+                mBinding.cardHtmldata.htmldataExpandCheck.animate().rotation(expand ? 180 : 0);
             }
         });
         int accentColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
@@ -109,11 +117,11 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
 
         float density = getResources().getDisplayMetrics().density;
 
-        pageAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        pageAuthDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
-        domainAuthDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        domainAuthDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
-        spamDrawable = new PieDrawable(accentColor, otherColor, 8 * density, 4 * density);
+        spamDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.spamScoreContainer.setBackgroundDrawable(spamDrawable);
 
         mBinding.cardThedistance.buttonSendFeedback.setOnClickListener(new View.OnClickListener() {
@@ -139,28 +147,52 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         return mBinding.getRoot();
     }
 
+    BottomSheetMenuDialog bottomSheet;
     private void showGetInTouchOptions() {
         Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:1234"));
-        if(!IntentHelper.canSystemHandleIntent(getActivity(), dialIntent)){
+        if (!IntentHelper.canSystemHandleIntent(getActivity(), dialIntent)) {
             // system cannot dial out so only show email option
             mPresenter.getInTouchByEmail();
             return;
         }
 
-        final String[] options = new String[]{"Call Us", "Email Us"};
-        new AlertDialog.Builder(getActivity())
-                .setItems(options, new DialogInterface.OnClickListener() {
+
+        bottomSheet = new BottomSheetBuilder(getActivity())
+                .setMode(BottomSheetBuilder.MODE_LIST)
+                .setBackgroundColor(android.R.color.white)
+                .setMenu(R.menu.popup_contact_thedistance)
+                .setItemClickListener(new BottomSheetItemClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(which == 0){
-                            mPresenter.getInTouchByPhone();
-                        } else {
-                            mPresenter.getInTouchByEmail();
+                    public void onBottomSheetItemClick(BottomSheetMenuItem bottomSheetMenuItem) {
+                        switch (bottomSheetMenuItem.getId()) {
+                            case R.id.action_phone:
+                                mPresenter.getInTouchByPhone();
+                                break;
+                            case R.id.action_email:
+                                mPresenter.getInTouchByEmail();
+                                break;
                         }
+                        bottomSheet.dismiss();
+                        bottomSheet = null;
                     }
                 })
-                .setNegativeButton("Cancel", null)
-                .show();
+                .createDialog();
+        bottomSheet.show();
+
+//        final String[] options = new String[]{"Call Us", "Email Us"};
+//        new AlertDialog.Builder(getActivity())
+//                .setItems(options, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if(which == 0){
+//                            mPresenter.getInTouchByPhone();
+//                        } else {
+//                            mPresenter.getInTouchByEmail();
+//                        }
+//                    }
+//                })
+//                .setNegativeButton("Cancel", null)
+//                .show();
     }
 
     @Override
@@ -169,7 +201,9 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
         mPresenter = new UrlMetricsPresenter(getActivity(), this, component.repository(), component.analytics());
 
-        if(null != mWebsite) performSearch(mWebsite, savedInstanceState == null, false);
+        if (null != mWebsite) {
+            performSearch(mWebsite, savedInstanceState == null, false);
+        }
     }
 
     @Override
@@ -194,7 +228,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         return super.onOptionsItemSelected(item);
     }
 
-    public void performSearch(String website, boolean firstLoad, boolean refresh){
+    public void performSearch(String website, boolean firstLoad, boolean refresh) {
         this.mWebsite = website;
         getActivity().supportInvalidateOptionsMenu();
         mPresenter.performSearch(website, firstLoad, refresh);
@@ -207,7 +241,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
 
     @Override
     public void showMozResult(MozScape data) {
-        if(null == data){
+        if (null == data) {
             mBinding.setMozscape(null);
             domainAuthDrawable.setLevel(0);
             pageAuthDrawable.setLevel(0);
@@ -219,7 +253,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         domainAuthDrawable.setLevel(Math.round(1000f * data.getDomainAuthority() / 100f));
         pageAuthDrawable.setLevel(Math.round(1000f * data.getPageAuthority() / 100f));
         int spam = data.getSpamScore();
-        if(0 == spam){
+        if (0 == spam) {
             spamDrawable.setLevel(0);
         } else {
             spamDrawable.setLevel(Math.round(1000f * (spam - 1) / 17f));
@@ -233,8 +267,11 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
 
     @Override
     public void showAlexaResult(AlexaScore score) {
-        if(null == score) mBinding.setAlexaScore(null);
-        else mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
+        if (null == score) {
+            mBinding.setAlexaScore(null);
+        } else {
+            mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
+        }
     }
 
     @Override
@@ -255,8 +292,11 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
 
     @Override
     public void showHtmldataResult(HtmlData result) {
-        if(null == result) mBinding.setHtmldata(null);
-        else mBinding.setHtmldata(new HtmldataModel(result, getActivity()));
+        if (null == result) {
+            mBinding.setHtmldata(null);
+        } else {
+            mBinding.setHtmldata(new HtmldataModel(result, getActivity()));
+        }
     }
 
     @Override
@@ -274,10 +314,10 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
         viewWebsite.setData(Uri.parse(url));
 
-        if(IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
+        if (IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
             // Then there is application can handle your intent
             startActivity(viewWebsite);
-        }else{
+        } else {
             // No Application can handle your intent
             Toast.makeText(getActivity(), "Cannot open this site", Toast.LENGTH_SHORT).show();
         }
@@ -286,7 +326,7 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     @Override
     public void makePhoneCall(String phoneNumber) {
         Intent dialIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-        if( IntentHelper.canSystemHandleIntent(getActivity(), dialIntent) ) {
+        if (IntentHelper.canSystemHandleIntent(getActivity(), dialIntent)) {
             startActivity(dialIntent);
         } else {
             new AlertDialog.Builder(getActivity())

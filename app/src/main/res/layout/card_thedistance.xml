@@ -8,62 +8,74 @@
     <!-- moz -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/card_padding_top">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:textAppearance="@style/PocketSeo.Headline"
-                android:text="@string/TheDistancePanelHeadline"/>
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                >
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:layout_margin="8dp"
-                android:src="@drawable/thedistance_logo"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/TheDistancePanelHeadline"
+                    android:textAppearance="@style/PocketSeo.Headline"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:gravity="center_horizontal"
-                android:text="@string/TheDistancePanelTagline"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/thedistance_logo"/>
 
-            <Button
-                android:id="@+id/button_send_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/white87"
-                android:text="@string/TheDistancePanelButtonSendFeedback"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/TheDistancePanelTagline"/>
 
-            <Button
-                android:id="@+id/button_get_in_touch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:textColor="@color/white87"
-                android:text="@string/TheDistancePanelButtonGetInTouch"/>
 
-            <Button
-                android:id="@+id/button_visit_website"
+            </LinearLayout>
+            <org.apmem.tools.layouts.FlowLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:textColor="@color/white87"
-                android:text="@string/TheDistancePanelButtonVisitWebsite"/>
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:gravity="start|top"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/button_send_feedback"
+                    android:layout_width="wrap_content"
+                    style="@style/PocketSeo.CardButton"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheDistancePanelButtonSendFeedback"/>
+
+                <Button
+                    android:id="@+id/button_get_in_touch"
+                    android:layout_width="wrap_content"
+                    style="@style/PocketSeo.CardButton"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheDistancePanelButtonGetInTouch"/>
+
+                <Button
+                    android:id="@+id/button_visit_website"
+                    android:layout_width="wrap_content"
+                    style="@style/PocketSeo.CardButton"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheDistancePanelButtonVisitWebsite"/>
+            </org.apmem.tools.layouts.FlowLayout>
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 </layout>
