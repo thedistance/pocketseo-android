@@ -4,19 +4,38 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/fragment_links"
-            class="io.pocketseo.LinksFragment"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_links"/>
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--app:cardBackgroundColor="#fafafa"-->
+            <!--android:layout_weight="1.2">-->
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:clipToPadding="false"
+                android:layout_weight="1.2">
+
+                <fragment
+                    android:id="@+id/fragment_links"
+                    class="io.pocketseo.LinksFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout="@layout/fragment_links"/>
+            </FrameLayout>
+        <!--</android.support.v7.widget.CardView>-->
+
 
         <fragment
             android:id="@+id/fragment_links_options"

@@ -3,25 +3,368 @@
   ~ Copyright (c) The Distance Agency Ltd 2016.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/card"
+    <!--<android.support.design.widget.CoordinatorLayout-->
+        <!--android:id="@+id/coordinator"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/default_padding"
-            android:paddingBottom="@dimen/card_padding_top"
-            android:paddingLeft="@dimen/default_padding"
-            android:paddingRight="@dimen/default_padding"
-            android:paddingTop="@dimen/card_padding_top">
+            tools:layout_width="360dp">
 
-        </android.support.v7.widget.CardView>
 
-    </FrameLayout>
+            <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/card"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="@dimen/default_padding"-->
+            <!--app:cardBackgroundColor="#ffffff"-->
+            <!--tools:layout_width="360dp">-->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        android:paddingBottom="54dp"
+                        android:paddingLeft="@dimen/default_padding"
+                        android:paddingRight="@dimen/default_padding"
+                        android:paddingTop="@dimen/default_padding"
+                        >
+
+                        <TextView
+                            android:id="@+id/target_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Target"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/black54"
+                            />
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/target_title"
+                            android:layout_marginBottom="16dp"
+                            app:cardBackgroundColor="#fafafa"
+                            app:cardElevation="2dp">
+
+                            <RadioGroup
+                                android:id="@+id/target_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/target_title"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/target_page"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:button="@null"
+                                    android:checked="true"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:singleLine="false"
+                                    android:text="Page"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="@color/checkable_text_color"/>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@color/black20"/>
+
+                                <RadioButton
+                                    android:id="@+id/target_subdomain"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:button="@null"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:text="Subdomain"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="@color/checkable_text_color"/>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@color/black20"/>
+
+                                <RadioButton
+                                    android:id="@+id/target_domain"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:button="@null"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:text="Domain"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="@color/checkable_text_color"/>
+
+                            </RadioGroup>
+                        </android.support.v7.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/sort_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Sort By"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/black54"
+                            />
+
+                        <RadioGroup
+                            android:id="@+id/sort_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/sort_page"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="Page Authority"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/sort_domain"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="Domain Authority"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/sort_spam"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="Spam Score"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                        </RadioGroup>
+
+                        <TextView
+                            android:id="@+id/source_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Source Type"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/black54"
+                            />
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/target_title"
+                            android:layout_marginBottom="16dp"
+                            app:cardElevation="2dp">
+
+                            <RadioGroup
+                                android:id="@+id/source_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/target_title"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/source_all"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:button="@null"
+                                    android:checked="true"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:singleLine="false"
+                                    android:text="All"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="@color/checkable_text_color"/>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@color/black20"/>
+
+                                <RadioButton
+                                    android:id="@+id/source_internal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:button="@null"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:text="Internal"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="@color/checkable_text_color"/>
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:background="@color/black20"/>
+
+                                <RadioButton
+                                    android:id="@+id/source_external"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:button="@null"
+                                    android:gravity="center"
+                                    android:padding="12dp"
+                                    android:text="External"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                    android:textColor="@color/checkable_text_color"/>
+
+                            </RadioGroup>
+                        </android.support.v7.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/link_type_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Link Type"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/black54"
+                            />
+
+                        <RadioGroup
+                            android:id="@+id/link_type_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/link_type_all"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="All"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/link_type_equity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="Equity"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/link_type_no_equity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="No Equity"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/link_type_follow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="Follow"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/link_type_no_follow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="No Follow"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/link_type_301"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="301 Redirect"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                            <RadioButton
+                                android:id="@+id/link_type_302"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="8dp"
+                                android:singleLine="false"
+                                android:text="302 Redirect"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="@color/checkable_text_color"/>
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+
+                </ScrollView>
+
+
+            </LinearLayout>
+            <!--</android.support.v7.widget.CardView>-->
+
+        </FrameLayout>
+    <!--</android.support.design.widget.CoordinatorLayout>-->
 </layout>

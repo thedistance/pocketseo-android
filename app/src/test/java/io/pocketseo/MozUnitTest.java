@@ -69,7 +69,7 @@ public class MozUnitTest {
 
         TestSubscriber<List<MSLinkMetrics>> subscriber = new TestSubscriber<>();
 
-        webService.getLinks("thedistance.co.uk", MSLinkMetrics.getBitmask(), 25, 0, "page_to_page", "spam_score", authenticator.getAuthenticationMap())
+        webService.getLinks("thedistance.co.uk", MSLinkMetrics.getBitmask(), 25, 0, "page_to_page", "spam_score", "", authenticator.getAuthenticationMap())
                 .subscribe(subscriber);
 
         List<List<MSLinkMetrics>> events = subscriber.getOnNextEvents();

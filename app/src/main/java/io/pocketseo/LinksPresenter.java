@@ -13,6 +13,8 @@ import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScapeLink;
 import io.pocketseo.viewmodel.MozScapeLinkViewModel;
+import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
+import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
 import rx.Subscriber;
 import rx.Subscription;
 
@@ -31,19 +33,8 @@ public class LinksPresenter implements Presenter {
     private int currentPage;
     private MozScapeLink selectedLink;
 
-    public void openSelected() {
-        if (selectedLink != null) {
-            mView.openLink(selectedLink);
-        }
-    }
-
-    public void retry() {
-        if (links.isEmpty()) {
-            performSearch(mWebsite, true, true);
-        } else {
-            loadNext();
-        }
-    }
+    private MSLinkFilter filter = new MSLinkFilter();
+    private MSLinkFilter appliedFilter = new MSLinkFilter();
 
     interface View {
         void showLoading(boolean loading);
@@ -91,7 +82,7 @@ public class LinksPresenter implements Presenter {
     private void loadLinks(String websiteUrl, final int page, boolean force) {
         unsubscribe();
 
-        subscription = mRepo.getLinkMetrics(websiteUrl, page, force)
+        subscription = mRepo.getLinkMetrics(websiteUrl, page, appliedFilter, force)
                 .subscribe(new Subscriber<List<MozScapeLink>>() {
                     @Override
                     public void onCompleted() {
@@ -149,4 +140,50 @@ public class LinksPresenter implements Presenter {
         selectedLink = link;
         mView.showFab(selectedLink != null);
     }
+
+    public void setSort(MSLinkMetrics.Sort sort) {
+        filter.sort = sort;
+        applyFilter();
+    }
+
+    public void setSourceFilter(MSLinkMetrics.Filter sourceFilter) {
+        filter.filters.set(0, sourceFilter);
+        applyFilter();
+    }
+
+    public void setLinkFilter(MSLinkMetrics.Filter filter) {
+        this.filter.filters.set(1, filter);
+        applyFilter();
+    }
+
+    public void setScope(MSLinkMetrics.Scope scope) {
+        filter.scope = scope;
+        applyFilter();
+    }
+
+    public void openSelected() {
+        if (selectedLink != null) {
+            mView.openLink(selectedLink);
+        }
+    }
+
+    public void retry() {
+        if (links.isEmpty()) {
+            performSearch(mWebsite, true, true);
+        } else {
+            loadNext();
+        }
+    }
+
+    public void applyFilter() {
+        appliedFilter.scope = filter.scope;
+        appliedFilter.sort = filter.sort;
+        appliedFilter.filters = filter.filters;
+        performSearch(mWebsite, false, true);
+    }
+
+    public void resetFilter() {
+        filter = new MSLinkFilter();
+    }
+
 }
