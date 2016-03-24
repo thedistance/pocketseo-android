@@ -14,7 +14,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -26,8 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.pocketseo.databinding.FragmentTabManagerBinding;
 import io.pocketseo.injection.ApplicationComponent;
@@ -168,7 +165,7 @@ public class TabManagerFragment extends Fragment {
                 case 0:
                     return UrlMetricsFragment.newInstance(mWebsite);
                 case 1:
-                    return LinksFragment.newInstance(mWebsite);
+                    return LinksParentFragment.newInstance(mWebsite);
             }
 
             return null;

@@ -102,7 +102,7 @@ public class MozScapeLinkViewModel extends BaseObservable {
 
     @Bindable
     public @ColorInt int getBackgroundColor() {
-        return selected ? Color.WHITE : resources.getColor(R.color.white54);
+        return selected ? Color.WHITE : resources.getColor(R.color.item_background);
     }
 
     @Bindable

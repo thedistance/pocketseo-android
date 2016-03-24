@@ -19,6 +19,64 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
                 | FLAG_TITLE;
     }
 
+    public enum Scope {
+        Page("page_to_page"),
+        Subdomain("page_to_subdomain"),
+        Domain("page_to_domain");
+
+        private final String value;
+
+        Scope(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    public enum Sort {
+        PageAuthority("page_authority"),
+        DomainAuthority("domain_authority"),
+        SpamScore("spam_score");
+
+        private final String value;
+
+        Sort(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    public enum Filter {
+        AllSource(""),
+        AllLink(""),
+        Internal("internal"),
+        External("external"),
+        Follow("follow"),
+        NoFollow("nofollow"),
+        Equity("equity"),
+        NoEquity("nonequity"),
+        Redirect301("301"),
+        Redirect302("302");
+
+        private final String value;
+
+        Filter(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
     @SerializedName("uu")
     public String url;
 

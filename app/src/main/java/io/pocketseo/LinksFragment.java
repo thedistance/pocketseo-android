@@ -42,14 +42,14 @@ import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import uk.co.thedistance.thedistancekit.IntentHelper;
 import uk.co.thedistance.thedistancekit.TheDistanceFragment;
 
-public class LinksFragment extends TheDistanceFragment implements LinksPresenter.View, LoaderManager.LoaderCallbacks<LinksPresenter>, ScrollableTab {
+public class LinksFragment extends TheDistanceFragment implements LinksPresenter.View, ScrollableTab {
 
-    private static final int LOADER_ID = 0x1;
     private static final String ARG_WEBSITE = "website";
     private LinksPresenter presenter;
     private FragmentLinksBinding binding;
     private LinksAdapter adapter;
     private String website;
+    private Snackbar snackbar;
 
     public static LinksFragment newInstance(String website) {
 
@@ -68,6 +68,8 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
             website = savedInstanceState.getString(ARG_WEBSITE);
         } else if (getArguments() != null) {
             website = getArguments().getString(ARG_WEBSITE);
+        } else if (getParentFragment().getArguments() != null) {
+            website = getParentFragment().getArguments().getString(ARG_WEBSITE);
         }
     }
 
@@ -119,14 +121,6 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        getLoaderManager().initLoader(LOADER_ID, null, this);
-
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
 
@@ -136,6 +130,8 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     @Override
     public void onResume() {
         super.onResume();
+
+        presenter = ((LinksParentFragment) getTargetFragment()).getPresenter();
 
         binding.swipeRefresh.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -309,33 +305,17 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     }
 
     @Override
-    public Loader<LinksPresenter> onCreateLoader(int id, Bundle args) {
-        final ApplicationComponent component = PocketSeoApplication.getApplicationComponent(getActivity());
-        return new PresenterLoader<LinksPresenter>(getActivity(), new PresenterFactory<LinksPresenter>() {
-            @Override
-            public LinksPresenter create() {
-                return new LinksPresenter(website, component.repository(), component.analytics());
-            }
-        });
-    }
-
-    @Override
-    public void onLoadFinished(Loader<LinksPresenter> loader, LinksPresenter data) {
-        this.presenter = data;
-    }
-
-    @Override
-    public void onLoaderReset(Loader<LinksPresenter> loader) {
-
-    }
-
-    @Override
     public void showLoading(boolean loading) {
         binding.swipeRefresh.setRefreshing(loading);
     }
 
     @Override
-    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad) {
+    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad)
+    {
+        if (snackbar != null && snackbar.isShown()) {
+            snackbar.dismiss();
+            snackbar = null;
+        }
         boolean scrollToTop = clear && adapter.showLoading;
         adapter.addLinks(links, clear);
         adapter.showLoading(moreToLoad);
@@ -346,14 +326,14 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
     @Override
     public void showError(String message) {
-        Snackbar.make(binding.coordinator, message, Snackbar.LENGTH_INDEFINITE)
+        snackbar = Snackbar.make(binding.coordinator, message, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         presenter.retry();
                     }
-                })
-                .show();
+                });
+        snackbar.show();
     }
 
     @Override

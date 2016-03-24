@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{viewModel.backgroundColor}"
+        android:elevation="2dp"
         android:selected="@{viewModel.selected}"
         android:stateListAnimator="@anim/lift_up">
 

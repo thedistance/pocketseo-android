@@ -18,6 +18,7 @@ import io.pocketseo.webservice.alexa.AlexaWebService;
 import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
+import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
 import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
 import io.pocketseo.webservice.mozscape.model.MSNextUpdate;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
@@ -27,6 +28,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.schedulers.Schedulers;
+import uk.co.thedistance.thedistancekit.text.StringUtils;
 
 public class DataRepositoryImpl implements DataRepository {
 
@@ -151,9 +153,14 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Observable<List<MozScapeLink>> getLinkMetrics(String url, int page, boolean refresh) {
+    public Observable<List<MozScapeLink>> getLinkMetrics(String url, int page, MSLinkFilter filter, boolean refresh) {
 
-        Observable<List<MSLinkMetrics>> webServiceResponse = mMozWebService.getLinks(url, MSLinkMetrics.getBitmask(), 25, 25 * (page - 1), mMozAuthenticator.getAuthenticationMap());
+
+//        Observable<List<MSLinkMetrics>> webServiceResponse = mMozWebService.getLinks(url, MSLinkMetrics.getBitmask(), 25, 25 * (page - 1), mMozAuthenticator.getAuthenticationMap());
+
+        String filterString = StringUtils.join(filter.filters, "+");
+        Observable<List<MSLinkMetrics>> webServiceResponse = mMozWebService.getLinks(url, MSLinkMetrics.getBitmask(), 25, 25 * (page - 1),
+                filter.scope.toString(), filter.sort.toString(), filterString, mMozAuthenticator.getAuthenticationMap());
 
         return (Observable<List<MozScapeLink>>) getPreparedObservable(webServiceResponse, "links:" + url + "/" + page, !refresh);
     }
