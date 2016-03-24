@@ -13,8 +13,8 @@ public class MSLinkFilter {
     public ArrayList<MSLinkMetrics.Filter> filters = new ArrayList<>(2);
 
     public MSLinkFilter() {
-        filters.add(MSLinkMetrics.Filter.All);
-        filters.add(MSLinkMetrics.Filter.All);
+        filters.add(MSLinkMetrics.Filter.AllSource);
+        filters.add(MSLinkMetrics.Filter.AllLink);
     }
 
     @Override

@@ -310,7 +310,8 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     }
 
     @Override
-    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad) {
+    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad)
+    {
         if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
             snackbar = null;

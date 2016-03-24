@@ -34,7 +34,7 @@ public class LinksPresenter implements Presenter {
     private MozScapeLink selectedLink;
 
     private MSLinkFilter filter = new MSLinkFilter();
-    private MSLinkFilter appliedFilter = new MSLinkFilter();
+    public MSLinkFilter appliedFilter = new MSLinkFilter();
 
     interface View {
         void showLoading(boolean loading);

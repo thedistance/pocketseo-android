@@ -6,17 +6,40 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<android.support.v4.widget.DrawerLayout-->
+        <!--android:id="@+id/drawer_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <fragment
-            android:id="@+id/fragment_links"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            class="io.pocketseo.LinksFragment"
-            tools:layout="@layout/fragment_links"/>
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <fragment
+                android:id="@+id/fragment_links"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="io.pocketseo.LinksFragment"
+                tools:layout="@layout/fragment_links"/>
+
+        </FrameLayout>
+
+        <!--<FrameLayout-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:background="#fafafa">-->
+
+            <!--<fragment-->
+                <!--android:id="@+id/fragment_links_options"-->
+                <!--class="io.pocketseo.LinksOptionsFragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--tools:layout="@layout/fragment_links_options"/>-->
+        <!--</FrameLayout>-->
+
+    <!--</android.support.v4.widget.DrawerLayout>-->
+
+
 
 </layout>

@@ -7,27 +7,74 @@ package io.pocketseo;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+
+import java.util.Arrays;
+import java.util.List;
 
 import io.pocketseo.databinding.FragmentLinksOptionsBinding;
+import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
 import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
-import uk.co.thedistance.thedistancekit.TheDistanceFragment;
 
-public class LinksOptionsFragment extends TheDistanceFragment {
+public class LinksOptionsFragment extends DialogFragment {
 
     private FragmentLinksOptionsBinding binding;
     private LinksPresenter presenter;
-    private Snackbar snackbar;
+    boolean isDialog = false;
+
+    public static LinksOptionsFragment newInstance(boolean isDialog) {
+
+        Bundle args = new Bundle();
+
+        LinksOptionsFragment fragment = new LinksOptionsFragment();
+        args.putBoolean("dialog", isDialog);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            isDialog = getArguments().getBoolean("dialog");
+        }
+
+        if (isDialog) {
+            setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme_Dialog_MinWidth);
+        }
+    }
+
+   static final int[] ids = new int[]{R.id.target_page, R.id.target_subdomain, R.id.target_domain,
+            R.id.sort_page, R.id.sort_domain, R.id.sort_spam,
+            R.id.source_all, R.id.source_internal, R.id.source_external,
+            R.id.link_type_all, R.id.link_type_equity, R.id.link_type_no_equity, R.id.link_type_follow,
+            R.id.link_type_no_follow, R.id.link_type_301, R.id.link_type_302};
+
+    static final Object[] options = new Object[]{MSLinkMetrics.Scope.Page, MSLinkMetrics.Scope.Subdomain, MSLinkMetrics.Scope.Domain,
+            MSLinkMetrics.Sort.PageAuthority, MSLinkMetrics.Sort.DomainAuthority, MSLinkMetrics.Sort.SpamScore,
+            MSLinkMetrics.Filter.AllSource, MSLinkMetrics.Filter.Internal, MSLinkMetrics.Filter.External,
+            MSLinkMetrics.Filter.AllLink, MSLinkMetrics.Filter.Equity, MSLinkMetrics.Filter.NoEquity, MSLinkMetrics.Filter.Follow,
+            MSLinkMetrics.Filter.NoFollow, MSLinkMetrics.Filter.Redirect301, MSLinkMetrics.Filter.Redirect302};
+
+    ArrayMap<Object, Integer> optionsMap = new ArrayMap<>(options.length);
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_links_options, container, false);
+
+        for (int i = 0; i < options.length; i++) {
+            optionsMap.put(options[i], ids[i]);
+        }
+
+
 
         binding.targetGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -77,7 +124,7 @@ public class LinksOptionsFragment extends TheDistanceFragment {
                 }
                 switch (checkedId) {
                     case R.id.source_all:
-                        presenter.setSourceFilter(MSLinkMetrics.Filter.All);
+                        presenter.setSourceFilter(MSLinkMetrics.Filter.AllSource);
                         break;
                     case R.id.source_internal:
                         presenter.setSourceFilter(MSLinkMetrics.Filter.Internal);
@@ -96,8 +143,9 @@ public class LinksOptionsFragment extends TheDistanceFragment {
                     return;
                 }
                 switch (checkedId) {
+
                     case R.id.link_type_all:
-                        presenter.setLinkFilter(MSLinkMetrics.Filter.All);
+                        presenter.setLinkFilter(MSLinkMetrics.Filter.AllLink);
                         break;
                     case R.id.link_type_equity:
                         presenter.setLinkFilter(MSLinkMetrics.Filter.Equity);
@@ -130,6 +178,26 @@ public class LinksOptionsFragment extends TheDistanceFragment {
 
         LinksParentFragment parentFragment = (LinksParentFragment) getTargetFragment();
         presenter = parentFragment.getPresenter();
+
+        if (presenter != null) {
+
+            MSLinkFilter filter = presenter.appliedFilter;
+
+            Integer id = optionsMap.get(filter.scope);
+            if (id != null) {
+                ((RadioButton) binding.getRoot().findViewById(id)).setChecked(true);
+            }
+            id = optionsMap.get(filter.sort);
+            if (id != null) {
+                ((RadioButton) binding.getRoot().findViewById(id)).setChecked(true);
+            }
+            for (MSLinkMetrics.Filter linkFilter : filter.filters) {
+                id = optionsMap.get(linkFilter);
+                if (id != null) {
+                    ((RadioButton) binding.getRoot().findViewById(id)).setChecked(true);
+                }
+            }
+        }
     }
 
 

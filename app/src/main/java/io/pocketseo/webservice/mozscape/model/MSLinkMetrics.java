@@ -54,7 +54,8 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
     }
 
     public enum Filter {
-        All(""),
+        AllSource(""),
+        AllLink(""),
         Internal("internal"),
         External("external"),
         Follow("follow"),

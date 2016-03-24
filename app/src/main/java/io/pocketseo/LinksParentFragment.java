@@ -10,7 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,6 +45,8 @@ public class LinksParentFragment extends TheDistanceFragment implements Scrollab
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         if (null != savedInstanceState) {
             website = savedInstanceState.getString(ARG_WEBSITE);
         } else if (getArguments() != null) {
@@ -56,6 +63,9 @@ public class LinksParentFragment extends TheDistanceFragment implements Scrollab
         linksFragment.setTargetFragment(this, 0);
 
         Fragment optionsFragment = getChildFragmentManager().findFragmentById(R.id.fragment_links_options);
+        if (optionsFragment == null) {
+            optionsFragment = getChildFragmentManager().findFragmentByTag("options");
+        }
         if (optionsFragment != null) {
             optionsFragment.setTargetFragment(this, 0);
         }
@@ -76,6 +86,33 @@ public class LinksParentFragment extends TheDistanceFragment implements Scrollab
         super.onSaveInstanceState(outState);
 
         outState.putString(ARG_WEBSITE, website);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.fragment_links, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+
+                LinksOptionsFragment fragment = LinksOptionsFragment.newInstance(true);
+                fragment.setTargetFragment(this, 0);
+                fragment.show(getChildFragmentManager(), "options");
+
+//                if (binding.drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+//                    binding.drawerLayout.closeDrawers();
+//                } else {
+//                    binding.drawerLayout.openDrawer(Gravity.RIGHT);
+//                }
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
