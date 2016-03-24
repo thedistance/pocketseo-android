@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.util.ArrayMap;
@@ -99,7 +100,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
                 if (recyclerView.isAnimating()) {
                     return;
                 }
-                if (adapter.shouldLoadNext() && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() == adapter.getItemCount() - 2) {
+                if (adapter.shouldLoadNext() && ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() == adapter.getItemCount() - 1) {
                     presenter.loadNext();
                 }
             }
@@ -162,7 +163,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
         SortedList<MozScapeLink> sortedLinks = new SortedList<MozScapeLink>(MozScapeLink.class, new SortedList.Callback<MozScapeLink>() {
             @Override
             public int compare(MozScapeLink o1, MozScapeLink o2) {
-                return Float.compare(o2.getPageAuthority(), o1.getPageAuthority());
+                return 0;//Float.compare(o2.getPageAuthority(), o1.getPageAuthority());
             }
 
             @Override
@@ -345,7 +346,19 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
     @Override
     public void showError(String message) {
+        Snackbar.make(binding.coordinator, message, Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        presenter.retry();
+                    }
+                })
+                .show();
+    }
 
+    @Override
+    public void showEmpty(boolean show) {
+        binding.emptyText.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

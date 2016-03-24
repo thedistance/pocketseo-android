@@ -37,12 +37,22 @@ public class LinksPresenter implements Presenter {
         }
     }
 
+    public void retry() {
+        if (links.isEmpty()) {
+            performSearch(mWebsite, true, true);
+        } else {
+            loadNext();
+        }
+    }
+
     interface View {
         void showLoading(boolean loading);
 
         void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad);
 
         void showError(String message);
+
+        void showEmpty(boolean show);
 
         void showFab(boolean show);
 
@@ -105,6 +115,7 @@ public class LinksPresenter implements Presenter {
 
                         moreToLoad = links.size() == 25;
                         mView.showResults(links, page == 1, moreToLoad);
+                        mView.showEmpty(LinksPresenter.this.links.isEmpty());
                     }
                 });
     }

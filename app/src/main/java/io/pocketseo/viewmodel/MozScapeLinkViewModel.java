@@ -69,7 +69,7 @@ public class MozScapeLinkViewModel extends BaseObservable {
 
     @Bindable
     public String getAnchorText() {
-        return model.getAnchorText();
+        return TextUtils.isEmpty(model.getAnchorText()) ? "[NONE]" : model.getAnchorText();
     }
 
     @Bindable

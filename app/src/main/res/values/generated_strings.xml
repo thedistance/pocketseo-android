@@ -79,4 +79,5 @@
   <string name="StandaloneLaunchFullAppButton">Launch Full App</string><!-- Button label used to launch full app from standalone UI -->
   <string name="LinksOpenLink">Open Link</string><!-- The title of the bottom sheet shown when opening a backlink -->
   <string name="LinksOpenLinkBrowser">Browser</string><!-- Title for the option to open the link in a browser -->
+  <string name="LinksTitle">Links</string><!-- The tab title for the Links tab -->
 </resources>

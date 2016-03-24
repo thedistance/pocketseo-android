@@ -155,7 +155,7 @@ public class DataRepositoryImpl implements DataRepository {
 
         Observable<List<MSLinkMetrics>> webServiceResponse = mMozWebService.getLinks(url, MSLinkMetrics.getBitmask(), 25, 25 * (page - 1), mMozAuthenticator.getAuthenticationMap());
 
-        return (Observable<List<MozScapeLink>>) getPreparedObservable(webServiceResponse, "links:" + url + "/" + page, refresh);
+        return (Observable<List<MozScapeLink>>) getPreparedObservable(webServiceResponse, "links:" + url + "/" + page, !refresh);
     }
 
     @Override

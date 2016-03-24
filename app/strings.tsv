@@ -77,3 +77,4 @@ SettingsAnalyticsOff	Usage data will not be collected.	Shown when analytics is e
 StandaloneLaunchFullAppButton	Launch Full App	Button label used to launch full app from standalone UI
 LinksOpenLink	Open Link	The title of the bottom sheet shown when opening a backlink
 LinksOpenLinkBrowser	Browser	Title for the option to open the link in a browser
+LinksTitle	Links	The tab title for the Links tab

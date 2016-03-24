@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,9 +91,9 @@ public class TabManagerFragment extends Fragment {
                 if (fragment != null && fragment instanceof ScrollableTab) {
                     ((ScrollableTab) fragment).scrollToTop();
                 }
-
             }
         });
+        mBinding.tabs.setVisibility(mWebsite == null ? View.GONE : View.VISIBLE);
 
         return mBinding.getRoot();
     }
@@ -152,7 +153,7 @@ public class TabManagerFragment extends Fragment {
             this.mWebsite = website;
             titles = new String[]{
                     context.getString(R.string.URLMetricsTitle),
-                    "Links"
+                    context.getString(R.string.LinksTitle)
             };
         }
 
