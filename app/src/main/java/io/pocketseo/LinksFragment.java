@@ -12,9 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +33,6 @@ import java.util.List;
 import io.pocketseo.databinding.FragmentLinksBinding;
 import io.pocketseo.databinding.ItemLinkBinding;
 import io.pocketseo.databinding.ItemLoadingBinding;
-import io.pocketseo.injection.ApplicationComponent;
 import io.pocketseo.model.MozScapeLink;
 import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import uk.co.thedistance.thedistancekit.IntentHelper;
@@ -131,7 +127,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     public void onResume() {
         super.onResume();
 
-        presenter = ((LinksParentFragment) getTargetFragment()).getPresenter();
+        presenter = ((LinksParentFragment) getParentFragment()).getPresenter();
 
         binding.swipeRefresh.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

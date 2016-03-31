@@ -10,8 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,14 +58,10 @@ public class LinksParentFragment extends TheDistanceFragment implements Scrollab
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_links_parent, container, false);
 
         linksFragment = (LinksFragment) getChildFragmentManager().findFragmentById(R.id.fragment_links);
-        linksFragment.setTargetFragment(this, 0);
 
         Fragment optionsFragment = getChildFragmentManager().findFragmentById(R.id.fragment_links_options);
         if (optionsFragment == null) {
             optionsFragment = getChildFragmentManager().findFragmentByTag("options");
-        }
-        if (optionsFragment != null) {
-            optionsFragment.setTargetFragment(this, 0);
         }
 
         return binding.getRoot();
