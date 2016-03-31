@@ -69,7 +69,7 @@ dependencies {
         transitive = true;
     }
     compile project(':theDistanceKit')
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     // http://stackoverflow.com/questions/18084285/using-simplexml-with-android-and-gradle
     compile('com.squareup.retrofit2:converter-simplexml:2.0.0-beta4') {
