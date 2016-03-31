@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="mozscape"
+            type="io.pocketseo.viewmodel.MozScapeViewModel" />
+        <variable
+            name="mozError"
+            type="java.lang.String" />
+        <variable
+            name="mozLoading"
+            type="boolean" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <!-- moz -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:visibility="@{ mozscape == null &amp;&amp; mozError == null &amp;&amp; !mozLoading ? View.GONE : View.VISIBLE }"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/powered_by_mozscape"/>
+                <CheckBox
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mozscape_expand_check"
+                    android:button="@drawable/ic_expand"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true"
+                android:visibility="@{mozError == null ? View.VISIBLE : View.GONE }">
+                <TextView
+                    android:id="@+id/status_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:visibility="gone"
+                    android:text="@{mozscape.statusCode}"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/PocketSeo.Subhead"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/URLMozscapeAuthorityTitle"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/page_authority_container">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:gravity="center"
+                                android:text="@{mozscape.pageAuthority}"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:gravity="center"
+                                android:text="100"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:gravity="center"
+                            android:text="@string/URLMozscapeAuthorityPage"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/domain_authority_container">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:gravity="center"
+                                android:text="@{mozscape.domainAuthority}"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:gravity="center"
+                                android:text="100"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:gravity="center"
+                            android:text="@string/URLMozscapeAuthorityDomain"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/spam_score_container">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                                android:gravity="center"
+                                android:text="@{mozscape.spamScore}"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:gravity="center"
+                                android:text="17"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:gravity="center"
+                            android:text="@string/URLMozscapeAuthoritySpamScore"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- start collapsed section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/mozscape_expanded"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/PocketSeo.Subhead"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/URLMozscapeLinksTitle"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                            tools:text="138"
+                            android:text="@{String.valueOf(mozscape.linksRoot)}"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:text="@string/URLMozscapeLinksRootDomain"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                            tools:text="5,527"
+                            android:text="@{ mozscape.linksTotal}"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:text="@string/URLMozscapeLinksTotalLinks"/>
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/last_index_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/URLMozscapeLastIndexedTitle"/>
+                        <TextView
+                            android:id="@+id/next_index_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/URLMozscapeNextIndexedTitle"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/last_index_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:text="@{mozscape.lastIndex}"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/next_index_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:text="@{mozscape.nextIndex}"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/error"
+                     errorMessage="@{mozError}" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:visibility="@{ mozLoading ? View.VISIBLE : View.GONE }"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+    </android.support.v7.widget.CardView>
+
+</layout>
