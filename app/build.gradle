@@ -50,8 +50,8 @@ android {
         }
 
         googlePlay {
-            versionName "0.0.1"
-            versionCode 1
+            versionName "0.1.0"
+            versionCode 2
         }
 
         crashlytics {
