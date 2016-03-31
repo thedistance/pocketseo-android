@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mBinding.toolbar);
 
-        if(BuildConfig.DEBUG){
+        if(BuildConfig.FLAVOR.equals("defaultFlavor")){
             mBinding.websiteName.setText("");
             mBinding.websiteName.append("thedistance.co.uk");
         }
