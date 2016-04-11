@@ -81,13 +81,13 @@
   <string name="LinksOpenLinkBrowser">Browser</string><!-- Title for the option to open the link in a browser -->
   <string name="LinksTitle">Links</string><!-- The tab title for the Links tab -->
   <string name="LinksFilter">Filter</string><!-- Shown in menu to open filter options -->
-  <string name="LinksFilterTarget">Target</string><!-- Header for target filter options -->
-  <string name="LinksFilterSortBy">Sort By</string><!-- Header for sort options -->
-  <string name="LinksFilterSource">Source Type</string><!-- Header for source filter options -->
+  <string name="LinksFilterTarget">Link Target</string><!-- Header for target filter options -->
+  <string name="LinksFilterSortBy">Sort Links By</string><!-- Header for sort options -->
+  <string name="LinksFilterSource">Link Source</string><!-- Header for source filter options -->
   <string name="LinksFilterLinkType">Link Type</string><!-- Header for link type filter options -->
-  <string name="LinksFilterPage">Page</string><!-- Text for "page_to_page" scope -->
-  <string name="LinksFilterDomain">Domain</string><!-- Text for "page_to_domain" scope -->
-  <string name="LinksFilterSubdomain">Subdomain</string><!-- Text for "page_to_subdomain" scope -->
+  <string name="LinksFilterPage">This Page</string><!-- Text for "page_to_page" scope -->
+  <string name="LinksFilterDomain">This Domain</string><!-- Text for "page_to_domain" scope -->
+  <string name="LinksFilterSubdomain">This Subdomain</string><!-- Text for "page_to_subdomain" scope -->
   <string name="LinksFilterPageAuthority">Page Authority</string><!-- Text for "page_authority" sorting -->
   <string name="LinksFilterDomainAuthority">Domain Authority</string><!-- Text for "domain_authority" sorting -->
   <string name="LinksFilterSpamScore">Spam Score</string><!-- Text for "spam_score" sorting -->
@@ -100,4 +100,5 @@
   <string name="LinksFilterNoFollow">No Follow</string><!-- Text for "nofollow" link filter -->
   <string name="LinksFilter301">301 Redirect</string><!-- Text for "301" link filter -->
   <string name="LinksFilter302">302 Redirect</string><!-- Text for "302" link filter -->
+  <string name="LinksNoneFound">No links found for your URL</string><!-- Text when there are no links found for the user's entered url -->
 </resources>

@@ -79,13 +79,13 @@ LinksOpenLink	Open Link	The title of the bottom sheet shown when opening a backl
 LinksOpenLinkBrowser	Browser	Title for the option to open the link in a browser
 LinksTitle	Links	The tab title for the Links tab
 LinksFilter	Filter	Shown in menu to open filter options
-LinksFilterTarget	Target	Header for target filter options
-LinksFilterSortBy	Sort By	Header for sort options
-LinksFilterSource	Source Type	Header for source filter options
+LinksFilterTarget	Link Target	Header for target filter options
+LinksFilterSortBy	Sort Links By	Header for sort options
+LinksFilterSource	Link Source	Header for source filter options
 LinksFilterLinkType	Link Type	Header for link type filter options
-LinksFilterPage	Page	Text for "page_to_page" scope
-LinksFilterDomain	Domain	Text for "page_to_domain" scope
-LinksFilterSubdomain	Subdomain	Text for "page_to_subdomain" scope
+LinksFilterPage	This Page	Text for "page_to_page" scope
+LinksFilterDomain	This Domain	Text for "page_to_domain" scope
+LinksFilterSubdomain	This Subdomain	Text for "page_to_subdomain" scope
 LinksFilterPageAuthority	Page Authority	Text for "page_authority" sorting
 LinksFilterDomainAuthority	Domain Authority	Text for "domain_authority" sorting
 LinksFilterSpamScore	Spam Score	Text for "spam_score" sorting
@@ -98,3 +98,4 @@ LinksFilterFollow	Follow	Text for "follow" link filter
 LinksFilterNoFollow	No Follow	Text for "nofollow" link filter
 LinksFilter301	301 Redirect	Text for "301" link filter
 LinksFilter302	302 Redirect	Text for "302" link filter
+LinksNoneFound	No links found for your URL	Text when there are no links found for the user's entered url
