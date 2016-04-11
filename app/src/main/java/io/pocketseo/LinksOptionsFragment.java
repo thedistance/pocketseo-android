@@ -15,9 +15,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import java.util.Arrays;
-import java.util.List;
-
 import io.pocketseo.databinding.FragmentLinksOptionsBinding;
 import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
 import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
@@ -176,7 +173,7 @@ public class LinksOptionsFragment extends DialogFragment {
     public void onResume() {
         super.onResume();
 
-        LinksParentFragment parentFragment = (LinksParentFragment) getTargetFragment();
+        LinksParentFragment parentFragment = (LinksParentFragment) getParentFragment();
         presenter = parentFragment.getPresenter();
 
         if (presenter != null) {
