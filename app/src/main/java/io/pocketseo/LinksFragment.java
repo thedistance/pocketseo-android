@@ -180,6 +180,9 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
             @Override
             public boolean areContentsTheSame(MozScapeLink oldItem, MozScapeLink newItem) {
+                if (oldItem == null || newItem == null) {
+                    return false;
+                }
                 return oldItem.equals(newItem);
             }
 
@@ -306,8 +309,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
     }
 
     @Override
-    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad)
-    {
+    public void showResults(List<MozScapeLink> links, boolean clear, boolean moreToLoad) {
         if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
             snackbar = null;
