@@ -28,6 +28,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.schedulers.Schedulers;
+import uk.co.thedistance.thedistancekit.text.StringUtils;
 
 public class DataRepositoryImpl implements DataRepository {
 
@@ -156,12 +157,8 @@ public class DataRepositoryImpl implements DataRepository {
 
 
 //        Observable<List<MSLinkMetrics>> webServiceResponse = mMozWebService.getLinks(url, MSLinkMetrics.getBitmask(), 25, 25 * (page - 1), mMozAuthenticator.getAuthenticationMap());
-        StringBuilder sb = new StringBuilder();
-        for(MSLinkMetrics.Filter f: filter.filters){
-            if(f.toString().isEmpty()) continue;
-            if(sb.length() > 0) sb.append("+" + f.toString());
-        }
-        String filterString = sb.toString();
+
+        String filterString = StringUtils.join(filter.filters, "+");
         Observable<List<MSLinkMetrics>> webServiceResponse = mMozWebService.getLinks(url, MSLinkMetrics.getBitmask(), 25, 25 * (page - 1),
                 filter.scope.toString(), filter.sort.toString(), filterString, mMozAuthenticator.getAuthenticationMap());
 
