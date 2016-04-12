@@ -70,9 +70,7 @@ public class LinksOptionsFragment extends DialogFragment {
         for (int i = 0; i < options.length; i++) {
             optionsMap.put(options[i], ids[i]);
         }
-
-
-
+        
         binding.targetGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -139,8 +137,8 @@ public class LinksOptionsFragment extends DialogFragment {
                 if (presenter == null) {
                     return;
                 }
-                switch (checkedId) {
 
+                switch (checkedId) {
                     case R.id.link_type_all:
                         presenter.setLinkFilter(MSLinkMetrics.Filter.AllLink);
                         break;

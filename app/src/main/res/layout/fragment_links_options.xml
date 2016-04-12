@@ -30,6 +30,57 @@
                     >
 
                     <TextView
+                        android:id="@+id/sort_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/LinksFilterSortBy"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/black54"
+                        />
+
+                    <RadioGroup
+                        android:id="@+id/sort_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/sort_page"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterPageAuthority"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/sort_domain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterDomainAuthority"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/sort_spam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterSpamScore"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                    </RadioGroup>
+
+                    <TextView
                         android:id="@+id/target_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,57 +136,6 @@
                     </RadioGroup>
 
                     <TextView
-                        android:id="@+id/sort_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/LinksFilterSortBy"
-                        android:textAllCaps="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textColor="@color/black54"
-                        />
-
-                    <RadioGroup
-                        android:id="@+id/sort_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/sort_page"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:padding="8dp"
-                            android:singleLine="false"
-                            android:text="@string/LinksFilterPageAuthority"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/checkable_text_color"/>
-
-                        <RadioButton
-                            android:id="@+id/sort_domain"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="8dp"
-                            android:singleLine="false"
-                            android:text="@string/LinksFilterDomainAuthority"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/checkable_text_color"/>
-
-                        <RadioButton
-                            android:id="@+id/sort_spam"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="8dp"
-                            android:singleLine="false"
-                            android:text="@string/LinksFilterSpamScore"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/checkable_text_color"/>
-
-                    </RadioGroup>
-
-                    <TextView
                         android:id="@+id/source_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -165,17 +165,6 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textColor="@color/checkable_text_color"/>
 
-
-                        <RadioButton
-                            android:id="@+id/source_internal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="8dp"
-                            android:singleLine="false"
-                            android:text="@string/LinksFilterInternal"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/checkable_text_color"/>
-
                         <RadioButton
                             android:id="@+id/source_external"
                             android:layout_width="match_parent"
@@ -186,6 +175,15 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textColor="@color/checkable_text_color"/>
 
+                        <RadioButton
+                            android:id="@+id/source_internal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterInternal"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
                     </RadioGroup>
 
                     <TextView

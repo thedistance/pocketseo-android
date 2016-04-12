@@ -12,7 +12,6 @@ import java.util.List;
 import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScapeLink;
-import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
 import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
 import rx.Subscriber;
@@ -147,16 +146,25 @@ public class LinksPresenter implements Presenter {
     }
 
     public void setSourceFilter(MSLinkMetrics.Filter sourceFilter) {
+        if (this.filter.filters.get(0).equals(sourceFilter)) {
+            return;
+        }
         filter.filters.set(0, sourceFilter);
         applyFilter();
     }
 
     public void setLinkFilter(MSLinkMetrics.Filter filter) {
+        if (this.filter.filters.get(1).equals(filter)) {
+            return;
+        }
         this.filter.filters.set(1, filter);
         applyFilter();
     }
 
     public void setScope(MSLinkMetrics.Scope scope) {
+        if (filter.scope.equals(scope)) {
+            return;
+        }
         filter.scope = scope;
         applyFilter();
     }
