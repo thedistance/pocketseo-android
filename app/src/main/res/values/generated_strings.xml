@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="name">default</string><!-- comment -->
-  <string name="URLDataSearchHint">Search For Metrics</string><!-- The text field hint on the URL Data page. -->
-  <string name="URLMetricsTitle">URL Metrics</string><!-- The tab title for the URL Metrics tab. -->
+  <string name="URLDataSearchHint">Enter URL</string><!-- The text field hint on the URL Data page. -->
+  <string name="URLMetricsTitle">URL Meta Data</string><!-- The tab title for the URL Metrics tab. -->
   <string name="URLMetricsEmptyText">Enter a URL above to get started.</string><!-- The text displayed on first launch when there is no content to show. -->
   <string name="URLMetricsOpenInBrowser">Open in browser</string><!-- Shown in menu to open URL in browser (if no room for icon) -->
   <string name="URLMetricsRefresh">Refresh</string><!-- Shown in menu to refresh content (if no room for icon) -->
@@ -47,7 +47,7 @@
   <string name="URLAlexaRankDelta">Rank Delta</string><!-- The text accompanying the Alexa Rank Delta value -->
   <string name="TheDistancePanelHeadline">PocketSEO developed by</string><!-- The headline text above TheDistance Logo -->
   <string name="TheDistancePanelTagline">Yorkshire\'s Leading iOS &amp; Android App Development Agency</string><!-- The tagline text below TheDistance Logo -->
-  <string name="TheDistancePanelButtonGetInTouch">Get In Touch</string><!-- The button text for the get in touch button on TheDistance panel -->
+  <string name="TheDistancePanelButtonGetInTouch">Contact Us</string><!-- The button text for the get in touch button on TheDistance panel -->
   <string name="TheDistancePanelGetInTouchOptionEmail">Email Us</string><!-- The button text for the sending an email via Get In Touch on TheDistance panel -->
   <string name="TheDistancePanelGetInTouchOptionPhone">Call Us</string><!-- The button text for making a phone call via Get In Touch on TheDistance panel -->
   <string name="TheDistancePanelGetInTouchOptionContact">Add to Contacts</string><!-- The button text for adding The Distance Contact via Get In Touch on TheDistance panel -->
@@ -62,7 +62,7 @@
   <string name="TheDistancePanelSendFeedbackEmailAddress">pocketseo@thedistance.co.uk</string><!-- The email address for contacting The Distance for feedback -->
   <string name="TheDistancePanelButtonVisitWebsite">Visit</string><!-- The button text for the Visit Website button on TheDistance panel -->
   <string name="TheDistancePanelVisitWebsiteURL">https://thedistance.co.uk</string><!-- The url the user should visit from the Visit Website button on TheDistance panel. -->
-  <string name="URLLinksTitle">Links</string><!-- The tab title for the links tab on the URL details screen. -->
+  <string name="URLLinksTitle">Link Metrics</string><!-- The tab title for the links tab on the URL details screen. -->
   <string name="URLExtensionOpenInAppButtonTitle">Open In App</string><!-- The button title for the 'Open In App' button. -->
   <string name="SettingsTitle">Settings</string><!-- Title for Settings used in menu item and as page title -->
   <string name="AboutTitle">About</string><!-- Title for about screen, used in menu item and as page title -->
@@ -96,8 +96,8 @@
   <string name="LinksFilterExternal">External</string><!-- Text for "external" source filter -->
   <string name="LinksFilterEquity">Equity</string><!-- Text for "equity" link filter -->
   <string name="LinksFilterNoEquity">No Equity</string><!-- Text for "nonequity" link filter -->
-  <string name="LinksFilterFollow">Follow</string><!-- Text for "follow" link filter -->
-  <string name="LinksFilterNoFollow">No Follow</string><!-- Text for "nofollow" link filter -->
+  <string name="LinksFilterFollow">Followed</string><!-- Text for "follow" link filter -->
+  <string name="LinksFilterNoFollow">Not Followed</string><!-- Text for "nofollow" link filter -->
   <string name="LinksFilter301">301 Redirect</string><!-- Text for "301" link filter -->
   <string name="LinksFilter302">302 Redirect</string><!-- Text for "302" link filter -->
   <string name="LinksNoneFound">No links found for your URL</string><!-- Text when there are no links found for the user's entered url -->
