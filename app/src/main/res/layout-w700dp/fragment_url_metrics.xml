@@ -1,39 +1,35 @@
 <!--
   ~ Copyright (c) The Distance Agency Ltd 2016.
   -->
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
+
     <data>
+
         <variable
             name="htmldata"
-            type="io.pocketseo.viewmodel.HtmldataModel" />
+            type="io.pocketseo.viewmodel.HtmldataModel"/>
+
         <variable
             name="htmldataError"
-            type="java.lang.String" />
+            type="java.lang.String"/>
+
         <variable
             name="htmldataLoading"
-            type="boolean" />
+            type="boolean"/>
 
         <variable
             name="mozscape"
-            type="io.pocketseo.viewmodel.MozScapeViewModel" />
+            type="io.pocketseo.viewmodel.MozScapeViewModel"/>
+
         <variable
             name="mozError"
-            type="java.lang.String" />
+            type="java.lang.String"/>
+
         <variable
             name="mozLoading"
-            type="boolean" />
+            type="boolean"/>
 
-        <variable
-            name="alexaScore"
-            type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
-        <variable
-            name="alexaError"
-            type="java.lang.String" />
-        <variable
-            name="alexaLoading"
-            type="boolean" />
-
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,39 +49,34 @@
                 android:orientation="vertical"
                 android:padding="4dp">
 
-                <include layout="@layout/card_htmldata"
-                         android:id="@+id/card_htmldata"
-                         android:layout_margin="4dp"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         htmldata="@{htmldata}"
-                         htmldataError="@{htmldataError}"
-                         htmldataLoading="@{htmldataLoading}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/card_moz"
-                             android:layout_width="0dp"
-                             android:layout_weight="1"
-                             android:layout_height="wrap_content"
-                             android:layout_margin="4dp"
-                             android:id="@+id/card_moz"
-                             mozscape="@{mozscape}"
-                             mozError="@{mozError}"
-                             mozLoading="@{mozLoading}" />
+                    <include
+                        android:id="@+id/card_htmldata"
+                        htmldata="@{htmldata}"
+                        htmldataError="@{htmldataError}"
+                        htmldataLoading="@{htmldataLoading}"
+                        layout="@layout/card_htmldata"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"/>
 
-                    <include layout="@layout/card_alexa"
-                             android:id="@+id/card_alexa"
-                             android:layout_width="0dp"
-                             android:layout_weight="1"
-                             android:layout_height="wrap_content"
-                             android:layout_margin="4dp"
-                             alexaScore="@{alexaScore}"
-                             alexaError="@{alexaError}"
-                             alexaLoading="@{alexaLoading}" />
+                    <include
+                        android:id="@+id/card_moz"
+                        layout="@layout/card_moz"
+                        mozError="@{mozError}"
+                        mozLoading="@{mozLoading}"
+                        mozscape="@{mozscape}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"/>
+
 
                 </LinearLayout>
 
@@ -95,20 +86,23 @@
                     android:layout_weight="1000"
                     android:padding="16dp"
                     android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.VISIBLE : View.GONE }">
+
                     <LinearLayout
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:src="@drawable/logo_bw"/>
+
                         <TextView
-                            android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
                             android:text="@string/URLMetricsEmptyText"/>
                     </LinearLayout>
                 </FrameLayout>
@@ -116,13 +110,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"/>
 
-                <include layout="@layout/card_thedistance"
-                         android:id="@+id/card_thedistance"
-                         android:layout_margin="4dp"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"/>
+                <include
+                    android:id="@+id/card_thedistance"
+                    layout="@layout/card_thedistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"/>
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

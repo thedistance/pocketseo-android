@@ -7,15 +7,9 @@ package io.pocketseo.model;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.List;
 
 import io.pocketseo.HtmlData;
 import io.pocketseo.htmlparser.HtmlParser;
-import io.pocketseo.webservice.alexa.model.AlexaData;
-import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 
 /**
@@ -26,7 +20,7 @@ public class DataCacheImpl implements DataRepositoryImpl.DataCache {
     private final Gson mGson;
     private final SharedPreferences mPrefs;
 
-    public DataCacheImpl(Gson gson, SharedPreferences prefs){
+    public DataCacheImpl(Gson gson, SharedPreferences prefs) {
         this.mGson = gson;
         this.mPrefs = prefs;
     }
@@ -34,7 +28,9 @@ public class DataCacheImpl implements DataRepositoryImpl.DataCache {
     @Override
     public MozScape getWebsiteMetrics(String url) {
         String cachedValue = mPrefs.getString(url, null);
-        if(null == cachedValue) return null;
+        if (null == cachedValue) {
+            return null;
+        }
         return mGson.fromJson(cachedValue, MSUrlMetrics.class);
     }
 
@@ -44,31 +40,15 @@ public class DataCacheImpl implements DataRepositoryImpl.DataCache {
     }
 
     @Override
-    public AlexaScore getAlexaScore(String url) {
-        String cachedValue = mPrefs.getString("alexa:" + url, null);
-        if(null == cachedValue) return null;
-        try {
-            AlexaData data = mGson.fromJson(cachedValue, AlexaData.class);
-            if(!data.isComplete()) return null;
-            return data;
-        } catch (Exception e){
-            return null;
-        }
-    }
-
-    @Override
-    public void store(String url, AlexaData body) {
-        mPrefs.edit().putString("alexa:" + url, mGson.toJson(body)).apply();
-    }
-
-    @Override
     public HtmlData getHtmldata(String url) {
         String cachedValue = mPrefs.getString("htmldata:" + url, null);
-        if(null == cachedValue) return null;
+        if (null == cachedValue) {
+            return null;
+        }
         try {
             HtmlData data = mGson.fromJson(cachedValue, HtmlParser.HtmlDataImpl.class);
             return data;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

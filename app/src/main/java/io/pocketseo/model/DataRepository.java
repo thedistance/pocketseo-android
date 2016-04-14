@@ -22,7 +22,6 @@ public interface DataRepository {
 
     Observable<MozScape> getWebsiteMetrics(String url, boolean refresh);
     Observable<List<MozScapeLink>> getLinkMetrics(String url, int page, MSLinkFilter filter, boolean refresh);
-    Observable<AlexaScore> getAlexaScore(String url, boolean refresh);
     Observable<HtmlData> getHtmldata(String url, boolean refresh);
 
 }

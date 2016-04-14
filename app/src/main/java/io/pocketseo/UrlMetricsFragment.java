@@ -27,9 +27,7 @@ import com.github.rubensousa.bottomsheetbuilder.items.BottomSheetMenuItem;
 
 import io.pocketseo.databinding.FragmentUrlMetricsBinding;
 import io.pocketseo.injection.ApplicationComponent;
-import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.MozScape;
-import io.pocketseo.viewmodel.AlexaScoreViewModel;
 import io.pocketseo.viewmodel.HtmldataModel;
 import io.pocketseo.viewmodel.MozScapeViewModel;
 import uk.co.thedistance.thedistancekit.IntentHelper;
@@ -264,26 +262,6 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     public void showMozError(String message) {
         mBinding.setMozError(message);
     }
-
-    @Override
-    public void showAlexaResult(AlexaScore score) {
-        if (null == score) {
-            mBinding.setAlexaScore(null);
-        } else {
-            mBinding.setAlexaScore(new AlexaScoreViewModel(score, getActivity()));
-        }
-    }
-
-    @Override
-    public void showAlexaLoading(boolean loading) {
-        mBinding.setAlexaLoading(loading);
-    }
-
-    @Override
-    public void showAlexaError(String message) {
-        mBinding.setAlexaError(message);
-    }
-
 
     @Override
     public void showHtmldataLoading(boolean loading) {

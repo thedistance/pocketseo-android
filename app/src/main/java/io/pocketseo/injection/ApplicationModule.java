@@ -20,7 +20,6 @@ import io.pocketseo.model.AnalyticsTrackerImpl;
 import io.pocketseo.model.DataCacheImpl;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.DataRepositoryImpl;
-import io.pocketseo.webservice.alexa.AlexaWebService;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
 
@@ -40,8 +39,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataRepository provideDataRepository(AlexaWebService alexaWebService, MSWebService mozWebService, MSHelper.Authenticator mMozAuthenticator, HtmlParser parser, DataRepositoryImpl.DataCache cache){
-        return new DataRepositoryImpl(alexaWebService, mozWebService, mMozAuthenticator, parser, cache);
+    DataRepository provideDataRepository(MSWebService mozWebService, MSHelper.Authenticator mMozAuthenticator, HtmlParser parser, DataRepositoryImpl.DataCache cache){
+        return new DataRepositoryImpl(mozWebService, mMozAuthenticator, parser, cache);
     }
 
     @Provides

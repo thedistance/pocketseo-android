@@ -14,8 +14,6 @@ import java.util.List;
 
 import io.pocketseo.HtmlData;
 import io.pocketseo.htmlparser.HtmlParser;
-import io.pocketseo.webservice.alexa.AlexaWebService;
-import io.pocketseo.webservice.alexa.model.AlexaData;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
 import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
@@ -37,13 +35,9 @@ public class DataRepositoryImpl implements DataRepository {
     public interface DataCache {
         MozScape getWebsiteMetrics(String url);
 
-        AlexaScore getAlexaScore(String url);
-
         HtmlData getHtmldata(String url);
 
         void store(String url, MSUrlMetrics body);
-
-        void store(String url, AlexaData body);
 
         void store(String url, HtmlParser.HtmlDataImpl body);
     }
@@ -54,11 +48,9 @@ public class DataRepositoryImpl implements DataRepository {
     private final MSWebService mMozWebService;
     private final MSHelper.Authenticator mMozAuthenticator;
     private final DataCache mCache;
-    private final AlexaWebService mAlexaWebService;
     private final HtmlParser mParser;
 
-    public DataRepositoryImpl(AlexaWebService alexaWebService, MSWebService mMozWebService, MSHelper.Authenticator mMozAuthenticator, HtmlParser parser, DataCache cache) {
-        mAlexaWebService = alexaWebService;
+    public DataRepositoryImpl(MSWebService mMozWebService, MSHelper.Authenticator mMozAuthenticator, HtmlParser parser, DataCache cache) {
         this.mMozWebService = mMozWebService;
         this.mMozAuthenticator = mMozAuthenticator;
         this.mCache = cache;
@@ -166,55 +158,6 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public Observable<AlexaScore> getAlexaScore(final String website, final boolean refresh) {
-        Observable<AlexaData> webServiceResponse = mAlexaWebService.getAlexaData(website)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .filter(new Func1<AlexaData, Boolean>() {
-                    @Override
-                    public Boolean call(AlexaData alexaData) {
-                        return null != alexaData && alexaData.isComplete();
-                    }
-                })
-                .doOnEach(new Subscriber<AlexaData>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(AlexaData alexaData) {
-                        mCache.store(website, alexaData);
-                        Log.d("DataRepo", String.format("Caching %s", website));
-                    }
-                });
-
-        Observable<AlexaScore> cacheResponse = Observable.create(new Observable.OnSubscribe<AlexaScore>() {
-            @Override
-            public void call(Subscriber<? super AlexaScore> subscriber) {
-                if (!refresh) {
-                    AlexaScore cachedValue = mCache.getAlexaScore(website);
-                    if (null != cachedValue) {
-                        Log.d("DataRepo", String.format("Cache hit for %s", website));
-                        subscriber.onNext(cachedValue);
-                    }
-                }
-                subscriber.onCompleted();
-            }
-        });
-
-        return Observable
-                .concat(cacheResponse, webServiceResponse)
-                .first();
-    }
-
-    @Override
     public Observable<HtmlData> getHtmldata(final String url, final boolean refresh) {
         Observable<HtmlParser.HtmlDataImpl> webServiceResponse =
                 Observable.create(new Observable.OnSubscribe<HtmlParser.HtmlDataImpl>() {
@@ -302,10 +245,6 @@ public class DataRepositoryImpl implements DataRepository {
                 }
             }
         }.execute(url);
-    }
-
-    private void loadAlexaScoreFromWeb(final String website, final Callback<AlexaScore> callbacks) {
-
     }
 
     /**

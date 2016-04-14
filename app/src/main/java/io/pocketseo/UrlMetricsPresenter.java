@@ -5,10 +5,8 @@
 package io.pocketseo;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
 
-import io.pocketseo.model.AlexaScore;
 import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
@@ -36,10 +34,6 @@ public class UrlMetricsPresenter {
         void showMozLoading(boolean loading);
         void showMozResult(MozScape data);
         void showMozError(String message);
-
-        void showAlexaLoading(boolean loading);
-        void showAlexaResult(AlexaScore score);
-        void showAlexaError(String message);
 
         void showHtmldataLoading(boolean loading);
         void showHtmldataResult(HtmlData result);
@@ -79,7 +73,6 @@ public class UrlMetricsPresenter {
         }
 
         loadMoz(websiteUrl, firstLoad || refresh);
-        loadAlexa(websiteUrl, firstLoad || refresh);
         loadHtmlData(websiteUrl, firstLoad || refresh);
     }
 
@@ -135,32 +128,6 @@ public class UrlMetricsPresenter {
                     }
                 });
     }
-
-    private void loadAlexa(String websiteUrl, boolean force) {
-        mView.showAlexaLoading(true);
-        mView.showAlexaError(null);
-        mRepo.getAlexaScore(websiteUrl, force).subscribe(new Subscriber<AlexaScore>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                mView.showAlexaLoading(false);
-                mView.showAlexaError(e.getMessage());
-                mView.showAlexaResult(null);
-            }
-
-            @Override
-            public void onNext(AlexaScore alexaScore) {
-                mView.showAlexaLoading(false);
-                mView.showAlexaError(null);
-                mView.showAlexaResult(alexaScore);
-            }
-        });
-    }
-
 
     public void sendFeedback(){
         mView.sendEmail(feedbackEmail, feedbackSubject, feedbackBody, feedbackPrompt);
