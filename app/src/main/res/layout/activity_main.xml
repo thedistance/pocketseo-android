@@ -1,64 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="standalone"
-            type="boolean" />
+            type="boolean"/>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
     </data>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:elevation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:minHeight="?attr/actionBarSize">
+            app:contentInsetStart="8dp"
+            android:paddingLeft="8dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
             <!-- elevation of zero is a hack to remove the shadow between toolbar and the fragment -->
 
-            <EditText
-                android:visibility="@{standalone ? View.GONE : View.VISIBLE}"
-                android:id="@+id/website_name"
-                android:inputType="textUri"
-                android:imeOptions="actionGo"
-                android:hint="@string/URLDataSearchHint"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/website_name"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="16dp"
+                            android:background="@null"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/URLDataSearchHint"
+                            android:imeOptions="actionGo"
+                            android:textColorHint="@color/black54"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black87"
+                            android:inputType="textUri"
+                            android:visibility="@{standalone ? View.GONE : View.VISIBLE}"/>
+
+                        <uk.co.thedistance.thedistancekit.images.ForegroundImageView
+                            android:id="@+id/website_clear"
+                            android:layout_width="48dp"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:layout_height="match_parent"
+                            android:scaleType="center"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_clear_black_24dp"/>
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+            </FrameLayout>
+
 
         </android.support.v7.widget.Toolbar>
 
         <FrameLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/content"/>
+            android:layout_weight="1"/>
 
         <FrameLayout
-            android:background="@color/white87"
-            android:layout_gravity="bottom"
-            android:visibility="@{standalone ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white87"
+            android:visibility="@{standalone ? View.VISIBLE : View.GONE}">
 
             <Button
-                android:layout_gravity="bottom"
                 android:id="@+id/launch_full_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:layout_margin="8dp"
-                android:textColor="@color/white"
-                android:text="@string/StandaloneLaunchFullAppButton"/>
+                android:text="@string/StandaloneLaunchFullAppButton"
+                android:textColor="@color/white"/>
 
         </FrameLayout>
     </LinearLayout>
