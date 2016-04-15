@@ -7,7 +7,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="io.pocketseo.viewmodel.MozScapeLinkViewModel"/>
@@ -44,9 +46,9 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.title}"
                     android:ellipsize="end"
                     android:maxLines="@{viewModel.titleLines ?? 1}"
+                    android:text="@{viewModel.title}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     tools:text="User Anthony Main - Stack Overflow"/>
 
@@ -58,7 +60,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     tools:text="stackoverflow.com/users/258/anthony-main"/>
 
-                <LinearLayout
+                <org.apmem.tools.layouts.FlowLayout
                     android:id="@+id/stats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -69,7 +71,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:text="PA"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/black54"/>
 
                     <TextView
                         android:id="@+id/pa"
@@ -86,7 +89,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:text="DA"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/black54"/>
 
                     <TextView
                         android:id="@+id/da"
@@ -102,21 +106,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:text="Spam Score"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                        android:text="Spam"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/black54"/>
 
                     <TextView
                         android:id="@+id/spam_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        tools:text="4"
                         android:text="@{viewModel.spamScore}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="@{viewModel.spamScoreColor}"
+                        tools:text="4"
                         tools:textColor="@color/spam_good"/>
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/followed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="@{viewModel.followedText}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@{viewModel.followedTextColor}"
+                        tools:text="@string/LinksFilterFollow"
+                        tools:textColor="@color/colorAccent"/>
+
+                </org.apmem.tools.layouts.FlowLayout>
 
             </LinearLayout>
 
@@ -152,17 +168,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        tools:text="thedistance.co.uk"
                         android:text="@{viewModel.anchorText}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        tools:text="thedistance.co.uk"/>
 
                 </LinearLayout>
 
             </FrameLayout>
 
 
-
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -171,8 +187,8 @@
 
         <View
             android:layout_width="3dp"
-            tools:background="@color/spam_good"
+            android:layout_height="match_parent"
             android:background="@{viewModel.spamScoreColor}"
-            android:layout_height="match_parent"/>
+            tools:background="@color/spam_good"/>
     </FrameLayout>
 </layout>

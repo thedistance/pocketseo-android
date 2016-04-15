@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MSLinkFilter {
 
     public MSLinkMetrics.Scope scope = MSLinkMetrics.Scope.Page;
-    public MSLinkMetrics.Sort sort = MSLinkMetrics.Sort.PageAuthority;
+    public MSLinkMetrics.Sort sort = MSLinkMetrics.Sort.DomainAuthority;
     public ArrayList<MSLinkMetrics.Filter> filters = new ArrayList<>(2);
 
     public MSLinkFilter() {

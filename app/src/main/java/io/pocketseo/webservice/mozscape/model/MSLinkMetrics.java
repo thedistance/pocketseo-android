@@ -12,6 +12,7 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
 
     public static final int FLAG_TITLE = 1;
     public final static int FLAG_CANONICAL_URL = 4;
+    public final static int FLAG_LINK_NO_FOLLOW = 1;
 
     public static long getBitmask() {
         return MSUrlMetrics.getBitmask()
@@ -86,6 +87,9 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
     @SerializedName("lnt")
     public String anchorText;
 
+    @SerializedName("lf")
+    public int flags;
+
     @Override
     public String getUrl() {
         return url;
@@ -102,21 +106,27 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
     }
 
     @Override
+    public boolean isNoFollow() {
+        return (flags & FLAG_LINK_NO_FOLLOW) == FLAG_LINK_NO_FOLLOW;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         if (!super.equals(o)) {
             return false;
         }
 
         MSLinkMetrics that = (MSLinkMetrics) o;
 
+        if (flags != that.flags) {
+            return false;
+        }
         if (url != null ? !url.equals(that.url) : that.url != null) {
             return false;
         }
@@ -129,9 +139,11 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
 
     @Override
     public int hashCode() {
-        int result = url != null ? url.hashCode() : 0;
+        int result = super.hashCode();
+        result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (anchorText != null ? anchorText.hashCode() : 0);
+        result = 31 * result + flags;
         return result;
     }
 }

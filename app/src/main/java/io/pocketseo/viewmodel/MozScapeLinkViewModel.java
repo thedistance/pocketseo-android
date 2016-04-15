@@ -110,6 +110,16 @@ public class MozScapeLinkViewModel extends BaseObservable {
         return selected ? Integer.MAX_VALUE : 1;
     }
 
+    @Bindable
+    public String getFollowedText() {
+        return model.isNoFollow() ?resources.getString(R.string.LinksFilterNoFollow) :resources.getString(R.string.LinksFilterFollow);
+    }
+
+    @Bindable
+    public @ColorInt int getFollowedTextColor() {
+        return model.isNoFollow() ? resources.getColor(R.color.black54) : resources.getColor(R.color.colorAccent);
+    }
+
     public void setSelected(boolean selected) {
         this.selected = selected;
         notifyPropertyChanged(BR.anchorTextVisibility);

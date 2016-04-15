@@ -150,7 +150,7 @@ public class TabManagerFragment extends Fragment {
             this.mWebsite = website;
             titles = new String[]{
                     context.getString(R.string.URLMetricsTitle),
-                    context.getString(R.string.LinksTitle)
+                    context.getString(R.string.URLLinksTitle)
             };
         }
 

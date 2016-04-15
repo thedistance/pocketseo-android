@@ -15,5 +15,5 @@ public interface MozScapeLink extends MozScape {
 
     String getAnchorText();
 
-
+    boolean isNoFollow();
 }
