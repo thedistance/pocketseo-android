@@ -43,7 +43,7 @@ public class MozscapeModule {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        if(BuildConfig.DEBUG) {
+        if(BuildConfig.FLAVOR.equals("defaultFlavor")) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
             builder.interceptors().add(logging);

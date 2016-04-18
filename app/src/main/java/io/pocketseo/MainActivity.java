@@ -9,9 +9,12 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -37,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mBinding.toolbar);
 
-        if(BuildConfig.DEBUG){
-            mBinding.websiteName.setText("thedistance.co.uk");
-        }
-
         mBinding.websiteName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -54,9 +53,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mBinding.websiteName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mBinding.websiteClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        if(BuildConfig.FLAVOR.equals("defaultFlavor")){
+            mBinding.websiteName.setText("");
+            mBinding.websiteName.append("thedistance.co.uk");
+        }
+
+        mBinding.websiteClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBinding.websiteName.setText("");
+            }
+        });
+
         String website = getIntent().getStringExtra(EXTRA_WEBSITE);
         if(null != website){
-            mBinding.websiteName.setText(website);
+            mBinding.websiteName.setText("");
+            mBinding.websiteName.append(website);
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mBinding.websiteName.getWindowToken(), 0);
         }

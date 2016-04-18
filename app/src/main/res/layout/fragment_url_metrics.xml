@@ -23,16 +23,6 @@
             name="mozLoading"
             type="boolean" />
 
-        <variable
-            name="alexaScore"
-            type="io.pocketseo.viewmodel.AlexaScoreViewModel" />
-        <variable
-            name="alexaError"
-            type="java.lang.String" />
-        <variable
-            name="alexaLoading"
-            type="boolean" />
-
         <import type="android.view.View" />
     </data>
     
@@ -70,14 +60,6 @@
                          mozError="@{mozError}"
                          mozLoading="@{mozLoading}" />
 
-                <include layout="@layout/card_alexa"
-                         android:id="@+id/card_alexa"
-                         android:layout_margin="4dp"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         alexaScore="@{alexaScore}"
-                         alexaError="@{alexaError}"
-                         alexaLoading="@{alexaLoading}" />
 
                 <FrameLayout
                     android:layout_width="match_parent"

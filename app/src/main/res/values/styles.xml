@@ -17,6 +17,16 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="AppTheme.Dialog.MinWidth" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
     <style name="AppTheme.NoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -35,7 +45,10 @@
     </style>
 
     <style name="PocketSeo.Headline" parent="@style/TextAppearance.AppCompat.Headline">
-        <item name="android:textSize">20sp</item>
+
+    </style>
+
+    <style name="PocketSeo.CardButton" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
     </style>
 
 </resources>

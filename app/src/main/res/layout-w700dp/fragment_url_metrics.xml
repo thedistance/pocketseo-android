@@ -1,0 +1,124 @@
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+<layout>
+
+    <data>
+
+        <variable
+            name="htmldata"
+            type="io.pocketseo.viewmodel.HtmldataModel"/>
+
+        <variable
+            name="htmldataError"
+            type="java.lang.String"/>
+
+        <variable
+            name="htmldataLoading"
+            type="boolean"/>
+
+        <variable
+            name="mozscape"
+            type="io.pocketseo.viewmodel.MozScapeViewModel"/>
+
+        <variable
+            name="mozError"
+            type="java.lang.String"/>
+
+        <variable
+            name="mozLoading"
+            type="boolean"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 tools:context=".UrlMetricsFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include
+                        android:id="@+id/card_htmldata"
+                        htmldata="@{htmldata}"
+                        htmldataError="@{htmldataError}"
+                        htmldataLoading="@{htmldataLoading}"
+                        layout="@layout/card_htmldata"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"/>
+
+                    <include
+                        android:id="@+id/card_moz"
+                        layout="@layout/card_moz"
+                        mozError="@{mozError}"
+                        mozLoading="@{mozLoading}"
+                        mozscape="@{mozscape}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"/>
+
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1000"
+                    android:padding="16dp"
+                    android:visibility="@{ htmldata == null &amp;&amp; htmldataError == null &amp;&amp; !htmldataLoading ? View.VISIBLE : View.GONE }">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/logo_bw"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/URLMetricsEmptyText"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <include
+                    android:id="@+id/card_thedistance"
+                    layout="@layout/card_thedistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</layout>

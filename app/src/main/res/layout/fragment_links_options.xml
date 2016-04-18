@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) The Distance Agency Ltd 2016.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="300dp"
+        tools:layout_width="320dp">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/default_padding"
+                    android:paddingLeft="@dimen/default_padding"
+                    android:paddingRight="@dimen/default_padding"
+                    android:paddingTop="@dimen/default_padding"
+                    >
+
+                    <TextView
+                        android:id="@+id/sort_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/LinksFilterSortBy"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/black54"
+                        />
+
+                    <RadioGroup
+                        android:id="@+id/sort_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/sort_domain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:checked="true"
+                            android:text="@string/LinksFilterDomainAuthority"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/sort_page"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterPageAuthority"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/sort_spam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterSpamScore"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/target_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/LinksFilterTarget"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/black54"
+                        />
+
+
+                    <RadioGroup
+                        android:id="@+id/target_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/target_title"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/target_page"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterPage"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/target_subdomain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterSubdomain"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+
+                        <RadioButton
+                            android:id="@+id/target_domain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterDomain"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/source_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/LinksFilterSource"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/black54"
+                        />
+
+
+                    <RadioGroup
+                        android:id="@+id/source_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/source_all"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterAll"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/source_external"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterExternal"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/source_internal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterInternal"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/link_type_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/LinksFilterLinkType"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/black54"
+                        />
+
+                    <RadioGroup
+                        android:id="@+id/link_type_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/link_type_all"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterAll"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/link_type_equity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterEquity"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/link_type_no_equity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterNoEquity"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/link_type_follow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterFollow"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/link_type_no_follow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilterNoFollow"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/link_type_301"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilter301"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                        <RadioButton
+                            android:id="@+id/link_type_302"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:singleLine="false"
+                            android:text="@string/LinksFilter302"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textColor="@color/checkable_text_color"/>
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+    </FrameLayout>
+</layout>

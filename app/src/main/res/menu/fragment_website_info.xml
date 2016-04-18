@@ -7,11 +7,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="@string/URLMetricsOpenInBrowser"
-        android:id="@+id/action_browser"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_open_in_browser_white_24dp" />
-    <item
         android:title="@string/URLMetricsRefresh"
         android:id="@+id/action_refresh"
         app:showAsAction="ifRoom"

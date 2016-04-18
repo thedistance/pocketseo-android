@@ -4,11 +4,18 @@
 
 package io.pocketseo;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import io.pocketseo.databinding.ActivityMainBinding;
 
@@ -16,6 +23,20 @@ public class InlineDetailActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
     private String mWebsite = null;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            int width = newBase.getResources().getConfiguration().screenWidthDp;
+            if (width > 600) {
+                final Configuration override = new Configuration();
+                override.screenWidthDp = 600;
+                applyOverrideConfiguration(override);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
