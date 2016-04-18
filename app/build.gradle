@@ -51,7 +51,7 @@ android {
 
         googlePlay {
             versionName "0.2.0"
-            versionCode 2
+            versionCode 3
         }
 
         crashlytics {
