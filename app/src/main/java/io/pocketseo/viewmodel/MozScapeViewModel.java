@@ -61,15 +61,6 @@ public class MozScapeViewModel {
         return df.format(model.getLastIndex());
     }
 
-    public String getNextIndex(){
-        if(model.getNextIndex() == null) return "N/A";
-        return df.format(model.getNextIndex());
-    }
-
-    public String getLinksRoot(){
-        return nf.format(model.getLinksRoot());
-    }
-
     public String getLinksTotal(){
         return nf.format(model.getLinksTotal());
     }
@@ -80,10 +71,5 @@ public class MozScapeViewModel {
     public String getDomainAuthority(){
         return String.valueOf(Math.round(model.getDomainAuthority()));
     }
-    public String getSpamScore(){
-        if(0 == model.getSpamScore()){
-            return "-";
-        }
-        return String.valueOf(Math.round(model.getSpamScore() - 1));
-    }
+
 }

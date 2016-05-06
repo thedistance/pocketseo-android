@@ -50,7 +50,6 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     private FragmentUrlMetricsBinding mBinding;
     private PieDrawable pageAuthDrawable;
     private PieDrawable domainAuthDrawable;
-    private PieDrawable spamDrawable;
 
 
     public UrlMetricsFragment() {
@@ -119,8 +118,6 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         mBinding.cardMoz.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
         domainAuthDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
-        spamDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
-        mBinding.cardMoz.spamScoreContainer.setBackgroundDrawable(spamDrawable);
 
         mBinding.cardThedistance.buttonSendFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,19 +240,12 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
             mBinding.setMozscape(null);
             domainAuthDrawable.setLevel(0);
             pageAuthDrawable.setLevel(0);
-            spamDrawable.setLevel(0);
             return;
         }
         mBinding.setMozscape(new MozScapeViewModel(data, getActivity()));
 
         domainAuthDrawable.setLevel(Math.round(1000f * data.getDomainAuthority() / 100f));
         pageAuthDrawable.setLevel(Math.round(1000f * data.getPageAuthority() / 100f));
-        int spam = data.getSpamScore();
-        if (0 == spam) {
-            spamDrawable.setLevel(0);
-        } else {
-            spamDrawable.setLevel(Math.round(1000f * (spam - 1) / 17f));
-        }
     }
 
     @Override

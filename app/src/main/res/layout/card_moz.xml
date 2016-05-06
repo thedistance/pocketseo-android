@@ -173,45 +173,6 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
                     </LinearLayout>
 
-                    <android.support.v4.widget.Space
-                        android:layout_width="16dp"
-                        android:layout_height="0dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/spam_score_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="@{mozscape.spamScore}"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="17"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center"
-                            android:text="@string/URLMozscapeAuthoritySpamScore"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- start collapsed section -->
@@ -236,26 +197,6 @@
                         android:layout_marginBottom="8dp"
                         android:text="@string/URLMozscapeLinksTitle"
                         android:textAppearance="@style/PocketSeo.Subhead"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:text="@{String.valueOf(mozscape.linksRoot)}"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                            tools:text="138"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/URLMozscapeLinksRootDomain"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -296,27 +237,11 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
 
                         <TextView
-                            android:id="@+id/next_index_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:text="@string/URLMozscapeNextIndexedTitle"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-
-                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_below="@+id/last_index_title"
                             android:text="@{mozscape.lastIndex}"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@+id/next_index_title"
-                            android:text="@{mozscape.nextIndex}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                     </RelativeLayout>

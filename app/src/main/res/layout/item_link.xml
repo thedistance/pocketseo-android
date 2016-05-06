@@ -102,26 +102,6 @@
                         tools:text="91"/>
 
                     <TextView
-                        android:id="@+id/spam_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:text="Spam"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/black54"/>
-
-                    <TextView
-                        android:id="@+id/spam_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:text="@{viewModel.spamScore}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                        android:textColor="@{viewModel.spamScoreColor}"
-                        tools:text="4"
-                        tools:textColor="@color/spam_good"/>
-
-                    <TextView
                         android:id="@+id/followed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -185,10 +165,5 @@
             android:layout_gravity="bottom"
             android:background="@color/black20"/>
 
-        <View
-            android:layout_width="3dp"
-            android:layout_height="match_parent"
-            android:background="@{viewModel.spamScoreColor}"
-            tools:background="@color/spam_good"/>
     </FrameLayout>
 </layout>
