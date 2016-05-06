@@ -23,6 +23,8 @@ public class UrlMetricsPresenter {
     private final AnalyticsTracker mAnalytics;
     private String mWebsite;
     private String distanceWebsite;
+    private String distanceFeedbackSurvey;
+    private String mozWebsite;
 
     private String distancePhoneNumber;
     private String distanceEmail;
@@ -43,7 +45,7 @@ public class UrlMetricsPresenter {
 
         void sendEmail(String recipient, String subject, String body, String userInstruction);
 
-        void openWebsite(String url);
+        void openWebsite(String url, boolean chromeCustomTab);
 
         void makePhoneCall(String phoneNumber);
     }
@@ -54,6 +56,8 @@ public class UrlMetricsPresenter {
         mAnalytics = analytics;
 
         distanceWebsite = context.getString(R.string.TheDistanceContactWebsiteURL);
+        distanceFeedbackSurvey = context.getString(R.string.TheDistancePanelFeedbackURL);
+        mozWebsite = context.getString(R.string.MozWebsiteURL);
         distancePhoneNumber = context.getString(R.string.TheDistanceContactPhone);
         distanceEmail = context.getString(R.string.TheDistanceContactEmail);
         feedbackEmail = context.getString(R.string.TheDistancePanelSendFeedbackEmailAddress);
@@ -137,7 +141,7 @@ public class UrlMetricsPresenter {
     }
 
     public void sendFeedback(){
-        mView.sendEmail(feedbackEmail, feedbackSubject, feedbackBody, feedbackPrompt);
+        mView.openWebsite(distanceFeedbackSurvey, true);
     }
 
     public void getInTouchByEmail(){
@@ -148,9 +152,13 @@ public class UrlMetricsPresenter {
         mView.makePhoneCall(distancePhoneNumber);
     }
 
+    public void mozscapeLogoTouched() {
+        mView.openWebsite(mozWebsite, false);
+    }
+
     public void visitTheDistanceWebsite(){
         mAnalytics.sendAnalytic(AnalyticsValues.CATEGORY_DATAREQUEST, AnalyticsValues.ACTION_VIEW_DISTANCE_WEBSITE, null);
-        mView.openWebsite(distanceWebsite);
+        mView.openWebsite(distanceWebsite, false);
     }
 
 }

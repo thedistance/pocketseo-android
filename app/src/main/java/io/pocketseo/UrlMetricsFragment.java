@@ -7,6 +7,7 @@ package io.pocketseo;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -136,6 +137,12 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
             @Override
             public void onClick(View v) {
                 mPresenter.visitTheDistanceWebsite();
+            }
+        });
+        mBinding.cardMoz.mozscapeLogo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mPresenter.mozscapeLogoTouched();
             }
         });
 
@@ -278,9 +285,13 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     }
 
     @Override
-    public void openWebsite(String url) {
+    public void openWebsite(String url, boolean chromeCustomTab) {
         Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
         viewWebsite.setData(Uri.parse(url));
+        
+        if(chromeCustomTab && Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            viewWebsite.putExtra("android.support.customtabs.extra.SESSION", (String)null);
+        }
 
         if (IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
             // Then there is application can handle your intent
