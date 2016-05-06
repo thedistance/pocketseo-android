@@ -7,6 +7,7 @@ package io.pocketseo;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,7 +51,6 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     private FragmentUrlMetricsBinding mBinding;
     private PieDrawable pageAuthDrawable;
     private PieDrawable domainAuthDrawable;
-    private PieDrawable spamDrawable;
 
 
     public UrlMetricsFragment() {
@@ -119,8 +119,6 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
         mBinding.cardMoz.pageAuthorityContainer.setBackgroundDrawable(pageAuthDrawable);
         domainAuthDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
         mBinding.cardMoz.domainAuthorityContainer.setBackgroundDrawable(domainAuthDrawable);
-        spamDrawable = new PieDrawable(accentColor, otherColor, 0, 4 * density);
-        mBinding.cardMoz.spamScoreContainer.setBackgroundDrawable(spamDrawable);
 
         mBinding.cardThedistance.buttonSendFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +137,12 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
             @Override
             public void onClick(View v) {
                 mPresenter.visitTheDistanceWebsite();
+            }
+        });
+        mBinding.cardMoz.mozscapeLogo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                mPresenter.mozscapeLogoTouched();
             }
         });
 
@@ -243,19 +247,12 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
             mBinding.setMozscape(null);
             domainAuthDrawable.setLevel(0);
             pageAuthDrawable.setLevel(0);
-            spamDrawable.setLevel(0);
             return;
         }
         mBinding.setMozscape(new MozScapeViewModel(data, getActivity()));
 
         domainAuthDrawable.setLevel(Math.round(1000f * data.getDomainAuthority() / 100f));
         pageAuthDrawable.setLevel(Math.round(1000f * data.getPageAuthority() / 100f));
-        int spam = data.getSpamScore();
-        if (0 == spam) {
-            spamDrawable.setLevel(0);
-        } else {
-            spamDrawable.setLevel(Math.round(1000f * (spam - 1) / 17f));
-        }
     }
 
     @Override
@@ -288,9 +285,13 @@ public class UrlMetricsFragment extends TheDistanceFragment implements UrlMetric
     }
 
     @Override
-    public void openWebsite(String url) {
+    public void openWebsite(String url, boolean chromeCustomTab) {
         Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
         viewWebsite.setData(Uri.parse(url));
+        
+        if(chromeCustomTab && Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            viewWebsite.putExtra("android.support.customtabs.extra.SESSION", (String)null);
+        }
 
         if (IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
             // Then there is application can handle your intent

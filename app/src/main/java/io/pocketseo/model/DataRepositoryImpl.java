@@ -18,13 +18,10 @@ import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
 import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
 import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
-import io.pocketseo.webservice.mozscape.model.MSNextUpdate;
 import io.pocketseo.webservice.mozscape.model.MSUrlMetrics;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 import uk.co.thedistance.thedistancekit.text.StringUtils;
 
@@ -83,30 +80,8 @@ public class DataRepositoryImpl implements DataRepository {
         Observable<MSUrlMetrics> webServiceResponse = mMozWebService.getUrlMetrics(website, MSUrlMetrics.getBitmask(), mMozAuthenticator.getAuthenticationMap())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io());
-
-
-        Observable<MSNextUpdate> nextUpdateTime = mMozWebService.getNextUpdate(mMozAuthenticator.getAuthenticationMap())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io());
-
-        Observable<MSUrlMetrics> combined = Observable.combineLatest(webServiceResponse, nextUpdateTime, new Func2<MSUrlMetrics, MSNextUpdate, MSUrlMetrics>() {
-            @Override
-            public MSUrlMetrics call(MSUrlMetrics msUrlMetrics, MSNextUpdate msNextUpdate) {
-                if (null == msNextUpdate || null == msUrlMetrics) {
-                    return null;
-                }
-
-                msUrlMetrics.setNextCrawl(msNextUpdate.nextUpdate);
-                return msUrlMetrics;
-            }
-        }).filter(new Func1<MSUrlMetrics, Boolean>() {
-            @Override
-            public Boolean call(MSUrlMetrics msUrlMetrics) {
-                return msUrlMetrics != null;
-            }
-        }).doOnEach(new Subscriber<MSUrlMetrics>() {
+                .unsubscribeOn(Schedulers.io())
+        .doOnEach(new Subscriber<MSUrlMetrics>() {
             @Override
             public void onCompleted() {
 
@@ -140,7 +115,7 @@ public class DataRepositoryImpl implements DataRepository {
         });
 
         return Observable
-                .concat(cacheResponse, combined)
+                .concat(cacheResponse, webServiceResponse)
                 .first();
     }
 

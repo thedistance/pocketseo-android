@@ -20,6 +20,10 @@ import io.fabric.sdk.android.services.network.HttpRequest;
  */
 public class MSHelper {
 
+    public static class ApiLimitException extends RuntimeException{
+
+    }
+
     /**
      * Authenticator class based on moz example
      * <br />

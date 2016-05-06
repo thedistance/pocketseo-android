@@ -80,7 +80,7 @@ public class MozUnitTest {
         }
         for (List<MSLinkMetrics> result : events) {
             for (MSLinkMetrics metrics : result) {
-                System.out.println(metrics.url +" (spam score = " + metrics.getSpamScore() + ")");
+                System.out.println(metrics.url);
             }
         }
 

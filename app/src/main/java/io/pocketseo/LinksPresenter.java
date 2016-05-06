@@ -4,6 +4,7 @@
 
 package io.pocketseo;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScapeLink;
+import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.model.MSLinkFilter;
 import io.pocketseo.webservice.mozscape.model.MSLinkMetrics;
 import rx.Subscriber;
@@ -34,6 +36,8 @@ public class LinksPresenter implements Presenter {
 
     private MSLinkFilter filter = new MSLinkFilter();
     public MSLinkFilter appliedFilter = new MSLinkFilter();
+    private String error429message;
+    private String mozWebsite;
 
     interface View {
         void showLoading(boolean loading);
@@ -47,12 +51,16 @@ public class LinksPresenter implements Presenter {
         void showFab(boolean show);
 
         void openLink(MozScapeLink link);
+
+        void openWebsite(String url, boolean chromeCustomTab);
     }
 
-    public LinksPresenter(String website, DataRepository repo, AnalyticsTracker analytics) {
+    public LinksPresenter(Context context, String website, DataRepository repo, AnalyticsTracker analytics) {
         mWebsite = website;
         mRepo = repo;
         mAnalytics = analytics;
+        error429message = context.getString(R.string.Error429Text);
+        mozWebsite = context.getString(R.string.MozWebsiteURL);
     }
 
     public void performSearch(String websiteUrl, boolean firstLoad, boolean refresh) {
@@ -90,7 +98,11 @@ public class LinksPresenter implements Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.showError(e.getMessage());
+                        if(e instanceof MSHelper.ApiLimitException) {
+                            mView.showError(error429message);
+                        } else {
+                            mView.showError(e.getMessage());
+                        }
                         mView.showLoading(false);
                     }
 
@@ -194,4 +206,7 @@ public class LinksPresenter implements Presenter {
         filter = new MSLinkFilter();
     }
 
+    public void onMozClick() {
+        mView.openWebsite(mozWebsite, false);
+    }
 }

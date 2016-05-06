@@ -49,13 +49,13 @@ public class LinksOptionsFragment extends DialogFragment {
     }
 
    static final int[] ids = new int[]{R.id.target_page, R.id.target_subdomain, R.id.target_domain,
-            R.id.sort_page, R.id.sort_domain, R.id.sort_spam,
+            R.id.sort_page, R.id.sort_domain,
             R.id.source_all, R.id.source_internal, R.id.source_external,
             R.id.link_type_all, R.id.link_type_equity, R.id.link_type_no_equity, R.id.link_type_follow,
             R.id.link_type_no_follow, R.id.link_type_301, R.id.link_type_302};
 
     static final Object[] options = new Object[]{MSLinkMetrics.Scope.Page, MSLinkMetrics.Scope.Subdomain, MSLinkMetrics.Scope.Domain,
-            MSLinkMetrics.Sort.PageAuthority, MSLinkMetrics.Sort.DomainAuthority, MSLinkMetrics.Sort.SpamScore,
+            MSLinkMetrics.Sort.PageAuthority, MSLinkMetrics.Sort.DomainAuthority,
             MSLinkMetrics.Filter.AllSource, MSLinkMetrics.Filter.Internal, MSLinkMetrics.Filter.External,
             MSLinkMetrics.Filter.AllLink, MSLinkMetrics.Filter.Equity, MSLinkMetrics.Filter.NoEquity, MSLinkMetrics.Filter.Follow,
             MSLinkMetrics.Filter.NoFollow, MSLinkMetrics.Filter.Redirect301, MSLinkMetrics.Filter.Redirect302};
@@ -103,9 +103,6 @@ public class LinksOptionsFragment extends DialogFragment {
                         break;
                     case R.id.sort_domain:
                         presenter.setSort(MSLinkMetrics.Sort.DomainAuthority);
-                        break;
-                    case R.id.sort_spam:
-                        presenter.setSort(MSLinkMetrics.Sort.SpamScore);
                         break;
                 }
             }
