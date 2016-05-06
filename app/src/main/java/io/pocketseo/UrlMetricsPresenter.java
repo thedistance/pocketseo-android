@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import io.pocketseo.model.AnalyticsTracker;
 import io.pocketseo.model.DataRepository;
 import io.pocketseo.model.MozScape;
+import io.pocketseo.webservice.mozscape.MSHelper;
 import rx.Subscriber;
 
 /**
@@ -21,14 +22,15 @@ public class UrlMetricsPresenter {
     private final DataRepository mRepo;
     private final AnalyticsTracker mAnalytics;
     private String mWebsite;
-
     private String distanceWebsite;
+
     private String distancePhoneNumber;
     private String distanceEmail;
     private String feedbackEmail;
     private String feedbackSubject;
     private String feedbackPrompt;
     private String feedbackBody;
+    private String error429message;
 
     interface View {
         void showMozLoading(boolean loading);
@@ -58,6 +60,7 @@ public class UrlMetricsPresenter {
         feedbackPrompt = context.getString(R.string.TheDistancePanelButtonSendFeedback);
         feedbackSubject = context.getString(R.string.TheDistancePanelSendFeedbackSubject);
         feedbackBody = context.getString(R.string.TheDistancePanelEmailBody, context.getString(R.string.app_name), "Android", BuildConfig.VERSION_NAME);
+        error429message = context.getString(R.string.Error429Text);
 
         // String body = String.format(Locale.US, "\n\nSent from PocketSEO %s (%d) on Android", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
     }
@@ -116,8 +119,12 @@ public class UrlMetricsPresenter {
                     @Override
                     public void onError(Throwable e) {
                         mView.showMozLoading(false);
-                        mView.showMozError(e.getMessage());
                         mView.showMozResult(null);
+                        if(e instanceof MSHelper.ApiLimitException){
+                            mView.showMozError(error429message);
+                        } else {
+                            mView.showMozError(e.getMessage());
+                        }
                     }
 
                     @Override

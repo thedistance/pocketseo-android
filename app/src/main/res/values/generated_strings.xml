@@ -101,4 +101,5 @@
   <string name="LinksFilter301">301 Redirect</string><!-- Text for "301" link filter -->
   <string name="LinksFilter302">302 Redirect</string><!-- Text for "302" link filter -->
   <string name="LinksNoneFound">No links found for your URL</string><!-- Text when there are no links found for the user's entered url -->
+  <string name="Error429Text">This free app has limited access to the Moz API. We will be releasing a paid upgrade in time, for now you may want to retry</string><!-- Shown to user when server responds with error 429 -->
 </resources>

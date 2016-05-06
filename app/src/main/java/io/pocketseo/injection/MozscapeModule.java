@@ -8,6 +8,8 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,7 +18,10 @@ import io.pocketseo.BuildConfig;
 import io.pocketseo.PocketSeoApplication;
 import io.pocketseo.webservice.mozscape.MSHelper;
 import io.pocketseo.webservice.mozscape.MSWebService;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -48,6 +53,18 @@ public class MozscapeModule {
             logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
             builder.interceptors().add(logging);
         }
+        builder.interceptors().add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+                Response response = chain.proceed(request);
+
+                if (response.code() == 429) {
+                    throw new MSHelper.ApiLimitException();
+                }
+                return response;
+            }
+        });
 
         return builder.build();
     }

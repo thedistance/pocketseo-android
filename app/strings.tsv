@@ -99,3 +99,4 @@ LinksFilterNoFollow	Not Followed	Text for "nofollow" link filter
 LinksFilter301	301 Redirect	Text for "301" link filter
 LinksFilter302	302 Redirect	Text for "302" link filter
 LinksNoneFound	No links found for your URL	Text when there are no links found for the user's entered url
+Error429Text	This free app has limited access to the Moz API. We will be releasing a paid upgrade in time, for now you may want to retry	Shown to user when server responds with error 429
