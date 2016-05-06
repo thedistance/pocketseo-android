@@ -88,5 +88,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'org.apmem.tools:layouts:1.9@aar'
     compile 'com.github.rubensousa:BottomSheetBuilder:0.3'
-    
+
+    // this is added as a workaround for a bug in gradle 2.1-rc1
+    compile 'com.google.guava:guava:19.0'
 }
