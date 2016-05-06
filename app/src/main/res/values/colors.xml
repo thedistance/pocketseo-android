@@ -9,4 +9,5 @@
     <color name="spam_bad">#F44336</color>
     <color name="spam_good">#4CAF50</color>
     <color name="item_background">#fafafa</color>
+    <color name="moz_blue">#24abe2</color>
 </resources>

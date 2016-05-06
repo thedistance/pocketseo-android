@@ -37,6 +37,7 @@ public class LinksPresenter implements Presenter {
     private MSLinkFilter filter = new MSLinkFilter();
     public MSLinkFilter appliedFilter = new MSLinkFilter();
     private String error429message;
+    private String mozWebsite;
 
     interface View {
         void showLoading(boolean loading);
@@ -50,6 +51,8 @@ public class LinksPresenter implements Presenter {
         void showFab(boolean show);
 
         void openLink(MozScapeLink link);
+
+        void openWebsite(String url, boolean chromeCustomTab);
     }
 
     public LinksPresenter(Context context, String website, DataRepository repo, AnalyticsTracker analytics) {
@@ -57,6 +60,7 @@ public class LinksPresenter implements Presenter {
         mRepo = repo;
         mAnalytics = analytics;
         error429message = context.getString(R.string.Error429Text);
+        mozWebsite = context.getString(R.string.MozWebsiteURL);
     }
 
     public void performSearch(String websiteUrl, boolean firstLoad, boolean refresh) {
@@ -202,4 +206,7 @@ public class LinksPresenter implements Presenter {
         filter = new MSLinkFilter();
     }
 
+    public void onMozClick() {
+        mView.openWebsite(mozWebsite, false);
+    }
 }
