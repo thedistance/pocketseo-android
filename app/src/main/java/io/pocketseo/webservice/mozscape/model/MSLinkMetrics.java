@@ -39,8 +39,7 @@ public class MSLinkMetrics extends MSUrlMetrics implements MozScapeLink {
 
     public enum Sort {
         PageAuthority("page_authority"),
-        DomainAuthority("domain_authority"),
-        SpamScore("spam_score");
+        DomainAuthority("domain_authority");
 
         private final String value;
 
