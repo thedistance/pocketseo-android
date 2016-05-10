@@ -208,6 +208,7 @@ android.databinding.adapters.ViewBindingAdapter -> android.a.a.c:
     int FADING_EDGE_VERTICAL -> c
     void setBackground(android.view.View,android.graphics.drawable.Drawable) -> a
     void <clinit>() -> <clinit>
+android.support.annotation.Keep -> android.support.annotation.Keep:
 android.support.design.BuildConfig -> android.support.design.BuildConfig:
     boolean DEBUG -> DEBUG
     java.lang.String APPLICATION_ID -> APPLICATION_ID
@@ -22323,7 +22324,10 @@ com.squareup.otto.ThreadEnforcer$2 -> com.d.a.h$2:
     void <init>() -> <init>
     void enforce(com.squareup.otto.Bus) -> a
 dagger.internal.Factory -> a.a.a:
-dagger.internal.ScopedProvider -> a.a.b:
+dagger.internal.Preconditions -> a.a.b:
+    java.lang.Object checkNotNull(java.lang.Object) -> a
+    java.lang.Object checkNotNull(java.lang.Object,java.lang.String) -> a
+dagger.internal.ScopedProvider -> a.a.c:
     java.lang.Object UNINITIALIZED -> b
     dagger.internal.Factory factory -> c
     java.lang.Object instance -> d
@@ -23659,14 +23663,13 @@ io.pocketseo.LinksFragment -> io.pocketseo.LinksFragment:
     void showEmpty(boolean) -> b
     void showFab(boolean) -> c
     void openLink(io.pocketseo.model.MozScapeLink) -> a
-    void openInBrowser(io.pocketseo.model.MozScapeLink) -> b
-    void openInApp(io.pocketseo.model.MozScapeLink) -> c
+    void openWebsite(java.lang.String,boolean) -> a
+    void openInApp(io.pocketseo.model.MozScapeLink) -> b
     io.pocketseo.LinksPresenter access$000(io.pocketseo.LinksFragment) -> a
     java.lang.String access$100(io.pocketseo.LinksFragment) -> b
     io.pocketseo.LinksFragment$LinksAdapter access$200(io.pocketseo.LinksFragment) -> c
     io.pocketseo.databinding.FragmentLinksBinding access$300(io.pocketseo.LinksFragment) -> d
     void access$600(io.pocketseo.LinksFragment,io.pocketseo.model.MozScapeLink) -> a
-    void access$700(io.pocketseo.LinksFragment,io.pocketseo.model.MozScapeLink) -> b
 io.pocketseo.LinksFragment$1 -> io.pocketseo.LinksFragment$1:
     io.pocketseo.LinksFragment this$0 -> a
     void <init>(io.pocketseo.LinksFragment) -> <init>
@@ -23726,11 +23729,18 @@ io.pocketseo.LinksFragment$LinksAdapter$2 -> io.pocketseo.d$2:
     io.pocketseo.LinksFragment$LinksAdapter this$1 -> a
     void <init>(io.pocketseo.LinksFragment$LinksAdapter) -> <init>
     void onClick(android.view.View) -> onClick
+io.pocketseo.LinksFragment$LinksAdapter$3 -> io.pocketseo.d$3:
+    io.pocketseo.LinksFragment$LinksAdapter this$1 -> a
+    void <init>(io.pocketseo.LinksFragment$LinksAdapter) -> <init>
+    void onClick(android.view.View) -> onClick
 io.pocketseo.LinksFragment$LinksAdapter$LinkViewHolder -> io.pocketseo.e:
     io.pocketseo.databinding.ItemLinkBinding binding -> a
     io.pocketseo.LinksFragment$LinksAdapter this$1 -> b
     void <init>(io.pocketseo.LinksFragment$LinksAdapter,io.pocketseo.databinding.ItemLinkBinding) -> <init>
 io.pocketseo.LinksFragment$LinksAdapter$LoadingViewHolder -> io.pocketseo.f:
+    io.pocketseo.LinksFragment$LinksAdapter this$1 -> a
+    void <init>(io.pocketseo.LinksFragment$LinksAdapter,android.view.View) -> <init>
+io.pocketseo.LinksFragment$LinksAdapter$MozHeaderViewHolder -> io.pocketseo.g:
     io.pocketseo.LinksFragment$LinksAdapter this$1 -> a
     void <init>(io.pocketseo.LinksFragment$LinksAdapter,android.view.View) -> <init>
 io.pocketseo.LinksOptionsFragment -> io.pocketseo.LinksOptionsFragment:
@@ -23763,7 +23773,7 @@ io.pocketseo.LinksOptionsFragment$4 -> io.pocketseo.LinksOptionsFragment$4:
     io.pocketseo.LinksOptionsFragment this$0 -> a
     void <init>(io.pocketseo.LinksOptionsFragment) -> <init>
     void onCheckedChanged(android.widget.RadioGroup,int) -> onCheckedChanged
-io.pocketseo.LinksParentFragment -> io.pocketseo.g:
+io.pocketseo.LinksParentFragment -> io.pocketseo.h:
     io.pocketseo.databinding.FragmentLinksParentBinding binding -> a
     java.lang.String website -> c
     io.pocketseo.LinksFragment linksFragment -> d
@@ -23783,13 +23793,13 @@ io.pocketseo.LinksParentFragment -> io.pocketseo.g:
     io.pocketseo.LinksPresenter getPresenter() -> b
     void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> a
     java.lang.String access$000(io.pocketseo.LinksParentFragment) -> a
-io.pocketseo.LinksParentFragment$1 -> io.pocketseo.g$1:
+io.pocketseo.LinksParentFragment$1 -> io.pocketseo.h$1:
     io.pocketseo.injection.ApplicationComponent val$component -> a
     io.pocketseo.LinksParentFragment this$0 -> b
     void <init>(io.pocketseo.LinksParentFragment,io.pocketseo.injection.ApplicationComponent) -> <init>
     io.pocketseo.LinksPresenter create() -> a
     java.lang.Object create() -> b
-io.pocketseo.LinksPresenter -> io.pocketseo.h:
+io.pocketseo.LinksPresenter -> io.pocketseo.i:
     io.pocketseo.LinksPresenter$View mView -> c
     io.pocketseo.model.DataRepository mRepo -> d
     io.pocketseo.model.AnalyticsTracker mAnalytics -> e
@@ -23801,11 +23811,13 @@ io.pocketseo.LinksPresenter -> io.pocketseo.h:
     io.pocketseo.model.MozScapeLink selectedLink -> j
     io.pocketseo.webservice.mozscape.model.MSLinkFilter filter -> k
     io.pocketseo.webservice.mozscape.model.MSLinkFilter appliedFilter -> b
-    void <init>(java.lang.String,io.pocketseo.model.DataRepository,io.pocketseo.model.AnalyticsTracker) -> <init>
+    java.lang.String error429message -> l
+    java.lang.String mozWebsite -> m
+    void <init>(android.content.Context,java.lang.String,io.pocketseo.model.DataRepository,io.pocketseo.model.AnalyticsTracker) -> <init>
     void performSearch(java.lang.String,boolean,boolean) -> a
     void loadNext() -> a
     void loadLinks(java.lang.String,int,boolean) -> a
-    void unsubscribe() -> g
+    void unsubscribe() -> h
     void onViewAttached(io.pocketseo.LinksPresenter$View) -> a
     void onViewDetached() -> b
     void onDestroyed() -> c
@@ -23817,11 +23829,13 @@ io.pocketseo.LinksPresenter -> io.pocketseo.h:
     void openSelected() -> d
     void retry() -> e
     void applyFilter() -> f
-    io.pocketseo.LinksPresenter$View access$000(io.pocketseo.LinksPresenter) -> a
-    int access$102(io.pocketseo.LinksPresenter,int) -> a
-    boolean access$202(io.pocketseo.LinksPresenter,boolean) -> a
-    boolean access$200(io.pocketseo.LinksPresenter) -> b
-io.pocketseo.LinksPresenter$1 -> io.pocketseo.h$1:
+    void onMozClick() -> g
+    java.lang.String access$000(io.pocketseo.LinksPresenter) -> a
+    io.pocketseo.LinksPresenter$View access$100(io.pocketseo.LinksPresenter) -> b
+    int access$202(io.pocketseo.LinksPresenter,int) -> a
+    boolean access$302(io.pocketseo.LinksPresenter,boolean) -> a
+    boolean access$300(io.pocketseo.LinksPresenter) -> c
+io.pocketseo.LinksPresenter$1 -> io.pocketseo.i$1:
     int val$page -> a
     io.pocketseo.LinksPresenter this$0 -> b
     void <init>(io.pocketseo.LinksPresenter,int) -> <init>
@@ -23829,13 +23843,14 @@ io.pocketseo.LinksPresenter$1 -> io.pocketseo.h$1:
     void onError(java.lang.Throwable) -> onError
     void onNext(java.util.List) -> a
     void onNext(java.lang.Object) -> onNext
-io.pocketseo.LinksPresenter$View -> io.pocketseo.i:
+io.pocketseo.LinksPresenter$View -> io.pocketseo.j:
     void showLoading(boolean) -> a
     void showResults(java.util.List,boolean,boolean) -> a
     void showError(java.lang.String) -> a
     void showEmpty(boolean) -> b
     void showFab(boolean) -> c
     void openLink(io.pocketseo.model.MozScapeLink) -> a
+    void openWebsite(java.lang.String,boolean) -> a
 io.pocketseo.MainActivity -> io.pocketseo.MainActivity:
     io.pocketseo.databinding.ActivityMainBinding mBinding -> m
     void <init>() -> <init>
@@ -23861,7 +23876,7 @@ io.pocketseo.MainActivity$3 -> io.pocketseo.MainActivity$3:
     io.pocketseo.MainActivity this$0 -> a
     void <init>(io.pocketseo.MainActivity) -> <init>
     void onClick(android.view.View) -> onClick
-io.pocketseo.PieDrawable -> io.pocketseo.j:
+io.pocketseo.PieDrawable -> io.pocketseo.k:
     float mPadding -> a
     int mColor2 -> b
     int mColor1 -> c
@@ -23885,25 +23900,25 @@ io.pocketseo.PocketSeoApplication -> io.pocketseo.PocketSeoApplication:
     void onCreate() -> onCreate
     void initializeTracker() -> a
     io.pocketseo.injection.ApplicationComponent getApplicationComponent(android.content.Context) -> a
-io.pocketseo.Presenter -> io.pocketseo.k:
+io.pocketseo.Presenter -> io.pocketseo.l:
     void onDestroyed() -> c
-io.pocketseo.PresenterFactory -> io.pocketseo.l:
+io.pocketseo.PresenterFactory -> io.pocketseo.m:
     java.lang.Object create() -> b
-io.pocketseo.PresenterLoader -> io.pocketseo.m:
+io.pocketseo.PresenterLoader -> io.pocketseo.n:
     io.pocketseo.Presenter presenter -> j
     io.pocketseo.PresenterFactory presenterFactory -> k
     void <init>(android.content.Context,io.pocketseo.PresenterFactory) -> <init>
     void onStartLoading() -> b
     void onReset() -> f
-io.pocketseo.ScrollableTab -> io.pocketseo.n:
+io.pocketseo.ScrollableTab -> io.pocketseo.o:
     void scrollToTop() -> a
 io.pocketseo.SettingsActivity -> io.pocketseo.SettingsActivity:
     void <init>() -> <init>
     void onCreate(android.os.Bundle) -> onCreate
-io.pocketseo.SettingsActivity$SettingsFragment -> io.pocketseo.o:
+io.pocketseo.SettingsActivity$SettingsFragment -> io.pocketseo.p:
     void <init>() -> <init>
     void onCreate(android.os.Bundle) -> onCreate
-io.pocketseo.TabManagerFragment -> io.pocketseo.p:
+io.pocketseo.TabManagerFragment -> io.pocketseo.q:
     java.lang.String mWebsite -> a
     io.pocketseo.databinding.FragmentTabManagerBinding mBinding -> b
     io.pocketseo.model.AnalyticsTracker mAnalytics -> c
@@ -23917,11 +23932,11 @@ io.pocketseo.TabManagerFragment -> io.pocketseo.p:
     void onPrepareOptionsMenu(android.view.Menu) -> onPrepareOptionsMenu
     void openInBrowser() -> a
     io.pocketseo.databinding.FragmentTabManagerBinding access$000(io.pocketseo.TabManagerFragment) -> a
-io.pocketseo.TabManagerFragment$1 -> io.pocketseo.p$1:
+io.pocketseo.TabManagerFragment$1 -> io.pocketseo.q$1:
     io.pocketseo.TabManagerFragment this$0 -> a
     void <init>(io.pocketseo.TabManagerFragment,android.support.v4.view.ViewPager) -> <init>
     void onTabReselected(android.support.design.widget.TabLayout$Tab) -> onTabReselected
-io.pocketseo.TabManagerFragment$TabPager -> io.pocketseo.q:
+io.pocketseo.TabManagerFragment$TabPager -> io.pocketseo.r:
     java.lang.String mWebsite -> b
     android.support.v4.util.ArrayMap fragmentArrayMap -> c
     java.lang.String[] titles -> a
@@ -23931,13 +23946,12 @@ io.pocketseo.TabManagerFragment$TabPager -> io.pocketseo.q:
     void setPrimaryItem(android.view.ViewGroup,int,java.lang.Object) -> b
     android.support.v4.app.Fragment getFragmentAt(int) -> e
     java.lang.CharSequence getPageTitle(int) -> c
-io.pocketseo.UrlMetricsFragment -> io.pocketseo.r:
+io.pocketseo.UrlMetricsFragment -> io.pocketseo.s:
     java.lang.String mWebsite -> c
     io.pocketseo.UrlMetricsPresenter mPresenter -> d
     io.pocketseo.databinding.FragmentUrlMetricsBinding mBinding -> e
     io.pocketseo.PieDrawable pageAuthDrawable -> f
     io.pocketseo.PieDrawable domainAuthDrawable -> g
-    io.pocketseo.PieDrawable spamDrawable -> h
     com.github.rubensousa.bottomsheetbuilder.BottomSheetMenuDialog bottomSheet -> a
     void <init>() -> <init>
     io.pocketseo.UrlMetricsFragment newInstance(java.lang.String) -> a
@@ -23957,47 +23971,54 @@ io.pocketseo.UrlMetricsFragment -> io.pocketseo.r:
     void showHtmldataResult(io.pocketseo.HtmlData) -> a
     void showHtmldataError(java.lang.String) -> c
     void sendEmail(java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
-    void openWebsite(java.lang.String) -> d
-    void makePhoneCall(java.lang.String) -> e
+    void openWebsite(java.lang.String,boolean) -> a
+    void makePhoneCall(java.lang.String) -> d
     io.pocketseo.databinding.FragmentUrlMetricsBinding access$000(io.pocketseo.UrlMetricsFragment) -> a
     io.pocketseo.UrlMetricsPresenter access$100(io.pocketseo.UrlMetricsFragment) -> b
     void access$200(io.pocketseo.UrlMetricsFragment) -> c
-io.pocketseo.UrlMetricsFragment$1 -> io.pocketseo.r$1:
+io.pocketseo.UrlMetricsFragment$1 -> io.pocketseo.s$1:
     io.pocketseo.UrlMetricsFragment this$0 -> a
     void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
     void onClick(android.view.View) -> onClick
-io.pocketseo.UrlMetricsFragment$2 -> io.pocketseo.r$2:
+io.pocketseo.UrlMetricsFragment$2 -> io.pocketseo.s$2:
     io.pocketseo.UrlMetricsFragment this$0 -> a
     void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
     void onClick(android.view.View) -> onClick
-io.pocketseo.UrlMetricsFragment$3 -> io.pocketseo.r$3:
+io.pocketseo.UrlMetricsFragment$3 -> io.pocketseo.s$3:
     io.pocketseo.UrlMetricsFragment this$0 -> a
     void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
     void onClick(android.view.View) -> onClick
-io.pocketseo.UrlMetricsFragment$4 -> io.pocketseo.r$4:
+io.pocketseo.UrlMetricsFragment$4 -> io.pocketseo.s$4:
     io.pocketseo.UrlMetricsFragment this$0 -> a
     void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
     void onClick(android.view.View) -> onClick
-io.pocketseo.UrlMetricsFragment$5 -> io.pocketseo.r$5:
+io.pocketseo.UrlMetricsFragment$5 -> io.pocketseo.s$5:
     io.pocketseo.UrlMetricsFragment this$0 -> a
     void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
     void onClick(android.view.View) -> onClick
-io.pocketseo.UrlMetricsFragment$6 -> io.pocketseo.r$6:
+io.pocketseo.UrlMetricsFragment$6 -> io.pocketseo.s$6:
+    io.pocketseo.UrlMetricsFragment this$0 -> a
+    void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
+    void onClick(android.view.View) -> onClick
+io.pocketseo.UrlMetricsFragment$7 -> io.pocketseo.s$7:
     io.pocketseo.UrlMetricsFragment this$0 -> a
     void <init>(io.pocketseo.UrlMetricsFragment) -> <init>
     void onBottomSheetItemClick(com.github.rubensousa.bottomsheetbuilder.items.BottomSheetMenuItem) -> a
-io.pocketseo.UrlMetricsPresenter -> io.pocketseo.s:
+io.pocketseo.UrlMetricsPresenter -> io.pocketseo.t:
     io.pocketseo.UrlMetricsPresenter$View mView -> a
     io.pocketseo.model.DataRepository mRepo -> b
     io.pocketseo.model.AnalyticsTracker mAnalytics -> c
     java.lang.String mWebsite -> d
     java.lang.String distanceWebsite -> e
-    java.lang.String distancePhoneNumber -> f
-    java.lang.String distanceEmail -> g
-    java.lang.String feedbackEmail -> h
-    java.lang.String feedbackSubject -> i
-    java.lang.String feedbackPrompt -> j
-    java.lang.String feedbackBody -> k
+    java.lang.String distanceFeedbackSurvey -> f
+    java.lang.String mozWebsite -> g
+    java.lang.String distancePhoneNumber -> h
+    java.lang.String distanceEmail -> i
+    java.lang.String feedbackEmail -> j
+    java.lang.String feedbackSubject -> k
+    java.lang.String feedbackPrompt -> l
+    java.lang.String feedbackBody -> m
+    java.lang.String error429message -> n
     void <init>(android.content.Context,io.pocketseo.UrlMetricsPresenter$View,io.pocketseo.model.DataRepository,io.pocketseo.model.AnalyticsTracker) -> <init>
     void performSearch(java.lang.String,boolean,boolean) -> a
     void loadHtmlData(java.lang.String,boolean) -> a
@@ -24005,23 +24026,25 @@ io.pocketseo.UrlMetricsPresenter -> io.pocketseo.s:
     void sendFeedback() -> a
     void getInTouchByEmail() -> b
     void getInTouchByPhone() -> c
-    void visitTheDistanceWebsite() -> d
+    void mozscapeLogoTouched() -> d
+    void visitTheDistanceWebsite() -> e
     io.pocketseo.UrlMetricsPresenter$View access$000(io.pocketseo.UrlMetricsPresenter) -> a
-io.pocketseo.UrlMetricsPresenter$1 -> io.pocketseo.s$1:
+    java.lang.String access$100(io.pocketseo.UrlMetricsPresenter) -> b
+io.pocketseo.UrlMetricsPresenter$1 -> io.pocketseo.t$1:
     io.pocketseo.UrlMetricsPresenter this$0 -> a
     void <init>(io.pocketseo.UrlMetricsPresenter) -> <init>
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
     void onNext(io.pocketseo.HtmlData) -> a
     void onNext(java.lang.Object) -> onNext
-io.pocketseo.UrlMetricsPresenter$2 -> io.pocketseo.s$2:
+io.pocketseo.UrlMetricsPresenter$2 -> io.pocketseo.t$2:
     io.pocketseo.UrlMetricsPresenter this$0 -> a
     void <init>(io.pocketseo.UrlMetricsPresenter) -> <init>
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
     void onNext(io.pocketseo.model.MozScape) -> a
     void onNext(java.lang.Object) -> onNext
-io.pocketseo.UrlMetricsPresenter$View -> io.pocketseo.t:
+io.pocketseo.UrlMetricsPresenter$View -> io.pocketseo.u:
     void showMozLoading(boolean) -> a
     void showMozResult(io.pocketseo.model.MozScape) -> a
     void showMozError(java.lang.String) -> b
@@ -24029,8 +24052,8 @@ io.pocketseo.UrlMetricsPresenter$View -> io.pocketseo.t:
     void showHtmldataResult(io.pocketseo.HtmlData) -> a
     void showHtmldataError(java.lang.String) -> c
     void sendEmail(java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
-    void openWebsite(java.lang.String) -> d
-    void makePhoneCall(java.lang.String) -> e
+    void openWebsite(java.lang.String,boolean) -> a
+    void makePhoneCall(java.lang.String) -> d
 io.pocketseo.databinding.ActivityMainBinding -> io.pocketseo.a.a:
     android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> h
     android.util.SparseIntArray sViewsWithIds -> i
@@ -24092,34 +24115,30 @@ io.pocketseo.databinding.CardHtmldataBinding -> io.pocketseo.a.b:
     io.pocketseo.databinding.CardHtmldataBinding bind(android.view.View,android.databinding.DataBindingComponent) -> a
     void <clinit>() -> <clinit>
 io.pocketseo.databinding.CardMozBinding -> io.pocketseo.a.c:
-    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> m
-    android.util.SparseIntArray sViewsWithIds -> n
+    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> l
+    android.util.SparseIntArray sViewsWithIds -> m
     android.widget.TextView authorityHeader -> c
     android.widget.LinearLayout domainAuthorityContainer -> d
     android.widget.RelativeLayout header -> e
     android.widget.TextView lastIndexTitle -> f
-    android.support.v7.widget.CardView mboundView0 -> o
-    android.widget.LinearLayout mboundView1 -> p
-    android.widget.TextView mboundView10 -> q
-    android.widget.TextView mboundView11 -> r
-    io.pocketseo.databinding.ErrorBinding mboundView12 -> s
-    android.widget.ProgressBar mboundView121 -> t
-    android.widget.LinearLayout mboundView3 -> u
-    android.widget.TextView mboundView5 -> v
-    android.widget.TextView mboundView6 -> w
-    android.widget.TextView mboundView7 -> x
-    android.widget.TextView mboundView8 -> y
-    android.widget.TextView mboundView9 -> z
+    android.support.v7.widget.CardView mboundView0 -> n
+    android.widget.LinearLayout mboundView1 -> o
+    io.pocketseo.databinding.ErrorBinding mboundView11 -> p
+    android.widget.LinearLayout mboundView3 -> q
+    android.widget.TextView mboundView5 -> r
+    android.widget.TextView mboundView6 -> s
+    android.widget.TextView mboundView7 -> t
+    android.widget.TextView mboundView8 -> u
+    android.widget.ProgressBar mboundView9 -> v
     android.widget.ImageView mozscapeExpandCheck -> g
     android.widget.LinearLayout mozscapeExpanded -> h
-    android.widget.TextView nextIndexTitle -> i
+    android.widget.ImageView mozscapeLogo -> i
     android.widget.LinearLayout pageAuthorityContainer -> j
-    android.widget.LinearLayout spamScoreContainer -> k
-    android.widget.TextView statusCode -> l
-    java.lang.String mMozError -> A
-    boolean mMozLoading -> B
-    io.pocketseo.viewmodel.MozScapeViewModel mMozscape -> C
-    long mDirtyFlags -> D
+    android.widget.TextView statusCode -> k
+    java.lang.String mMozError -> w
+    boolean mMozLoading -> x
+    io.pocketseo.viewmodel.MozScapeViewModel mMozscape -> y
+    long mDirtyFlags -> z
     void <init>(android.databinding.DataBindingComponent,android.view.View) -> <init>
     void invalidateAll() -> c
     boolean hasPendingBindings() -> d
@@ -24193,8 +24212,8 @@ io.pocketseo.databinding.FragmentLinksBinding -> io.pocketseo.a.h:
     io.pocketseo.databinding.FragmentLinksBinding bind(android.view.View,android.databinding.DataBindingComponent) -> a
     void <clinit>() -> <clinit>
 io.pocketseo.databinding.FragmentLinksOptionsBinding -> io.pocketseo.a.i:
-    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> A
-    android.util.SparseIntArray sViewsWithIds -> B
+    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> z
+    android.util.SparseIntArray sViewsWithIds -> A
     android.widget.RadioButton linkType301 -> c
     android.widget.RadioButton linkType302 -> d
     android.widget.RadioButton linkTypeAll -> e
@@ -24204,23 +24223,22 @@ io.pocketseo.databinding.FragmentLinksOptionsBinding -> io.pocketseo.a.i:
     android.widget.RadioButton linkTypeNoEquity -> i
     android.widget.RadioButton linkTypeNoFollow -> j
     android.widget.TextView linkTypeTitle -> k
-    android.widget.FrameLayout mboundView0 -> C
+    android.widget.FrameLayout mboundView0 -> B
     android.widget.RadioButton sortDomain -> l
     android.widget.RadioGroup sortGroup -> m
     android.widget.RadioButton sortPage -> n
-    android.widget.RadioButton sortSpam -> o
-    android.widget.TextView sortTitle -> p
-    android.widget.RadioButton sourceAll -> q
-    android.widget.RadioButton sourceExternal -> r
-    android.widget.RadioGroup sourceGroup -> s
-    android.widget.RadioButton sourceInternal -> t
-    android.widget.TextView sourceTitle -> u
-    android.widget.RadioButton targetDomain -> v
-    android.widget.RadioGroup targetGroup -> w
-    android.widget.RadioButton targetPage -> x
-    android.widget.RadioButton targetSubdomain -> y
-    android.widget.TextView targetTitle -> z
-    long mDirtyFlags -> D
+    android.widget.TextView sortTitle -> o
+    android.widget.RadioButton sourceAll -> p
+    android.widget.RadioButton sourceExternal -> q
+    android.widget.RadioGroup sourceGroup -> r
+    android.widget.RadioButton sourceInternal -> s
+    android.widget.TextView sourceTitle -> t
+    android.widget.RadioButton targetDomain -> u
+    android.widget.RadioGroup targetGroup -> v
+    android.widget.RadioButton targetPage -> w
+    android.widget.RadioButton targetSubdomain -> x
+    android.widget.TextView targetTitle -> y
+    long mDirtyFlags -> C
     void <init>(android.databinding.DataBindingComponent,android.view.View) -> <init>
     void invalidateAll() -> c
     boolean hasPendingBindings() -> d
@@ -24341,8 +24359,8 @@ io.pocketseo.databinding.FragmentUrlMetricsBindingW700dpImpl -> io.pocketseo.a.p
     void executeBindings() -> b
     void <clinit>() -> <clinit>
 io.pocketseo.databinding.ItemLinkBinding -> io.pocketseo.a.q:
-    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> p
-    android.util.SparseIntArray sViewsWithIds -> q
+    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> n
+    android.util.SparseIntArray sViewsWithIds -> o
     android.widget.LinearLayout anchor -> c
     android.widget.TextView anchorLabel -> d
     android.widget.TextView anchorScore -> e
@@ -24350,17 +24368,14 @@ io.pocketseo.databinding.ItemLinkBinding -> io.pocketseo.a.q:
     android.widget.TextView da -> g
     android.widget.TextView daLabel -> h
     android.widget.TextView followed -> i
-    android.widget.FrameLayout mboundView0 -> r
-    android.widget.TextView mboundView2 -> s
-    android.view.View mboundView9 -> t
+    android.widget.FrameLayout mboundView0 -> p
+    android.widget.TextView mboundView2 -> q
     android.widget.TextView pa -> j
     android.widget.TextView paLabel -> k
-    android.widget.TextView spamLabel -> l
-    android.widget.TextView spamScore -> m
-    org.apmem.tools.layouts.FlowLayout stats -> n
-    android.widget.TextView title -> o
-    io.pocketseo.viewmodel.MozScapeLinkViewModel mViewModel -> u
-    long mDirtyFlags -> v
+    org.apmem.tools.layouts.FlowLayout stats -> l
+    android.widget.TextView title -> m
+    io.pocketseo.viewmodel.MozScapeLinkViewModel mViewModel -> r
+    long mDirtyFlags -> s
     void <init>(android.databinding.DataBindingComponent,android.view.View) -> <init>
     void invalidateAll() -> c
     boolean hasPendingBindings() -> d
@@ -24386,6 +24401,20 @@ io.pocketseo.databinding.ItemLoadingBinding -> io.pocketseo.a.r:
     io.pocketseo.databinding.ItemLoadingBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean) -> a
     io.pocketseo.databinding.ItemLoadingBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean,android.databinding.DataBindingComponent) -> a
     io.pocketseo.databinding.ItemLoadingBinding bind(android.view.View,android.databinding.DataBindingComponent) -> a
+    void <clinit>() -> <clinit>
+io.pocketseo.databinding.ItemMozHeaderBinding -> io.pocketseo.a.s:
+    android.databinding.ViewDataBinding$IncludedLayouts sIncludes -> c
+    android.util.SparseIntArray sViewsWithIds -> d
+    android.widget.FrameLayout mboundView0 -> e
+    long mDirtyFlags -> f
+    void <init>(android.databinding.DataBindingComponent,android.view.View) -> <init>
+    void invalidateAll() -> c
+    boolean hasPendingBindings() -> d
+    boolean onFieldChange(int,java.lang.Object,int) -> a
+    void executeBindings() -> b
+    io.pocketseo.databinding.ItemMozHeaderBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean) -> a
+    io.pocketseo.databinding.ItemMozHeaderBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean,android.databinding.DataBindingComponent) -> a
+    io.pocketseo.databinding.ItemMozHeaderBinding bind(android.view.View,android.databinding.DataBindingComponent) -> a
     void <clinit>() -> <clinit>
 io.pocketseo.htmlparser.HtmlParser -> io.pocketseo.b.a:
     okhttp3.OkHttpClient mOkHttpClient -> a
@@ -24534,6 +24563,10 @@ io.pocketseo.injection.MozscapeModule -> io.pocketseo.c.l:
     okhttp3.OkHttpClient provideOkHttpClient() -> b
     io.pocketseo.webservice.mozscape.MSHelper$Authenticator provideAuthenticator() -> c
     io.pocketseo.webservice.mozscape.MSWebService provideWebService(io.pocketseo.PocketSeoApplication,com.google.gson.Gson,okhttp3.OkHttpClient) -> a
+io.pocketseo.injection.MozscapeModule$1 -> io.pocketseo.c.l$1:
+    io.pocketseo.injection.MozscapeModule this$0 -> a
+    void <init>(io.pocketseo.injection.MozscapeModule) -> <init>
+    okhttp3.Response intercept(okhttp3.Interceptor$Chain) -> intercept
 io.pocketseo.injection.MozscapeModule_ProvideAuthenticatorFactory -> io.pocketseo.c.m:
     io.pocketseo.injection.MozscapeModule module -> b
     boolean $assertionsDisabled -> a
@@ -24623,23 +24656,13 @@ io.pocketseo.model.DataRepositoryImpl$1 -> io.pocketseo.model.DataRepositoryImpl
     void onNext(io.pocketseo.webservice.mozscape.model.MSUrlMetrics) -> onNext
     void onNext(java.lang.Object) -> onNext
 io.pocketseo.model.DataRepositoryImpl$2 -> io.pocketseo.model.DataRepositoryImpl$2:
-    io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
-    void <init>(io.pocketseo.model.DataRepositoryImpl) -> <init>
-    java.lang.Boolean call(io.pocketseo.webservice.mozscape.model.MSUrlMetrics) -> call
-    java.lang.Object call(java.lang.Object) -> call
-io.pocketseo.model.DataRepositoryImpl$3 -> io.pocketseo.model.DataRepositoryImpl$3:
-    io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
-    void <init>(io.pocketseo.model.DataRepositoryImpl) -> <init>
-    io.pocketseo.webservice.mozscape.model.MSUrlMetrics call(io.pocketseo.webservice.mozscape.model.MSUrlMetrics,io.pocketseo.webservice.mozscape.model.MSNextUpdate) -> call
-    java.lang.Object call(java.lang.Object,java.lang.Object) -> call
-io.pocketseo.model.DataRepositoryImpl$4 -> io.pocketseo.model.DataRepositoryImpl$4:
     boolean val$refresh -> val$refresh
     java.lang.String val$website -> val$website
     io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
     void <init>(io.pocketseo.model.DataRepositoryImpl,boolean,java.lang.String) -> <init>
     void call(rx.Subscriber) -> call
     void call(java.lang.Object) -> call
-io.pocketseo.model.DataRepositoryImpl$5 -> io.pocketseo.model.DataRepositoryImpl$5:
+io.pocketseo.model.DataRepositoryImpl$3 -> io.pocketseo.model.DataRepositoryImpl$3:
     java.lang.String val$url -> val$url
     io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
     void <init>(io.pocketseo.model.DataRepositoryImpl,java.lang.String) -> <init>
@@ -24647,20 +24670,20 @@ io.pocketseo.model.DataRepositoryImpl$5 -> io.pocketseo.model.DataRepositoryImpl
     void onError(java.lang.Throwable) -> onError
     void onNext(io.pocketseo.htmlparser.HtmlParser$HtmlDataImpl) -> onNext
     void onNext(java.lang.Object) -> onNext
-io.pocketseo.model.DataRepositoryImpl$6 -> io.pocketseo.model.DataRepositoryImpl$6:
+io.pocketseo.model.DataRepositoryImpl$4 -> io.pocketseo.model.DataRepositoryImpl$4:
     java.lang.String val$url -> val$url
     io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
     void <init>(io.pocketseo.model.DataRepositoryImpl,java.lang.String) -> <init>
     void call(rx.Subscriber) -> call
     void call(java.lang.Object) -> call
-io.pocketseo.model.DataRepositoryImpl$7 -> io.pocketseo.model.DataRepositoryImpl$7:
+io.pocketseo.model.DataRepositoryImpl$5 -> io.pocketseo.model.DataRepositoryImpl$5:
     boolean val$refresh -> val$refresh
     java.lang.String val$url -> val$url
     io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
     void <init>(io.pocketseo.model.DataRepositoryImpl,boolean,java.lang.String) -> <init>
     void call(rx.Subscriber) -> call
     void call(java.lang.Object) -> call
-io.pocketseo.model.DataRepositoryImpl$8 -> io.pocketseo.model.DataRepositoryImpl$8:
+io.pocketseo.model.DataRepositoryImpl$6 -> io.pocketseo.model.DataRepositoryImpl$6:
     io.pocketseo.htmlparser.HtmlParser$ParserError error -> error
     io.pocketseo.model.DataRepository$Callback val$callbacks -> val$callbacks
     io.pocketseo.model.DataRepositoryImpl this$0 -> this$0
@@ -24678,11 +24701,8 @@ io.pocketseo.model.MozScape -> io.pocketseo.model.MozScape:
     int getStatusCode() -> getStatusCode
     float getDomainAuthority() -> getDomainAuthority
     float getPageAuthority() -> getPageAuthority
-    int getSpamScore() -> getSpamScore
-    int getLinksRoot() -> getLinksRoot
     int getLinksTotal() -> getLinksTotal
     java.util.Date getLastIndex() -> getLastIndex
-    java.util.Date getNextIndex() -> getNextIndex
 io.pocketseo.model.MozScapeLink -> io.pocketseo.model.MozScapeLink:
     java.lang.String getUrl() -> getUrl
     java.lang.String getTitle() -> getTitle
@@ -24717,17 +24737,15 @@ io.pocketseo.viewmodel.MozScapeLinkViewModel -> io.pocketseo.d.b:
     void <init>(io.pocketseo.model.MozScapeLink,android.content.Context) -> <init>
     java.lang.String getPageAuthority() -> a
     java.lang.String getDomainAuthority() -> b
-    java.lang.String getSpamScore() -> c
-    java.lang.String getTitle() -> d
-    java.lang.String getUrl() -> e
-    java.lang.String getAnchorText() -> f
-    int getSpamScoreColor() -> g
-    java.lang.Integer getAnchorTextVisibility() -> h
-    boolean isSelected() -> i
-    int getBackgroundColor() -> j
-    java.lang.Integer getTitleLines() -> k
-    java.lang.String getFollowedText() -> l
-    int getFollowedTextColor() -> m
+    java.lang.String getTitle() -> c
+    java.lang.String getUrl() -> d
+    java.lang.String getAnchorText() -> e
+    java.lang.Integer getAnchorTextVisibility() -> f
+    boolean isSelected() -> g
+    int getBackgroundColor() -> h
+    java.lang.Integer getTitleLines() -> i
+    java.lang.String getFollowedText() -> j
+    int getFollowedTextColor() -> k
     void setSelected(boolean) -> a
 io.pocketseo.viewmodel.MozScapeViewModel -> io.pocketseo.d.c:
     io.pocketseo.model.MozScape model -> a
@@ -24737,14 +24755,13 @@ io.pocketseo.viewmodel.MozScapeViewModel -> io.pocketseo.d.c:
     void <init>(io.pocketseo.model.MozScape,android.content.Context) -> <init>
     java.lang.String getStatusCode() -> a
     java.lang.String getLastIndex() -> b
-    java.lang.String getNextIndex() -> c
-    java.lang.String getLinksRoot() -> d
-    java.lang.String getLinksTotal() -> e
-    java.lang.String getPageAuthority() -> f
-    java.lang.String getDomainAuthority() -> g
-    java.lang.String getSpamScore() -> h
+    java.lang.String getLinksTotal() -> c
+    java.lang.String getPageAuthority() -> d
+    java.lang.String getDomainAuthority() -> e
 io.pocketseo.webservice.mozscape.MSHelper -> io.pocketseo.webservice.mozscape.a:
-io.pocketseo.webservice.mozscape.MSHelper$Authenticator -> io.pocketseo.webservice.mozscape.b:
+io.pocketseo.webservice.mozscape.MSHelper$ApiLimitException -> io.pocketseo.webservice.mozscape.b:
+    void <init>() -> <init>
+io.pocketseo.webservice.mozscape.MSHelper$Authenticator -> io.pocketseo.webservice.mozscape.c:
     java.lang.String accessID -> a
     java.lang.String secretKey -> b
     long expiresInterval -> c
@@ -24754,7 +24771,6 @@ io.pocketseo.webservice.mozscape.MSHelper$Authenticator -> io.pocketseo.webservi
 io.pocketseo.webservice.mozscape.MSWebService -> io.pocketseo.webservice.mozscape.MSWebService:
     java.lang.String URL_PREFIX -> URL_PREFIX
     rx.Observable getUrlMetrics(java.lang.String,long,java.util.Map) -> getUrlMetrics
-    rx.Observable getNextUpdate(java.util.Map) -> getNextUpdate
     rx.Observable getLinks(java.lang.String,long,int,int,java.util.Map) -> getLinks
     rx.Observable getLinks(java.lang.String,long,int,int,java.lang.String,java.lang.String,java.lang.String,java.util.Map) -> getLinks
 io.pocketseo.webservice.mozscape.model.MSLinkFilter -> io.pocketseo.webservice.mozscape.model.MSLinkFilter:
@@ -24811,7 +24827,6 @@ io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Scope -> io.pocketseo.webse
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort -> io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort:
     io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort PageAuthority -> PageAuthority
     io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort DomainAuthority -> DomainAuthority
-    io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort SpamScore -> SpamScore
     java.lang.String value -> value
     io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort[] $VALUES -> $VALUES
     io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort[] values() -> values
@@ -24819,23 +24834,15 @@ io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort -> io.pocketseo.webser
     void <init>(java.lang.String,int,java.lang.String) -> <init>
     java.lang.String toString() -> toString
     void <clinit>() -> <clinit>
-io.pocketseo.webservice.mozscape.model.MSNextUpdate -> io.pocketseo.webservice.mozscape.model.MSNextUpdate:
-    long nextUpdate -> nextUpdate
-    void <init>() -> <init>
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics -> io.pocketseo.webservice.mozscape.model.MSUrlMetrics:
     long FLAG_DOMAIN_AUTHORITY -> FLAG_DOMAIN_AUTHORITY
     long FLAG_HTTP_STATUS_CODE -> FLAG_HTTP_STATUS_CODE
     long FLAG_PAGE_AUTHORITY -> FLAG_PAGE_AUTHORITY
-    long FLAG_SPAM_SCORE -> FLAG_SPAM_SCORE
-    long FLAG_ESTABLISHED_LINKS_ROOT -> FLAG_ESTABLISHED_LINKS_ROOT
     long FLAG_ESTABLISHED_LINKS_TOTAL -> FLAG_ESTABLISHED_LINKS_TOTAL
     long FLAG_LAST_CRAWL -> FLAG_LAST_CRAWL
-    long nextCrawl -> nextCrawl
     float domainAuthority -> domainAuthority
     int statusCode -> statusCode
     float pageAuthority -> pageAuthority
-    int spamScore -> spamScore
-    int establishedLinksRoot -> establishedLinksRoot
     int establishedLinksTotal -> establishedLinksTotal
     long lastCrawl -> lastCrawl
     void <init>() -> <init>
@@ -24843,12 +24850,8 @@ io.pocketseo.webservice.mozscape.model.MSUrlMetrics -> io.pocketseo.webservice.m
     int getStatusCode() -> getStatusCode
     float getDomainAuthority() -> getDomainAuthority
     float getPageAuthority() -> getPageAuthority
-    int getSpamScore() -> getSpamScore
-    int getLinksRoot() -> getLinksRoot
     int getLinksTotal() -> getLinksTotal
     java.util.Date getLastIndex() -> getLastIndex
-    java.util.Date getNextIndex() -> getNextIndex
-    void setNextCrawl(long) -> setNextCrawl
     boolean equals(java.lang.Object) -> equals
     int hashCode() -> hashCode
 javax.inject.Provider -> b.a.a:
@@ -33043,8 +33046,6 @@ rx.Observable -> rx.a:
     rx.Observable create(rx.Observable$OnSubscribe) -> a
     rx.Observable lift(rx.Observable$Operator) -> a
     rx.Single toSingle() -> a
-    rx.Observable combineLatest(rx.Observable,rx.Observable,rx.functions.Func2) -> a
-    rx.Observable combineLatest(java.util.List,rx.functions.FuncN) -> a
     rx.Observable concat(rx.Observable) -> a
     rx.Observable concat(rx.Observable,rx.Observable) -> a
     rx.Observable error(java.lang.Throwable) -> a
@@ -33055,12 +33056,11 @@ rx.Observable -> rx.a:
     rx.Observable nest() -> b
     rx.Observable cache() -> c
     rx.Observable doOnEach(rx.Observer) -> a
-    rx.Observable filter(rx.functions.Func1) -> a
     rx.Observable first() -> d
-    rx.Observable flatMap(rx.functions.Func1) -> b
-    rx.Observable map(rx.functions.Func1) -> c
+    rx.Observable flatMap(rx.functions.Func1) -> a
+    rx.Observable map(rx.functions.Func1) -> b
     rx.Observable observeOn(rx.Scheduler) -> a
-    rx.Observable onErrorReturn(rx.functions.Func1) -> d
+    rx.Observable onErrorReturn(rx.functions.Func1) -> c
     rx.Observable single() -> e
     rx.Subscription unsafeSubscribe(rx.Subscriber) -> a
     rx.Subscription subscribe(rx.Subscriber) -> b
@@ -33264,16 +33264,6 @@ rx.functions.Action1 -> rx.c.b:
 rx.functions.Func0 -> rx.c.c:
 rx.functions.Func1 -> rx.c.d:
     java.lang.Object call(java.lang.Object) -> call
-rx.functions.Func2 -> rx.c.e:
-    java.lang.Object call(java.lang.Object,java.lang.Object) -> call
-rx.functions.FuncN -> rx.c.f:
-    java.lang.Object call(java.lang.Object[]) -> a
-rx.functions.Functions -> rx.c.g:
-    rx.functions.FuncN fromFunc(rx.functions.Func2) -> a
-rx.functions.Functions$3 -> rx.c.g$1:
-    rx.functions.Func2 val$f -> a
-    void <init>(rx.functions.Func2) -> <init>
-    java.lang.Object call(java.lang.Object[]) -> a
 rx.internal.operators.BackpressureUtils -> rx.d.a.a:
     long getAndAddRequest(java.util.concurrent.atomic.AtomicLong,long) -> a
     long addCap(long,long) -> a
@@ -33350,65 +33340,13 @@ rx.internal.operators.NotificationLite$OnErrorSentinel -> rx.d.a.g:
     void <init>(java.lang.Throwable) -> <init>
     java.lang.String toString() -> toString
     java.lang.Throwable access$000(rx.internal.operators.NotificationLite$OnErrorSentinel) -> a
-rx.internal.operators.OnSubscribeCombineLatest -> rx.d.a.h:
-    java.util.List sources -> a
-    rx.functions.FuncN combinator -> b
-    void <init>(java.util.List,rx.functions.FuncN) -> <init>
-    void call(rx.Subscriber) -> a
-    void call(java.lang.Object) -> call
-rx.internal.operators.OnSubscribeCombineLatest$MultiSourceProducer -> rx.d.a.i:
-    java.util.concurrent.atomic.AtomicBoolean started -> a
-    java.util.concurrent.atomic.AtomicLong requested -> b
-    java.util.List sources -> c
-    rx.Subscriber child -> d
-    rx.functions.FuncN combinator -> e
-    rx.internal.operators.OnSubscribeCombineLatest$MultiSourceRequestableSubscriber[] subscribers -> f
-    rx.internal.util.RxRingBuffer buffer -> g
-    java.lang.Object[] collectedValues -> h
-    java.util.BitSet haveValues -> i
-    int haveValuesCount -> j
-    java.util.BitSet completion -> k
-    int completionCount -> l
-    java.util.concurrent.atomic.AtomicLong counter -> m
-    void <init>(rx.Subscriber,java.util.List,rx.functions.FuncN) -> <init>
-    void request(long) -> a
-    void tick() -> a
-    void onCompleted(int,boolean) -> a
-    boolean onNext(int,java.lang.Object) -> a
-    void onError(java.lang.Throwable) -> a
-rx.internal.operators.OnSubscribeCombineLatest$MultiSourceRequestableSubscriber -> rx.d.a.j:
-    rx.internal.operators.OnSubscribeCombineLatest$MultiSourceProducer producer -> a
-    int index -> b
-    java.util.concurrent.atomic.AtomicLong emitted -> c
-    boolean hasValue -> d
-    void <init>(int,int,rx.Subscriber,rx.internal.operators.OnSubscribeCombineLatest$MultiSourceProducer) -> <init>
-    void requestUpTo(long) -> a
-    void onCompleted() -> onCompleted
-    void onError(java.lang.Throwable) -> onError
-    void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OnSubscribeCombineLatest$SingleSourceProducer -> rx.d.a.k:
-    java.util.concurrent.atomic.AtomicBoolean started -> a
-    rx.Observable source -> b
-    rx.Subscriber child -> c
-    rx.functions.FuncN combinator -> d
-    rx.internal.operators.OnSubscribeCombineLatest$SingleSourceRequestableSubscriber subscriber -> e
-    void <init>(rx.Subscriber,rx.Observable,rx.functions.FuncN) -> <init>
-    void request(long) -> a
-rx.internal.operators.OnSubscribeCombineLatest$SingleSourceRequestableSubscriber -> rx.d.a.l:
-    rx.Subscriber child -> a
-    rx.functions.FuncN combinator -> b
-    void <init>(rx.Subscriber,rx.functions.FuncN) -> <init>
-    void requestMore(long) -> a
-    void onNext(java.lang.Object) -> onNext
-    void onError(java.lang.Throwable) -> onError
-    void onCompleted() -> onCompleted
-rx.internal.operators.OnSubscribeFromIterable -> rx.d.a.m:
+rx.internal.operators.OnSubscribeFromIterable -> rx.d.a.h:
     java.lang.Iterable is -> a
     void <init>(java.lang.Iterable) -> <init>
     void call(rx.Subscriber) -> a
     void call(java.lang.Object) -> call
-rx.internal.operators.OnSubscribeFromIterable$1 -> rx.d.a.m$1:
-rx.internal.operators.OnSubscribeFromIterable$IterableProducer -> rx.d.a.n:
+rx.internal.operators.OnSubscribeFromIterable$1 -> rx.d.a.h$1:
+rx.internal.operators.OnSubscribeFromIterable$IterableProducer -> rx.d.a.i:
     rx.Subscriber o -> a
     java.util.Iterator it -> b
     void <init>(rx.Subscriber,java.util.Iterator) -> <init>
@@ -33416,13 +33354,13 @@ rx.internal.operators.OnSubscribeFromIterable$IterableProducer -> rx.d.a.n:
     void slowpath(long) -> b
     void fastpath() -> a
     void <init>(rx.Subscriber,java.util.Iterator,rx.internal.operators.OnSubscribeFromIterable$1) -> <init>
-rx.internal.operators.OnSubscribeSingle -> rx.d.a.o:
+rx.internal.operators.OnSubscribeSingle -> rx.d.a.j:
     rx.Observable observable -> a
     void <init>(rx.Observable) -> <init>
     void call(rx.SingleSubscriber) -> a
     rx.internal.operators.OnSubscribeSingle create(rx.Observable) -> a
     void call(java.lang.Object) -> call
-rx.internal.operators.OnSubscribeSingle$1 -> rx.d.a.o$1:
+rx.internal.operators.OnSubscribeSingle$1 -> rx.d.a.j$1:
     boolean emittedTooMany -> c
     boolean itemEmitted -> d
     java.lang.Object emission -> e
@@ -33433,14 +33371,14 @@ rx.internal.operators.OnSubscribeSingle$1 -> rx.d.a.o$1:
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
     void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OperatorConcat -> rx.d.a.p:
+rx.internal.operators.OperatorConcat -> rx.d.a.k:
     rx.internal.operators.OperatorConcat instance() -> a
     void <init>() -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
     void <init>(rx.internal.operators.OperatorConcat$1) -> <init>
-rx.internal.operators.OperatorConcat$1 -> rx.d.a.p$1:
-rx.internal.operators.OperatorConcat$ConcatInnerSubscriber -> rx.d.a.q:
+rx.internal.operators.OperatorConcat$1 -> rx.d.a.k$1:
+rx.internal.operators.OperatorConcat$ConcatInnerSubscriber -> rx.d.a.l:
     rx.Subscriber child -> a
     rx.internal.operators.OperatorConcat$ConcatSubscriber parent -> b
     java.util.concurrent.atomic.AtomicInteger once -> c
@@ -33450,11 +33388,11 @@ rx.internal.operators.OperatorConcat$ConcatInnerSubscriber -> rx.d.a.q:
     void onError(java.lang.Throwable) -> onError
     void onCompleted() -> onCompleted
     void setProducer(rx.Producer) -> setProducer
-rx.internal.operators.OperatorConcat$ConcatProducer -> rx.d.a.r:
+rx.internal.operators.OperatorConcat$ConcatProducer -> rx.d.a.m:
     rx.internal.operators.OperatorConcat$ConcatSubscriber cs -> a
     void <init>(rx.internal.operators.OperatorConcat$ConcatSubscriber) -> <init>
     void request(long) -> a
-rx.internal.operators.OperatorConcat$ConcatSubscriber -> rx.d.a.s:
+rx.internal.operators.OperatorConcat$ConcatSubscriber -> rx.d.a.n:
     rx.internal.operators.NotificationLite nl -> a
     rx.Subscriber child -> e
     rx.subscriptions.SerialSubscription current -> f
@@ -33475,20 +33413,20 @@ rx.internal.operators.OperatorConcat$ConcatSubscriber -> rx.d.a.s:
     void onNext(java.lang.Object) -> onNext
     void access$100(rx.internal.operators.OperatorConcat$ConcatSubscriber,long) -> a
     void access$200(rx.internal.operators.OperatorConcat$ConcatSubscriber) -> a
-rx.internal.operators.OperatorConcat$ConcatSubscriber$1 -> rx.d.a.s$1:
+rx.internal.operators.OperatorConcat$ConcatSubscriber$1 -> rx.d.a.n$1:
     rx.internal.operators.OperatorConcat$ConcatSubscriber this$0 -> a
     void <init>(rx.internal.operators.OperatorConcat$ConcatSubscriber) -> <init>
     void call() -> call
-rx.internal.operators.OperatorConcat$Holder -> rx.d.a.t:
+rx.internal.operators.OperatorConcat$Holder -> rx.d.a.o:
     rx.internal.operators.OperatorConcat INSTANCE -> a
     void <clinit>() -> <clinit>
-rx.internal.operators.OperatorDoOnEach -> rx.d.a.u:
+rx.internal.operators.OperatorDoOnEach -> rx.d.a.p:
     rx.Observer doOnEachObserver -> a
     void <init>(rx.Observer) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
     rx.Observer access$000(rx.internal.operators.OperatorDoOnEach) -> a
-rx.internal.operators.OperatorDoOnEach$1 -> rx.d.a.u$1:
+rx.internal.operators.OperatorDoOnEach$1 -> rx.d.a.p$1:
     boolean done -> c
     rx.Subscriber val$observer -> a
     rx.internal.operators.OperatorDoOnEach this$0 -> b
@@ -33496,33 +33434,20 @@ rx.internal.operators.OperatorDoOnEach$1 -> rx.d.a.u$1:
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
     void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OperatorFilter -> rx.d.a.v:
-    rx.functions.Func1 predicate -> a
-    void <init>(rx.functions.Func1) -> <init>
-    rx.Subscriber call(rx.Subscriber) -> a
-    java.lang.Object call(java.lang.Object) -> call
-    rx.functions.Func1 access$000(rx.internal.operators.OperatorFilter) -> a
-rx.internal.operators.OperatorFilter$1 -> rx.d.a.v$1:
-    rx.Subscriber val$child -> a
-    rx.internal.operators.OperatorFilter this$0 -> b
-    void <init>(rx.internal.operators.OperatorFilter,rx.Subscriber,rx.Subscriber) -> <init>
-    void onCompleted() -> onCompleted
-    void onError(java.lang.Throwable) -> onError
-    void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OperatorMap -> rx.d.a.w:
+rx.internal.operators.OperatorMap -> rx.d.a.q:
     rx.functions.Func1 transformer -> a
     void <init>(rx.functions.Func1) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
     rx.functions.Func1 access$000(rx.internal.operators.OperatorMap) -> a
-rx.internal.operators.OperatorMap$1 -> rx.d.a.w$1:
+rx.internal.operators.OperatorMap$1 -> rx.d.a.q$1:
     rx.Subscriber val$o -> a
     rx.internal.operators.OperatorMap this$0 -> b
     void <init>(rx.internal.operators.OperatorMap,rx.Subscriber,rx.Subscriber) -> <init>
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
     void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OperatorMerge -> rx.d.a.x:
+rx.internal.operators.OperatorMerge -> rx.d.a.r:
     boolean delayErrors -> a
     int maxConcurrent -> b
     rx.internal.operators.OperatorMerge instance(boolean) -> a
@@ -33530,14 +33455,14 @@ rx.internal.operators.OperatorMerge -> rx.d.a.x:
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
     void <init>(boolean,int,rx.internal.operators.OperatorMerge$1) -> <init>
-rx.internal.operators.OperatorMerge$1 -> rx.d.a.x$1:
-rx.internal.operators.OperatorMerge$HolderDelayErrors -> rx.d.a.y:
+rx.internal.operators.OperatorMerge$1 -> rx.d.a.r$1:
+rx.internal.operators.OperatorMerge$HolderDelayErrors -> rx.d.a.s:
     rx.internal.operators.OperatorMerge INSTANCE -> a
     void <clinit>() -> <clinit>
-rx.internal.operators.OperatorMerge$HolderNoDelay -> rx.d.a.z:
+rx.internal.operators.OperatorMerge$HolderNoDelay -> rx.d.a.t:
     rx.internal.operators.OperatorMerge INSTANCE -> a
     void <clinit>() -> <clinit>
-rx.internal.operators.OperatorMerge$InnerSubscriber -> rx.d.a.aa:
+rx.internal.operators.OperatorMerge$InnerSubscriber -> rx.d.a.u:
     rx.internal.operators.OperatorMerge$MergeSubscriber parent -> a
     long id -> b
     boolean done -> c
@@ -33551,12 +33476,12 @@ rx.internal.operators.OperatorMerge$InnerSubscriber -> rx.d.a.aa:
     void onCompleted() -> onCompleted
     void requestMore(long) -> a
     void <clinit>() -> <clinit>
-rx.internal.operators.OperatorMerge$MergeProducer -> rx.d.a.ab:
+rx.internal.operators.OperatorMerge$MergeProducer -> rx.d.a.v:
     rx.internal.operators.OperatorMerge$MergeSubscriber subscriber -> a
     void <init>(rx.internal.operators.OperatorMerge$MergeSubscriber) -> <init>
     void request(long) -> a
     long produced(int) -> a
-rx.internal.operators.OperatorMerge$MergeSubscriber -> rx.d.a.ac:
+rx.internal.operators.OperatorMerge$MergeSubscriber -> rx.d.a.w:
     rx.Subscriber child -> a
     boolean delayErrors -> b
     int maxConcurrent -> c
@@ -33595,12 +33520,12 @@ rx.internal.operators.OperatorMerge$MergeSubscriber -> rx.d.a.ac:
     boolean checkTerminate() -> e
     void onNext(java.lang.Object) -> onNext
     void <clinit>() -> <clinit>
-rx.internal.operators.OperatorObserveOn -> rx.d.a.ad:
+rx.internal.operators.OperatorObserveOn -> rx.d.a.x:
     rx.Scheduler scheduler -> a
     void <init>(rx.Scheduler) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
-rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber -> rx.d.a.ae:
+rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber -> rx.d.a.y:
     rx.Subscriber child -> a
     rx.Scheduler$Worker recursiveScheduler -> b
     rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe scheduledUnsubscribe -> c
@@ -33619,30 +33544,30 @@ rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber -> rx.d.a.ae:
     void onError(java.lang.Throwable) -> onError
     void schedule() -> b
     void pollQueue() -> c
-rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber$1 -> rx.d.a.ae$1:
+rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber$1 -> rx.d.a.y$1:
     rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber this$0 -> a
     void <init>(rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber) -> <init>
     void request(long) -> a
-rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber$2 -> rx.d.a.ae$2:
+rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber$2 -> rx.d.a.y$2:
     rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber this$0 -> a
     void <init>(rx.internal.operators.OperatorObserveOn$ObserveOnSubscriber) -> <init>
     void call() -> call
-rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe -> rx.d.a.af:
+rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe -> rx.d.a.z:
     rx.Scheduler$Worker worker -> a
     boolean unsubscribed -> b
     void <init>(rx.Scheduler$Worker) -> <init>
     boolean isUnsubscribed() -> isUnsubscribed
     void unsubscribe() -> unsubscribe
-rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe$1 -> rx.d.a.af$1:
+rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe$1 -> rx.d.a.z$1:
     rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe this$0 -> a
     void <init>(rx.internal.operators.OperatorObserveOn$ScheduledUnsubscribe) -> <init>
     void call() -> call
-rx.internal.operators.OperatorOnErrorReturn -> rx.d.a.ag:
+rx.internal.operators.OperatorOnErrorReturn -> rx.d.a.aa:
     rx.functions.Func1 resultFunction -> a
     void <init>(rx.functions.Func1) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
-rx.internal.operators.OperatorOnErrorReturn$1 -> rx.d.a.ag$1:
+rx.internal.operators.OperatorOnErrorReturn$1 -> rx.d.a.aa$1:
     boolean done -> c
     rx.Subscriber val$child -> a
     rx.internal.operators.OperatorOnErrorReturn this$0 -> b
@@ -33651,12 +33576,12 @@ rx.internal.operators.OperatorOnErrorReturn$1 -> rx.d.a.ag$1:
     void onError(java.lang.Throwable) -> onError
     void onCompleted() -> onCompleted
     void setProducer(rx.Producer) -> setProducer
-rx.internal.operators.OperatorOnErrorReturn$1$1 -> rx.d.a.ag$1$1:
+rx.internal.operators.OperatorOnErrorReturn$1$1 -> rx.d.a.aa$1$1:
     rx.Producer val$producer -> a
     rx.internal.operators.OperatorOnErrorReturn$1 this$1 -> b
     void <init>(rx.internal.operators.OperatorOnErrorReturn$1,rx.Producer) -> <init>
     void request(long) -> a
-rx.internal.operators.OperatorSingle -> rx.d.a.ah:
+rx.internal.operators.OperatorSingle -> rx.d.a.ab:
     boolean hasDefaultValue -> a
     java.lang.Object defaultValue -> b
     rx.internal.operators.OperatorSingle instance() -> a
@@ -33665,16 +33590,16 @@ rx.internal.operators.OperatorSingle -> rx.d.a.ah:
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
     void <init>(rx.internal.operators.OperatorSingle$1) -> <init>
-rx.internal.operators.OperatorSingle$1 -> rx.d.a.ah$1:
+rx.internal.operators.OperatorSingle$1 -> rx.d.a.ab$1:
     java.util.concurrent.atomic.AtomicBoolean requestedTwo -> c
     rx.internal.operators.OperatorSingle$ParentSubscriber val$parent -> a
     rx.internal.operators.OperatorSingle this$0 -> b
     void <init>(rx.internal.operators.OperatorSingle,rx.internal.operators.OperatorSingle$ParentSubscriber) -> <init>
     void request(long) -> a
-rx.internal.operators.OperatorSingle$Holder -> rx.d.a.ai:
+rx.internal.operators.OperatorSingle$Holder -> rx.d.a.ac:
     rx.internal.operators.OperatorSingle INSTANCE -> a
     void <clinit>() -> <clinit>
-rx.internal.operators.OperatorSingle$ParentSubscriber -> rx.d.a.aj:
+rx.internal.operators.OperatorSingle$ParentSubscriber -> rx.d.a.ad:
     rx.Subscriber child -> a
     boolean hasDefaultValue -> b
     java.lang.Object defaultValue -> c
@@ -33686,12 +33611,12 @@ rx.internal.operators.OperatorSingle$ParentSubscriber -> rx.d.a.aj:
     void onNext(java.lang.Object) -> onNext
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
-rx.internal.operators.OperatorSubscribeOn -> rx.d.a.ak:
+rx.internal.operators.OperatorSubscribeOn -> rx.d.a.ae:
     rx.Scheduler scheduler -> a
     void <init>(rx.Scheduler) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
-rx.internal.operators.OperatorSubscribeOn$1 -> rx.d.a.ak$1:
+rx.internal.operators.OperatorSubscribeOn$1 -> rx.d.a.ae$1:
     rx.Subscriber val$subscriber -> a
     rx.Scheduler$Worker val$inner -> b
     rx.internal.operators.OperatorSubscribeOn this$0 -> c
@@ -33700,12 +33625,12 @@ rx.internal.operators.OperatorSubscribeOn$1 -> rx.d.a.ak$1:
     void onError(java.lang.Throwable) -> onError
     void onNext(rx.Observable) -> a
     void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OperatorSubscribeOn$1$1 -> rx.d.a.ak$1$1:
+rx.internal.operators.OperatorSubscribeOn$1$1 -> rx.d.a.ae$1$1:
     rx.Observable val$o -> a
     rx.internal.operators.OperatorSubscribeOn$1 this$1 -> b
     void <init>(rx.internal.operators.OperatorSubscribeOn$1,rx.Observable) -> <init>
     void call() -> call
-rx.internal.operators.OperatorSubscribeOn$1$1$1 -> rx.d.a.ak$1$1$1:
+rx.internal.operators.OperatorSubscribeOn$1$1$1 -> rx.d.a.ae$1$1$1:
     java.lang.Thread val$t -> a
     rx.internal.operators.OperatorSubscribeOn$1$1 this$2 -> b
     void <init>(rx.internal.operators.OperatorSubscribeOn$1$1,rx.Subscriber,java.lang.Thread) -> <init>
@@ -33713,22 +33638,22 @@ rx.internal.operators.OperatorSubscribeOn$1$1$1 -> rx.d.a.ak$1$1$1:
     void onError(java.lang.Throwable) -> onError
     void onNext(java.lang.Object) -> onNext
     void setProducer(rx.Producer) -> setProducer
-rx.internal.operators.OperatorSubscribeOn$1$1$1$1 -> rx.d.a.ak$1$1$1$1:
+rx.internal.operators.OperatorSubscribeOn$1$1$1$1 -> rx.d.a.ae$1$1$1$1:
     rx.Producer val$producer -> a
     rx.internal.operators.OperatorSubscribeOn$1$1$1 this$3 -> b
     void <init>(rx.internal.operators.OperatorSubscribeOn$1$1$1,rx.Producer) -> <init>
     void request(long) -> a
-rx.internal.operators.OperatorSubscribeOn$1$1$1$1$1 -> rx.d.a.ak$1$1$1$1$1:
+rx.internal.operators.OperatorSubscribeOn$1$1$1$1$1 -> rx.d.a.ae$1$1$1$1$1:
     long val$n -> a
     rx.internal.operators.OperatorSubscribeOn$1$1$1$1 this$4 -> b
     void <init>(rx.internal.operators.OperatorSubscribeOn$1$1$1$1,long) -> <init>
     void call() -> call
-rx.internal.operators.OperatorTake -> rx.d.a.al:
+rx.internal.operators.OperatorTake -> rx.d.a.af:
     int limit -> a
     void <init>(int) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
-rx.internal.operators.OperatorTake$1 -> rx.d.a.al$1:
+rx.internal.operators.OperatorTake$1 -> rx.d.a.af$1:
     int count -> a
     boolean completed -> b
     rx.Subscriber val$child -> c
@@ -33738,31 +33663,31 @@ rx.internal.operators.OperatorTake$1 -> rx.d.a.al$1:
     void onError(java.lang.Throwable) -> onError
     void onNext(java.lang.Object) -> onNext
     void setProducer(rx.Producer) -> setProducer
-rx.internal.operators.OperatorTake$1$1 -> rx.d.a.al$1$1:
+rx.internal.operators.OperatorTake$1$1 -> rx.d.a.af$1$1:
     java.util.concurrent.atomic.AtomicLong requested -> a
     rx.Producer val$producer -> b
     rx.internal.operators.OperatorTake$1 this$1 -> c
     void <init>(rx.internal.operators.OperatorTake$1,rx.Producer) -> <init>
     void request(long) -> a
-rx.internal.operators.OperatorUnsubscribeOn -> rx.d.a.am:
+rx.internal.operators.OperatorUnsubscribeOn -> rx.d.a.ag:
     rx.Scheduler scheduler -> a
     void <init>(rx.Scheduler) -> <init>
     rx.Subscriber call(rx.Subscriber) -> a
     java.lang.Object call(java.lang.Object) -> call
     rx.Scheduler access$000(rx.internal.operators.OperatorUnsubscribeOn) -> a
-rx.internal.operators.OperatorUnsubscribeOn$1 -> rx.d.a.am$1:
+rx.internal.operators.OperatorUnsubscribeOn$1 -> rx.d.a.ag$1:
     rx.Subscriber val$subscriber -> a
     rx.internal.operators.OperatorUnsubscribeOn this$0 -> b
     void <init>(rx.internal.operators.OperatorUnsubscribeOn,rx.Subscriber) -> <init>
     void onCompleted() -> onCompleted
     void onError(java.lang.Throwable) -> onError
     void onNext(java.lang.Object) -> onNext
-rx.internal.operators.OperatorUnsubscribeOn$2 -> rx.d.a.am$2:
+rx.internal.operators.OperatorUnsubscribeOn$2 -> rx.d.a.ag$2:
     rx.Subscriber val$parent -> a
     rx.internal.operators.OperatorUnsubscribeOn this$0 -> b
     void <init>(rx.internal.operators.OperatorUnsubscribeOn,rx.Subscriber) -> <init>
     void call() -> call
-rx.internal.operators.OperatorUnsubscribeOn$2$1 -> rx.d.a.am$2$1:
+rx.internal.operators.OperatorUnsubscribeOn$2$1 -> rx.d.a.ag$2$1:
     rx.Scheduler$Worker val$inner -> a
     rx.internal.operators.OperatorUnsubscribeOn$2 this$1 -> b
     void <init>(rx.internal.operators.OperatorUnsubscribeOn$2,rx.Scheduler$Worker) -> <init>
@@ -33953,18 +33878,14 @@ rx.internal.util.RxRingBuffer -> rx.d.d.e:
     rx.internal.util.ObjectPool SPSC_POOL -> d
     rx.internal.util.ObjectPool SPMC_POOL -> e
     rx.internal.util.RxRingBuffer getSpscInstance() -> a
-    rx.internal.util.RxRingBuffer getSpmcInstance() -> b
     void <init>(java.util.Queue,int) -> <init>
     void <init>(rx.internal.util.ObjectPool,int) -> <init>
-    void release() -> c
+    void release() -> b
     void unsubscribe() -> unsubscribe
     void <init>() -> <init>
     void onNext(java.lang.Object) -> a
-    void onCompleted() -> d
-    boolean isEmpty() -> e
-    java.lang.Object poll() -> f
-    boolean isCompleted(java.lang.Object) -> b
-    boolean accept(java.lang.Object,rx.Observer) -> a
+    boolean isEmpty() -> c
+    java.lang.Object poll() -> d
     boolean isUnsubscribed() -> isUnsubscribed
     void <clinit>() -> <clinit>
 rx.internal.util.RxRingBuffer$1 -> rx.d.d.e$1:
@@ -33985,7 +33906,7 @@ rx.internal.util.ScalarSynchronousObservable -> rx.d.d.g:
     void <init>(java.lang.Object) -> <init>
     java.lang.Object get() -> g
     rx.Observable scalarScheduleOn(rx.Scheduler) -> d
-    rx.Observable scalarFlatMap(rx.functions.Func1) -> e
+    rx.Observable scalarFlatMap(rx.functions.Func1) -> d
     java.lang.Object access$100(rx.internal.util.ScalarSynchronousObservable) -> a
 rx.internal.util.ScalarSynchronousObservable$1 -> rx.d.d.g$1:
     java.lang.Object val$t -> a
@@ -34072,8 +33993,6 @@ rx.internal.util.UtilityFunctions$NullFunction -> rx.d.d.n:
     void <init>() -> <init>
     java.lang.Object call() -> call
     java.lang.Object call(java.lang.Object) -> call
-    java.lang.Object call(java.lang.Object,java.lang.Object) -> call
-    java.lang.Object call(java.lang.Object[]) -> a
     void <init>(rx.internal.util.UtilityFunctions$1) -> <init>
 rx.internal.util.atomic.AtomicReferenceArrayQueue -> rx.d.d.a.a:
     java.util.concurrent.atomic.AtomicReferenceArray buffer -> a
@@ -35090,7 +35009,7 @@ uk.co.thedistance.thedistancekit.TheDistanceFragment -> uk.co.thedistance.thedis
     boolean screenAnalyticsDisabled -> d
     java.lang.String pageTitle -> b
     void <init>() -> <init>
-    void setScreenName(java.lang.String) -> f
+    void setScreenName(java.lang.String) -> e
     void onAttach(android.content.Context) -> onAttach
     com.squareup.otto.Bus getBus() -> c
     void onResume() -> onResume
