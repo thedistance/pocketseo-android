@@ -13,8 +13,8 @@ android.databinding.CallbackRegistry:
     344:355:public synchronized boolean isEmpty()
     363:370:public synchronized void clear()
 android.databinding.DataBinderMapper:
-    73:169:int getLayoutId(java.lang.String)
-    172:175:java.lang.String convertBrIdToString(int)
+    75:177:int getLayoutId(java.lang.String)
+    180:183:java.lang.String convertBrIdToString(int)
 android.databinding.DataBinderMapper$InnerBrLookup
 android.databinding.DataBindingUtil:
     37:37:private DataBindingUtil()
@@ -287,7 +287,6 @@ android.support.annotation.IntDef
 android.support.annotation.IntRange
 android.support.annotation.IntegerRes
 android.support.annotation.InterpolatorRes
-android.support.annotation.Keep
 android.support.annotation.LayoutRes
 android.support.annotation.MainThread
 android.support.annotation.MenuRes
@@ -6329,15 +6328,19 @@ com.squareup.otto.Bus:
 com.squareup.otto.Bus$EventWithHandler
 com.squareup.otto.DeadEvent
 dagger.Component
+dagger.Component$Builder
 dagger.Lazy
 dagger.MapKey
 dagger.MembersInjector
 dagger.Module
+dagger.Multibindings
 dagger.Provides
 dagger.Provides$Type
 dagger.Subcomponent
+dagger.Subcomponent$Builder
 dagger.internal.Beta
 dagger.internal.Collections
+dagger.internal.DelegateFactory
 dagger.internal.DoubleCheckLazy
 dagger.internal.InstanceFactory
 dagger.internal.MapFactory
@@ -6346,7 +6349,15 @@ dagger.internal.MapProviderFactory$1
 dagger.internal.MapProviderFactory$Builder
 dagger.internal.MembersInjectors
 dagger.internal.MembersInjectors$NoOpMembersInjector
+dagger.internal.Preconditions:
+    52:52:private Preconditions()
 dagger.internal.SetFactory
+dagger.internal.SetFactory$1
+dagger.mapkeys.StringKey
+dagger.multibindings.ClassKey
+dagger.multibindings.IntKey
+dagger.multibindings.LongKey
+dagger.multibindings.StringKey
 io.fabric.sdk.android.BuildConfig
 io.fabric.sdk.android.DefaultLogger:
     43:43:public int getLogLevel()
@@ -6931,18 +6942,19 @@ io.pocketseo.EmailHelper:
     15:15:public EmailHelper()
 io.pocketseo.LinksFragment:
     private static final java.lang.String ARG_WEBSITE
-    52:56:public static io.pocketseo.LinksFragment newInstance(java.lang.String)
+    54:58:public static io.pocketseo.LinksFragment newInstance(java.lang.String)
 io.pocketseo.LinksFragment$LinksAdapter:
     private static final int TYPE_LINK
     private static final int TYPE_LOADING
+    private static final int TYPE_HEADER
 io.pocketseo.LinksFragment$LinksAdapter$1:
-    173:174:public void onMoved(int,int)
+    177:178:public void onMoved(int,int)
 io.pocketseo.LinksParentFragment:
     private static final int LOADER_ID
     private static final java.lang.String ARG_WEBSITE
     143:143:public java.lang.String getWebsite()
 io.pocketseo.LinksPresenter:
-    194:195:public void resetFilter()
+    206:207:public void resetFilter()
 io.pocketseo.MainActivity:
     public static final java.lang.String EXTRA_WEBSITE
     private static final java.lang.String FRAGMENT_URL_METRICS
@@ -6991,15 +7003,15 @@ io.pocketseo.databinding.CardHtmldataBinding:
     397:397:public static io.pocketseo.databinding.CardHtmldataBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
     400:400:public static io.pocketseo.databinding.CardHtmldataBinding bind(android.view.View)
 io.pocketseo.databinding.CardMozBinding:
-    122:133:public boolean setVariable(int,java.lang.Object)
-    145:145:public java.lang.String getMozError()
-    156:156:public boolean getMozLoading()
-    167:167:public io.pocketseo.viewmodel.MozScapeViewModel getMozscape()
-    373:373:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean)
-    376:376:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean,android.databinding.DataBindingComponent)
-    379:379:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater)
-    382:382:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
-    385:385:public static io.pocketseo.databinding.CardMozBinding bind(android.view.View)
+    110:121:public boolean setVariable(int,java.lang.Object)
+    133:133:public java.lang.String getMozError()
+    144:144:public boolean getMozLoading()
+    155:155:public io.pocketseo.viewmodel.MozScapeViewModel getMozscape()
+    344:344:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean)
+    347:347:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean,android.databinding.DataBindingComponent)
+    350:350:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater)
+    353:353:public static io.pocketseo.databinding.CardMozBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
+    356:356:public static io.pocketseo.databinding.CardMozBinding bind(android.view.View)
 io.pocketseo.databinding.CardThedistanceBinding:
     26:26:public static io.pocketseo.databinding.CardThedistanceBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean)
     29:29:public static io.pocketseo.databinding.CardThedistanceBinding inflate(android.view.LayoutInflater)
@@ -7027,12 +7039,12 @@ io.pocketseo.databinding.FragmentLinksBinding:
     97:97:public static io.pocketseo.databinding.FragmentLinksBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
     100:100:public static io.pocketseo.databinding.FragmentLinksBinding bind(android.view.View)
 io.pocketseo.databinding.FragmentLinksOptionsBinding:
-    121:123:public boolean setVariable(int,java.lang.Object)
-    148:148:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean)
-    151:151:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean,android.databinding.DataBindingComponent)
-    154:154:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater)
-    157:157:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
-    160:160:public static io.pocketseo.databinding.FragmentLinksOptionsBinding bind(android.view.View)
+    118:120:public boolean setVariable(int,java.lang.Object)
+    145:145:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean)
+    148:148:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean,android.databinding.DataBindingComponent)
+    151:151:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater)
+    154:154:public static io.pocketseo.databinding.FragmentLinksOptionsBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
+    157:157:public static io.pocketseo.databinding.FragmentLinksOptionsBinding bind(android.view.View)
 io.pocketseo.databinding.FragmentLinksParentBinding:
     11:11:public static io.pocketseo.databinding.FragmentLinksParentBinding inflate(android.view.LayoutInflater,android.view.ViewGroup,boolean)
     14:14:public static io.pocketseo.databinding.FragmentLinksParentBinding inflate(android.view.LayoutInflater)
@@ -7073,24 +7085,29 @@ io.pocketseo.databinding.FragmentUrlMetricsBindingW700dpImpl:
     166:166:public io.pocketseo.viewmodel.HtmldataModel getHtmldata()
     177:177:public io.pocketseo.viewmodel.MozScapeViewModel getMozscape()
 io.pocketseo.databinding.ItemLinkBinding:
-    95:100:public boolean setVariable(int,java.lang.Object)
-    447:447:public static io.pocketseo.databinding.ItemLinkBinding inflate(android.view.LayoutInflater)
-    450:450:public static io.pocketseo.databinding.ItemLinkBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
-    453:453:public static io.pocketseo.databinding.ItemLinkBinding bind(android.view.View)
+    86:91:public boolean setVariable(int,java.lang.Object)
+    399:399:public static io.pocketseo.databinding.ItemLinkBinding inflate(android.view.LayoutInflater)
+    402:402:public static io.pocketseo.databinding.ItemLinkBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
+    405:405:public static io.pocketseo.databinding.ItemLinkBinding bind(android.view.View)
 io.pocketseo.databinding.ItemLoadingBinding:
     49:51:public boolean setVariable(int,java.lang.Object)
     82:82:public static io.pocketseo.databinding.ItemLoadingBinding inflate(android.view.LayoutInflater)
     85:85:public static io.pocketseo.databinding.ItemLoadingBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
     88:88:public static io.pocketseo.databinding.ItemLoadingBinding bind(android.view.View)
+io.pocketseo.databinding.ItemMozHeaderBinding:
+    49:51:public boolean setVariable(int,java.lang.Object)
+    82:82:public static io.pocketseo.databinding.ItemMozHeaderBinding inflate(android.view.LayoutInflater)
+    85:85:public static io.pocketseo.databinding.ItemMozHeaderBinding inflate(android.view.LayoutInflater,android.databinding.DataBindingComponent)
+    88:88:public static io.pocketseo.databinding.ItemMozHeaderBinding bind(android.view.View)
 io.pocketseo.htmlparser.HtmlParser:
     41:41:public static io.pocketseo.HtmlData theDistanceMetaData()
 io.pocketseo.htmlparser.HtmlParser$1
 io.pocketseo.injection.ApplicationComponent:
     public abstract io.pocketseo.PocketSeoApplication appContext()
 io.pocketseo.injection.DaggerApplicationComponent:
-    54:54:public io.pocketseo.PocketSeoApplication appContext()
+    110:110:public io.pocketseo.PocketSeoApplication appContext()
 io.pocketseo.injection.DaggerApplicationComponent$Builder:
-    105:109:public io.pocketseo.injection.DaggerApplicationComponent$Builder htmldataModule(io.pocketseo.injection.HtmldataModule)
+    157:158:public io.pocketseo.injection.DaggerApplicationComponent$Builder htmldataModule(io.pocketseo.injection.HtmldataModule)
 io.pocketseo.webservice.mozscape.MSHelper:
     21:21:public MSHelper()
 io.pocketseo.webservice.mozscape.MSHelper$Authenticator:
@@ -7286,6 +7303,7 @@ rx.Observable:
     420:420:public static final rx.Observable amb(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable)
     454:454:public static final rx.Observable amb(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable)
     490:490:public static final rx.Observable amb(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable)
+    516:516:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.functions.Func2)
     544:544:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.Observable,rx.functions.Func3)
     575:575:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.functions.Func4)
     608:608:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.functions.Func5)
@@ -7293,6 +7311,7 @@ rx.Observable:
     680:680:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.functions.Func7)
     719:719:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.functions.Func8)
     761:761:public static final rx.Observable combineLatest(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.functions.Func9)
+    785:785:public static final rx.Observable combineLatest(java.util.List,rx.functions.FuncN)
     851:851:public static final rx.Observable concat(rx.Observable,rx.Observable,rx.Observable)
     877:877:public static final rx.Observable concat(rx.Observable,rx.Observable,rx.Observable,rx.Observable)
     905:905:public static final rx.Observable concat(rx.Observable,rx.Observable,rx.Observable,rx.Observable,rx.Observable)
@@ -7429,6 +7448,7 @@ rx.Observable:
     5005:5005:public final rx.Observable elementAt(int)
     5029:5029:public final rx.Observable elementAtOrDefault(int,java.lang.Object)
     5053:5053:public final rx.Observable exists(rx.functions.Func1)
+    5073:5073:public final rx.Observable filter(rx.functions.Func1)
     5094:5094:public final rx.Observable finallyDo(rx.functions.Action0)
     5132:5132:public final rx.Observable first(rx.functions.Func1)
     5152:5152:public final rx.Observable firstOrDefault(java.lang.Object)
@@ -7790,6 +7810,7 @@ rx.functions.Actions$9
 rx.functions.Actions$EmptyAction
 rx.functions.Func0:
     public abstract java.lang.Object call()
+rx.functions.Func2
 rx.functions.Func3
 rx.functions.Func4
 rx.functions.Func5
@@ -7797,22 +7818,9 @@ rx.functions.Func6
 rx.functions.Func7
 rx.functions.Func8
 rx.functions.Func9
+rx.functions.FuncN
 rx.functions.Function
-rx.functions.Functions:
-    19:20:private Functions()
-    31:31:public static rx.functions.FuncN fromFunc(rx.functions.Func0)
-    52:52:public static rx.functions.FuncN fromFunc(rx.functions.Func1)
-    96:96:public static rx.functions.FuncN fromFunc(rx.functions.Func3)
-    118:118:public static rx.functions.FuncN fromFunc(rx.functions.Func4)
-    140:140:public static rx.functions.FuncN fromFunc(rx.functions.Func5)
-    162:162:public static rx.functions.FuncN fromFunc(rx.functions.Func6)
-    184:184:public static rx.functions.FuncN fromFunc(rx.functions.Func7)
-    206:206:public static rx.functions.FuncN fromFunc(rx.functions.Func8)
-    228:228:public static rx.functions.FuncN fromFunc(rx.functions.Func9)
-    250:250:public static rx.functions.FuncN fromAction(rx.functions.Action0)
-    272:272:public static rx.functions.FuncN fromAction(rx.functions.Action1)
-    295:295:public static rx.functions.FuncN fromAction(rx.functions.Action2)
-    318:318:public static rx.functions.FuncN fromAction(rx.functions.Action3)
+rx.functions.Functions
 rx.functions.Functions$1
 rx.functions.Functions$10
 rx.functions.Functions$11
@@ -7820,6 +7828,7 @@ rx.functions.Functions$12
 rx.functions.Functions$13
 rx.functions.Functions$14
 rx.functions.Functions$2
+rx.functions.Functions$3
 rx.functions.Functions$4
 rx.functions.Functions$5
 rx.functions.Functions$6
@@ -7874,6 +7883,11 @@ rx.internal.operators.OnSubscribeAmb$2
 rx.internal.operators.OnSubscribeAmb$AmbSubscriber
 rx.internal.operators.OnSubscribeAmb$Selection
 rx.internal.operators.OnSubscribeAutoConnect
+rx.internal.operators.OnSubscribeCombineLatest
+rx.internal.operators.OnSubscribeCombineLatest$MultiSourceProducer
+rx.internal.operators.OnSubscribeCombineLatest$MultiSourceRequestableSubscriber
+rx.internal.operators.OnSubscribeCombineLatest$SingleSourceProducer
+rx.internal.operators.OnSubscribeCombineLatest$SingleSourceRequestableSubscriber
 rx.internal.operators.OnSubscribeDefer
 rx.internal.operators.OnSubscribeDelaySubscription
 rx.internal.operators.OnSubscribeDelaySubscription$1
@@ -7995,6 +8009,8 @@ rx.internal.operators.OperatorEagerConcatMap$EagerOuterSubscriber$1
 rx.internal.operators.OperatorElementAt
 rx.internal.operators.OperatorElementAt$1
 rx.internal.operators.OperatorElementAt$InnerProducer
+rx.internal.operators.OperatorFilter
+rx.internal.operators.OperatorFilter$1
 rx.internal.operators.OperatorFinally
 rx.internal.operators.OperatorFinally$1
 rx.internal.operators.OperatorGroupBy
@@ -8271,13 +8287,17 @@ rx.internal.util.PlatformDependent:
 rx.internal.util.RxJavaPluginUtils:
     20:20:public RxJavaPluginUtils()
 rx.internal.util.RxRingBuffer:
+    44:47:public static rx.internal.util.RxRingBuffer getSpmcInstance()
+    358:361:public void onCompleted()
     365:368:public void onError(java.lang.Throwable)
     371:371:public int available()
     375:375:public int capacity()
     379:383:public int count()
     416:428:public java.lang.Object peek()
+    432:432:public boolean isCompleted(java.lang.Object)
     436:436:public boolean isError(java.lang.Object)
     440:440:public java.lang.Object getValue(java.lang.Object)
+    445:445:public boolean accept(java.lang.Object,rx.Observer)
     449:449:public java.lang.Throwable asError(java.lang.Object)
 rx.internal.util.SubscriptionList:
     136:144:public void clear()
@@ -8291,6 +8311,7 @@ rx.internal.util.UtilityFunctions:
 rx.internal.util.UtilityFunctions$AlwaysFalse
 rx.internal.util.UtilityFunctions$AlwaysTrue
 rx.internal.util.UtilityFunctions$NullFunction:
+    119:119:public java.lang.Object call(java.lang.Object,java.lang.Object)
     124:124:public java.lang.Object call(java.lang.Object,java.lang.Object,java.lang.Object)
     129:129:public java.lang.Object call(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
     134:134:public java.lang.Object call(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
@@ -8298,6 +8319,7 @@ rx.internal.util.UtilityFunctions$NullFunction:
     144:144:public java.lang.Object call(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
     149:149:public java.lang.Object call(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
     154:154:public java.lang.Object call(java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
+    159:159:public varargs java.lang.Object call(java.lang.Object[])
 rx.internal.util.atomic.AtomicReferenceArrayQueue:
     52:52:protected final java.lang.Object lpElement(java.util.concurrent.atomic.AtomicReferenceArray,int)
     55:55:protected final java.lang.Object lpElement(int)
@@ -8716,7 +8738,6 @@ uk.co.thedistance.thedistancekit.animation.AnimationHelper$2
 uk.co.thedistance.thedistancekit.animation.AnimationHelper$3
 uk.co.thedistance.thedistancekit.animation.AnimationHelper$4
 uk.co.thedistance.thedistancekit.animation.AnimationHelper$Builder
-uk.co.thedistance.thedistancekit.animation.AnimationHelper$Builder$AnimationType
 uk.co.thedistance.thedistancekit.animation.AnimationHelper$Builder$HardwareLayerCallback
 uk.co.thedistance.thedistancekit.animation.AnimationHelper$Callback
 uk.co.thedistance.thedistancekit.fonts.Bindings

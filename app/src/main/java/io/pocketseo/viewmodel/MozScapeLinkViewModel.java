@@ -50,14 +50,6 @@ public class MozScapeLinkViewModel extends BaseObservable {
     }
 
     @Bindable
-    public String getSpamScore() {
-        if (0 == model.getSpamScore()) {
-            return "-";
-        }
-        return String.valueOf(Math.round(model.getSpamScore() - 1));
-    }
-
-    @Bindable
     public String getTitle() {
         return TextUtils.isEmpty(model.getTitle()) ? "[NO TITLE]" : model.getTitle();
     }
@@ -70,24 +62,6 @@ public class MozScapeLinkViewModel extends BaseObservable {
     @Bindable
     public String getAnchorText() {
         return TextUtils.isEmpty(model.getAnchorText()) ? "[NONE]" : model.getAnchorText();
-    }
-
-    @Bindable
-    public
-    @ColorInt
-    int getSpamScoreColor() {
-        if (0 == model.getSpamScore()) {
-            return resources.getColor(R.color.button_disabled);
-        }
-
-        int score = model.getSpamScore() - 1;
-        if (score >= 7) {
-            return resources.getColor(R.color.spam_bad);
-        } else if (score >= 5) {
-            return resources.getColor(R.color.spam_medium);
-        }
-
-        return resources.getColor(R.color.spam_good);
     }
 
     @Bindable

@@ -120,7 +120,7 @@ public class LinksParentFragment extends TheDistanceFragment implements Scrollab
         return new PresenterLoader<LinksPresenter>(getActivity(), new PresenterFactory<LinksPresenter>() {
             @Override
             public LinksPresenter create() {
-                return new LinksPresenter(website, component.repository(), component.analytics());
+                return new LinksPresenter(getActivity(), website, component.repository(), component.analytics());
             }
         });
     }

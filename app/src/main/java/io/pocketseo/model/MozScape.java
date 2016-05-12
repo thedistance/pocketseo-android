@@ -22,9 +22,6 @@ public interface MozScape {
      * A returned value of 1 corresponds to a Spam Score of 0 and an fspsc value of 18 corresponds to a Spam Score of 17.
      * @return
      */
-    int getSpamScore();
-    int getLinksRoot();
     int getLinksTotal();
     Date getLastIndex();
-    Date getNextIndex();
 }

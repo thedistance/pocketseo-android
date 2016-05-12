@@ -16,6 +16,7 @@ android.databinding.ObservableParcelable
 android.databinding.ObservableParcelable: android.os.Parcelable$Creator CREATOR
 android.databinding.ObservableShort
 android.databinding.ObservableShort: android.os.Parcelable$Creator CREATOR
+android.support.annotation.Keep
 android.support.design.BuildConfig
 android.support.design.BuildConfig: boolean DEBUG
 android.support.design.BuildConfig: java.lang.String APPLICATION_ID
@@ -9472,6 +9473,7 @@ io.pocketseo.R$color: int material_grey_600
 io.pocketseo.R$color: int material_grey_800
 io.pocketseo.R$color: int material_grey_850
 io.pocketseo.R$color: int material_grey_900
+io.pocketseo.R$color: int moz_blue
 io.pocketseo.R$color: int primary_dark_material_dark
 io.pocketseo.R$color: int primary_dark_material_light
 io.pocketseo.R$color: int primary_material_dark
@@ -9841,10 +9843,10 @@ io.pocketseo.R$id: int middle
 io.pocketseo.R$id: int mini
 io.pocketseo.R$id: int mozscape_expand_check
 io.pocketseo.R$id: int mozscape_expanded
+io.pocketseo.R$id: int mozscape_logo
 io.pocketseo.R$id: int multiply
 io.pocketseo.R$id: int navigation_header_container
 io.pocketseo.R$id: int never
-io.pocketseo.R$id: int next_index_title
 io.pocketseo.R$id: int none
 io.pocketseo.R$id: int normal
 io.pocketseo.R$id: int onAttachStateChangeListener
@@ -9890,7 +9892,6 @@ io.pocketseo.R$id: int snap
 io.pocketseo.R$id: int sort_domain
 io.pocketseo.R$id: int sort_group
 io.pocketseo.R$id: int sort_page
-io.pocketseo.R$id: int sort_spam
 io.pocketseo.R$id: int sort_title
 io.pocketseo.R$id: int source_all
 io.pocketseo.R$id: int source_external
@@ -9898,9 +9899,6 @@ io.pocketseo.R$id: int source_group
 io.pocketseo.R$id: int source_internal
 io.pocketseo.R$id: int source_title
 io.pocketseo.R$id: int spacer
-io.pocketseo.R$id: int spam_label
-io.pocketseo.R$id: int spam_score
-io.pocketseo.R$id: int spam_score_container
 io.pocketseo.R$id: int split_action_bar
 io.pocketseo.R$id: int square
 io.pocketseo.R$id: int src_atop
@@ -10008,6 +10006,7 @@ io.pocketseo.R$layout: int fragment_tab_manager
 io.pocketseo.R$layout: int fragment_url_metrics
 io.pocketseo.R$layout: int item_link
 io.pocketseo.R$layout: int item_loading
+io.pocketseo.R$layout: int item_moz_header
 io.pocketseo.R$layout: int notification_media_action
 io.pocketseo.R$layout: int notification_media_cancel_action
 io.pocketseo.R$layout: int notification_template_big_media
@@ -10031,6 +10030,7 @@ io.pocketseo.R$raw: int gtm_analytics
 io.pocketseo.R$string: int AboutLibrariesTitle
 io.pocketseo.R$string: int AboutTitle
 io.pocketseo.R$string: int ApplicationName
+io.pocketseo.R$string: int Error429Text
 io.pocketseo.R$string: int LinksFilter
 io.pocketseo.R$string: int LinksFilter301
 io.pocketseo.R$string: int LinksFilter302
@@ -10055,6 +10055,7 @@ io.pocketseo.R$string: int LinksNoneFound
 io.pocketseo.R$string: int LinksOpenLink
 io.pocketseo.R$string: int LinksOpenLinkBrowser
 io.pocketseo.R$string: int LinksTitle
+io.pocketseo.R$string: int MozWebsiteURL
 io.pocketseo.R$string: int SettingsAnalyticsOff
 io.pocketseo.R$string: int SettingsAnalyticsOn
 io.pocketseo.R$string: int SettingsAnalyticsTitle
@@ -10073,6 +10074,7 @@ io.pocketseo.R$string: int TheDistancePanelButtonGetInTouch
 io.pocketseo.R$string: int TheDistancePanelButtonSendFeedback
 io.pocketseo.R$string: int TheDistancePanelButtonVisitWebsite
 io.pocketseo.R$string: int TheDistancePanelEmailBody
+io.pocketseo.R$string: int TheDistancePanelFeedbackURL
 io.pocketseo.R$string: int TheDistancePanelGetInTouchOptionCancel
 io.pocketseo.R$string: int TheDistancePanelGetInTouchOptionContact
 io.pocketseo.R$string: int TheDistancePanelGetInTouchOptionEmail
@@ -11087,52 +11089,42 @@ io.pocketseo.model.DataRepositoryImpl$1: void onError(java.lang.Throwable)
 io.pocketseo.model.DataRepositoryImpl$1: void onNext(io.pocketseo.webservice.mozscape.model.MSUrlMetrics)
 io.pocketseo.model.DataRepositoryImpl$1: void onNext(java.lang.Object)
 io.pocketseo.model.DataRepositoryImpl$2
+io.pocketseo.model.DataRepositoryImpl$2: boolean val$refresh
+io.pocketseo.model.DataRepositoryImpl$2: java.lang.String val$website
 io.pocketseo.model.DataRepositoryImpl$2: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$2: DataRepositoryImpl$2(io.pocketseo.model.DataRepositoryImpl)
-io.pocketseo.model.DataRepositoryImpl$2: java.lang.Boolean call(io.pocketseo.webservice.mozscape.model.MSUrlMetrics)
-io.pocketseo.model.DataRepositoryImpl$2: java.lang.Object call(java.lang.Object)
+io.pocketseo.model.DataRepositoryImpl$2: DataRepositoryImpl$2(io.pocketseo.model.DataRepositoryImpl,boolean,java.lang.String)
+io.pocketseo.model.DataRepositoryImpl$2: void call(rx.Subscriber)
+io.pocketseo.model.DataRepositoryImpl$2: void call(java.lang.Object)
 io.pocketseo.model.DataRepositoryImpl$3
+io.pocketseo.model.DataRepositoryImpl$3: java.lang.String val$url
 io.pocketseo.model.DataRepositoryImpl$3: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$3: DataRepositoryImpl$3(io.pocketseo.model.DataRepositoryImpl)
-io.pocketseo.model.DataRepositoryImpl$3: io.pocketseo.webservice.mozscape.model.MSUrlMetrics call(io.pocketseo.webservice.mozscape.model.MSUrlMetrics,io.pocketseo.webservice.mozscape.model.MSNextUpdate)
-io.pocketseo.model.DataRepositoryImpl$3: java.lang.Object call(java.lang.Object,java.lang.Object)
+io.pocketseo.model.DataRepositoryImpl$3: DataRepositoryImpl$3(io.pocketseo.model.DataRepositoryImpl,java.lang.String)
+io.pocketseo.model.DataRepositoryImpl$3: void onCompleted()
+io.pocketseo.model.DataRepositoryImpl$3: void onError(java.lang.Throwable)
+io.pocketseo.model.DataRepositoryImpl$3: void onNext(io.pocketseo.htmlparser.HtmlParser$HtmlDataImpl)
+io.pocketseo.model.DataRepositoryImpl$3: void onNext(java.lang.Object)
 io.pocketseo.model.DataRepositoryImpl$4
-io.pocketseo.model.DataRepositoryImpl$4: boolean val$refresh
-io.pocketseo.model.DataRepositoryImpl$4: java.lang.String val$website
+io.pocketseo.model.DataRepositoryImpl$4: java.lang.String val$url
 io.pocketseo.model.DataRepositoryImpl$4: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$4: DataRepositoryImpl$4(io.pocketseo.model.DataRepositoryImpl,boolean,java.lang.String)
+io.pocketseo.model.DataRepositoryImpl$4: DataRepositoryImpl$4(io.pocketseo.model.DataRepositoryImpl,java.lang.String)
 io.pocketseo.model.DataRepositoryImpl$4: void call(rx.Subscriber)
 io.pocketseo.model.DataRepositoryImpl$4: void call(java.lang.Object)
 io.pocketseo.model.DataRepositoryImpl$5
+io.pocketseo.model.DataRepositoryImpl$5: boolean val$refresh
 io.pocketseo.model.DataRepositoryImpl$5: java.lang.String val$url
 io.pocketseo.model.DataRepositoryImpl$5: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$5: DataRepositoryImpl$5(io.pocketseo.model.DataRepositoryImpl,java.lang.String)
-io.pocketseo.model.DataRepositoryImpl$5: void onCompleted()
-io.pocketseo.model.DataRepositoryImpl$5: void onError(java.lang.Throwable)
-io.pocketseo.model.DataRepositoryImpl$5: void onNext(io.pocketseo.htmlparser.HtmlParser$HtmlDataImpl)
-io.pocketseo.model.DataRepositoryImpl$5: void onNext(java.lang.Object)
+io.pocketseo.model.DataRepositoryImpl$5: DataRepositoryImpl$5(io.pocketseo.model.DataRepositoryImpl,boolean,java.lang.String)
+io.pocketseo.model.DataRepositoryImpl$5: void call(rx.Subscriber)
+io.pocketseo.model.DataRepositoryImpl$5: void call(java.lang.Object)
 io.pocketseo.model.DataRepositoryImpl$6
-io.pocketseo.model.DataRepositoryImpl$6: java.lang.String val$url
+io.pocketseo.model.DataRepositoryImpl$6: io.pocketseo.htmlparser.HtmlParser$ParserError error
+io.pocketseo.model.DataRepositoryImpl$6: io.pocketseo.model.DataRepository$Callback val$callbacks
 io.pocketseo.model.DataRepositoryImpl$6: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$6: DataRepositoryImpl$6(io.pocketseo.model.DataRepositoryImpl,java.lang.String)
-io.pocketseo.model.DataRepositoryImpl$6: void call(rx.Subscriber)
-io.pocketseo.model.DataRepositoryImpl$6: void call(java.lang.Object)
-io.pocketseo.model.DataRepositoryImpl$7
-io.pocketseo.model.DataRepositoryImpl$7: boolean val$refresh
-io.pocketseo.model.DataRepositoryImpl$7: java.lang.String val$url
-io.pocketseo.model.DataRepositoryImpl$7: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$7: DataRepositoryImpl$7(io.pocketseo.model.DataRepositoryImpl,boolean,java.lang.String)
-io.pocketseo.model.DataRepositoryImpl$7: void call(rx.Subscriber)
-io.pocketseo.model.DataRepositoryImpl$7: void call(java.lang.Object)
-io.pocketseo.model.DataRepositoryImpl$8
-io.pocketseo.model.DataRepositoryImpl$8: io.pocketseo.htmlparser.HtmlParser$ParserError error
-io.pocketseo.model.DataRepositoryImpl$8: io.pocketseo.model.DataRepository$Callback val$callbacks
-io.pocketseo.model.DataRepositoryImpl$8: io.pocketseo.model.DataRepositoryImpl this$0
-io.pocketseo.model.DataRepositoryImpl$8: DataRepositoryImpl$8(io.pocketseo.model.DataRepositoryImpl,io.pocketseo.model.DataRepository$Callback)
-io.pocketseo.model.DataRepositoryImpl$8: io.pocketseo.HtmlData doInBackground(java.lang.String[])
-io.pocketseo.model.DataRepositoryImpl$8: void onPostExecute(io.pocketseo.HtmlData)
-io.pocketseo.model.DataRepositoryImpl$8: void onPostExecute(java.lang.Object)
-io.pocketseo.model.DataRepositoryImpl$8: java.lang.Object doInBackground(java.lang.Object[])
+io.pocketseo.model.DataRepositoryImpl$6: DataRepositoryImpl$6(io.pocketseo.model.DataRepositoryImpl,io.pocketseo.model.DataRepository$Callback)
+io.pocketseo.model.DataRepositoryImpl$6: io.pocketseo.HtmlData doInBackground(java.lang.String[])
+io.pocketseo.model.DataRepositoryImpl$6: void onPostExecute(io.pocketseo.HtmlData)
+io.pocketseo.model.DataRepositoryImpl$6: void onPostExecute(java.lang.Object)
+io.pocketseo.model.DataRepositoryImpl$6: java.lang.Object doInBackground(java.lang.Object[])
 io.pocketseo.model.DataRepositoryImpl$DataCache
 io.pocketseo.model.DataRepositoryImpl$DataCache: io.pocketseo.model.MozScape getWebsiteMetrics(java.lang.String)
 io.pocketseo.model.DataRepositoryImpl$DataCache: io.pocketseo.HtmlData getHtmldata(java.lang.String)
@@ -11142,11 +11134,8 @@ io.pocketseo.model.MozScape
 io.pocketseo.model.MozScape: int getStatusCode()
 io.pocketseo.model.MozScape: float getDomainAuthority()
 io.pocketseo.model.MozScape: float getPageAuthority()
-io.pocketseo.model.MozScape: int getSpamScore()
-io.pocketseo.model.MozScape: int getLinksRoot()
 io.pocketseo.model.MozScape: int getLinksTotal()
 io.pocketseo.model.MozScape: java.util.Date getLastIndex()
-io.pocketseo.model.MozScape: java.util.Date getNextIndex()
 io.pocketseo.model.MozScapeLink
 io.pocketseo.model.MozScapeLink: java.lang.String getUrl()
 io.pocketseo.model.MozScapeLink: java.lang.String getTitle()
@@ -11155,7 +11144,6 @@ io.pocketseo.model.MozScapeLink: boolean isNoFollow()
 io.pocketseo.webservice.mozscape.MSWebService
 io.pocketseo.webservice.mozscape.MSWebService: java.lang.String URL_PREFIX
 io.pocketseo.webservice.mozscape.MSWebService: rx.Observable getUrlMetrics(java.lang.String,long,java.util.Map)
-io.pocketseo.webservice.mozscape.MSWebService: rx.Observable getNextUpdate(java.util.Map)
 io.pocketseo.webservice.mozscape.MSWebService: rx.Observable getLinks(java.lang.String,long,int,int,java.util.Map)
 io.pocketseo.webservice.mozscape.MSWebService: rx.Observable getLinks(java.lang.String,long,int,int,java.lang.String,java.lang.String,java.lang.String,java.util.Map)
 io.pocketseo.webservice.mozscape.model.MSLinkFilter
@@ -11212,7 +11200,6 @@ io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Scope: void <clinit>()
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort PageAuthority
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort DomainAuthority
-io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort SpamScore
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: java.lang.String value
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort[] $VALUES
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort[] values()
@@ -11220,23 +11207,15 @@ io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: io.pocketseo.webservi
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: MSLinkMetrics$Sort(java.lang.String,int,java.lang.String)
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: java.lang.String toString()
 io.pocketseo.webservice.mozscape.model.MSLinkMetrics$Sort: void <clinit>()
-io.pocketseo.webservice.mozscape.model.MSNextUpdate
-io.pocketseo.webservice.mozscape.model.MSNextUpdate: long nextUpdate
-io.pocketseo.webservice.mozscape.model.MSNextUpdate: MSNextUpdate()
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_DOMAIN_AUTHORITY
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_HTTP_STATUS_CODE
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_PAGE_AUTHORITY
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_SPAM_SCORE
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_ESTABLISHED_LINKS_ROOT
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_ESTABLISHED_LINKS_TOTAL
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long FLAG_LAST_CRAWL
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long nextCrawl
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: float domainAuthority
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int statusCode
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: float pageAuthority
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int spamScore
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int establishedLinksRoot
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int establishedLinksTotal
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long lastCrawl
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: MSUrlMetrics()
@@ -11244,12 +11223,8 @@ io.pocketseo.webservice.mozscape.model.MSUrlMetrics: long getBitmask()
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int getStatusCode()
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: float getDomainAuthority()
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: float getPageAuthority()
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int getSpamScore()
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int getLinksRoot()
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int getLinksTotal()
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: java.util.Date getLastIndex()
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: java.util.Date getNextIndex()
-io.pocketseo.webservice.mozscape.model.MSUrlMetrics: void setNextCrawl(long)
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: boolean equals(java.lang.Object)
 io.pocketseo.webservice.mozscape.model.MSUrlMetrics: int hashCode()
 okhttp3.Address

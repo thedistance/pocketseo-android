@@ -68,16 +68,6 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                             android:textColor="@color/checkable_text_color"/>
 
-                        <RadioButton
-                            android:id="@+id/sort_spam"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="8dp"
-                            android:singleLine="false"
-                            android:text="@string/LinksFilterSpamScore"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="@color/checkable_text_color"/>
-
                     </RadioGroup>
 
                     <TextView

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
@@ -33,6 +34,7 @@ import java.util.List;
 import io.pocketseo.databinding.FragmentLinksBinding;
 import io.pocketseo.databinding.ItemLinkBinding;
 import io.pocketseo.databinding.ItemLoadingBinding;
+import io.pocketseo.databinding.ItemMozHeaderBinding;
 import io.pocketseo.model.MozScapeLink;
 import io.pocketseo.viewmodel.MozScapeLinkViewModel;
 import uk.co.thedistance.thedistancekit.IntentHelper;
@@ -147,6 +149,8 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
         private static final int TYPE_LINK = 0;
         private static final int TYPE_LOADING = 1;
+        private static final int TYPE_HEADER = 2;
+
         private final LayoutInflater inflater;
         private SparseArray<MozScapeLinkViewModel> viewModelArray = new SparseArray<>();
         private MozScapeLinkViewModel selected;
@@ -199,6 +203,9 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
         @Override
         public int getItemViewType(int position) {
+            if(position == 0){
+                return TYPE_HEADER;
+            }
             if (showLoading && position == getItemCount() - 1) {
                 return TYPE_LOADING;
             }
@@ -207,13 +214,26 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == TYPE_LOADING) {
-                ItemLoadingBinding binding = ItemLoadingBinding.inflate(inflater, parent, false);
-                return new LoadingViewHolder(binding.getRoot());
+            switch (viewType) {
+                case TYPE_HEADER: {
+                    ItemMozHeaderBinding binding = ItemMozHeaderBinding.inflate(inflater, parent, false);
+                    binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            presenter.onMozClick();
+                        }
+                    });
+                    return new MozHeaderViewHolder(binding.getRoot());
+                }
+                case TYPE_LOADING: {
+                    ItemLoadingBinding binding = ItemLoadingBinding.inflate(inflater, parent, false);
+                    return new LoadingViewHolder(binding.getRoot());
+                }
+                default: {
+                    ItemLinkBinding binding = ItemLinkBinding.inflate(inflater, parent, false);
+                    return new LinkViewHolder(binding);
+                }
             }
-            ItemLinkBinding binding = ItemLinkBinding.inflate(inflater, parent, false);
-            return new LinkViewHolder(binding);
-
         }
 
         @Override
@@ -222,6 +242,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
             if (!(holder instanceof LinkViewHolder)) {
                 return;
             }
+            position--;
 
             LinkViewHolder viewHolder = (LinkViewHolder) holder;
 
@@ -301,6 +322,13 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
                 super(itemView);
             }
         }
+
+        class MozHeaderViewHolder extends RecyclerView.ViewHolder {
+
+            public MozHeaderViewHolder(View itemView) {
+                super(itemView);
+            }
+        }
     }
 
     @Override
@@ -368,7 +396,11 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
                                 openInApp(link);
                                 break;
                             case R.id.action_browser:
-                                openInBrowser(link);
+                                Uri uri = Uri.parse(link.getUrl());
+                                if (uri.getScheme() == null) {
+                                    uri = Uri.parse("http://" + link.getUrl());
+                                }
+                                openWebsite(uri.toString(), false);
                                 break;
                         }
                     }
@@ -376,15 +408,14 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
         bottomSheetDialog.show();
     }
 
-    private void openInBrowser(MozScapeLink link) {
-        Uri uri = Uri.parse(link.getUrl());
-        if (uri.getScheme() == null) {
-            uri = Uri.parse("http://" + link.getUrl());
-        }
-
-
+    @Override
+    public void openWebsite(String url, boolean chromeCustomTab) {
         Intent viewWebsite = new Intent(Intent.ACTION_VIEW);
-        viewWebsite.setData(uri);
+        viewWebsite.setData(Uri.parse(url));
+
+        if(chromeCustomTab && Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            viewWebsite.putExtra("android.support.customtabs.extra.SESSION", (String)null);
+        }
 
         if (IntentHelper.canSystemHandleIntent(getActivity(), viewWebsite)) {
             // Then there is application can handle your intent
@@ -394,6 +425,7 @@ public class LinksFragment extends TheDistanceFragment implements LinksPresenter
             Toast.makeText(getActivity(), "Cannot open this site", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void openInApp(MozScapeLink link) {
         Uri uri = Uri.parse(link.getUrl());

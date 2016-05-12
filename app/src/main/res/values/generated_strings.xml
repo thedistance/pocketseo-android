@@ -62,6 +62,7 @@
   <string name="TheDistancePanelSendFeedbackEmailAddress">pocketseo@thedistance.co.uk</string><!-- The email address for contacting The Distance for feedback -->
   <string name="TheDistancePanelButtonVisitWebsite">Visit</string><!-- The button text for the Visit Website button on TheDistance panel -->
   <string name="TheDistancePanelVisitWebsiteURL">https://thedistance.co.uk</string><!-- The url the user should visit from the Visit Website button on TheDistance panel. -->
+  <string name="TheDistancePanelFeedbackURL">https://goo.gl/forms/1KxBDOQnT2</string><!-- The url the user should visit from the Feedback button on TheDistance panel. -->
   <string name="URLLinksTitle">Link Metrics</string><!-- The tab title for the links tab on the URL details screen. -->
   <string name="URLExtensionOpenInAppButtonTitle">Open In App</string><!-- The button title for the 'Open In App' button. -->
   <string name="SettingsTitle">Settings</string><!-- Title for Settings used in menu item and as page title -->
@@ -101,4 +102,6 @@
   <string name="LinksFilter301">301 Redirect</string><!-- Text for "301" link filter -->
   <string name="LinksFilter302">302 Redirect</string><!-- Text for "302" link filter -->
   <string name="LinksNoneFound">No links found for your URL</string><!-- Text when there are no links found for the user's entered url -->
+  <string name="Error429Text">This free app has limited access to the Moz API. We will be releasing a paid upgrade in time, for now you may want to retry</string><!-- Shown to user when server responds with error 429 -->
+  <string name="MozWebsiteURL">http://moz.com</string>
 </resources>
